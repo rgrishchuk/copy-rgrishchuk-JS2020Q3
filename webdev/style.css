@@ -6,6 +6,7 @@
 .clear-block {
     height: 95px;
 }
+
 .screen-1 {
     height: 744px;
     background: url("assets/bg-image.jpg");
@@ -62,7 +63,7 @@ h1 {
 }
 
 #nav-logo {
-    margin-left: 100px;
+    margin-left: 102px;
     margin-right: 100px;
 }
 
