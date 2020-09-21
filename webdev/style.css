@@ -16,10 +16,7 @@
 }
 
 h1 {
-    position: absolute;
-    top: -9999;
-    left: -9999;
-    opacity: 0;
+    display: none;
 }
 
 .header {
@@ -200,7 +197,7 @@ p .bold {
     margin-top: 120px;
     width: 407px;
     height: 582px;
-    background: url("assets/content-image-1.png");
+    background: url("assets/content-image-1.jpg");
 }
 
 .screen-3 {
