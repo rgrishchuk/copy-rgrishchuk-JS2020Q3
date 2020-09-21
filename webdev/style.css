@@ -3,6 +3,9 @@
     margin: auto;    
 }
 
+.clear-block {
+    height: 95px;
+}
 .screen-1 {
     height: 744px;
     background: url("assets/bg-image.jpg");
@@ -19,7 +22,12 @@ h1 {
 }
 
 .header {
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 1600px;
     height: 95px;
+    background: black;;
 }
 
 .nav-header a {
@@ -67,8 +75,13 @@ h1 {
 }
 
 .screen-1-content {
+    /* position: absolute; */
+    width: 1600px;
     margin-top: 135px;
     margin-bottom: 183px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .screen-1 h2 {
