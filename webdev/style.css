@@ -142,3 +142,64 @@ h1 {
 socials li {
     list-style-type: none;
 }
+
+.screen-2 {
+    height: 842px;
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+}
+
+.screen-2 .screen-2-content {
+    margin-top: 295px;
+    margin-left: 268px; 
+    margin-right: 248px;
+
+    width: 407px;
+    height: 233px;
+}
+
+.screen-2 h2 {
+    /* h2-24-bold */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    /*align-items: flex-end; */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: #373737;
+
+}
+
+.screen-2 p {
+    width: 407px;
+    height: 80px;
+/* body-14-reg */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+
+    /* or 20px */
+
+    color: #4E4E4E;
+
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+p .bold {
+    font-weight: bold;    
+}
+
+.screen-2-content-image {
+    margin-top: 120px;
+    width: 407px;
+    height: 582px;
+    background: url("assets/content-image-1.png");
+}
