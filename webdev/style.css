@@ -203,3 +203,117 @@ p .bold {
     height: 582px;
     background: url("assets/content-image-1.png");
 }
+
+.screen-3 {
+    height: 504px;
+    display: flex;
+    flex-direction: row;
+}
+
+.screen-3-content {
+    height: 504px;
+    margin-top: 155px;
+    margin-left: 269px;
+    margin-right: 139px;
+    width: 298px;
+    height: 175px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.screen-3 .image-wrapper {
+    background: #F5F6F7;
+}
+
+.screen-3 h3 {
+    margin-top: 20px;
+    /* h3-16-upper-bold */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    /*line-height: 20px;*/
+
+    /* identical to box height, or 125% */
+/*    display: flex;
+    align-items: center;
+    text-align: center;
+*/    letter-spacing: 2.4px;
+    text-transform: uppercase;
+
+    color: #373737;
+/*    margin-bottom: 9px;*/
+}
+
+.screen-3-content p {
+    margin-top: 12px;
+    /* body-14-reg */
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+
+    color: #4E4E4E;
+}
+
+.screen-3 .slider {
+    width: 894px;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen-3 .slider-nav-items {
+    margin-top: 82px;
+    margin-bottom: 20px;
+    margin-left: 542px;
+    width: 83px;
+    height: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider-nav-items .wrapper {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.slider-nav-items span {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    /*line-height: 140%;*/
+    display: block;
+    color: #373737;
+}
+
+.slider-slash {
+    padding: 0 4px 0 4px; 
+}
+
+.slider-arrow {
+    padding-top: 3px;
+}
+
+.slider-items {
+    width: 894px;
+    display: flex;
+    overflow: hidden;
+}
+
+.slider-items .image-wrapper img{
+    width: 407px;
+    height: 244px;
+    margin-right: 30px;
+}
+
+.slider-arrow:hover {
+    opacity: 0.6;
+}
