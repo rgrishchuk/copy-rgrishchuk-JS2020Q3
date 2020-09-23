@@ -3,7 +3,7 @@ class Calculator {
         this.previousOperandTextElement = previousOperandTextElement;
         this.currentOperandTextElement = currentOperandTextElement;
         this.clear();
-        this.pow = false;
+        this.powOperation = false;
         this.error = false;
         this.previousInMemory = '';
     }
@@ -11,19 +11,21 @@ class Calculator {
     clear() {
         this.currentOperand = '0';
         this.previousOperand = '';
+        this.previousInMemory = '';
         this.operation = undefined;
-        this.pow = false;
+        this.powOperation = false;
         this.error = false;
     }
 
     delete() {
         if (this.currentOperand !=='0') {
             this.currentOperand = this.currentOperand.slice(0,-1);
+            if (this.currentOperand == '') this.currentOperand = '0';
         }
     }
 
     switchDisplayToPow() {
-        this.pow =true;
+        this.powOperation = true;
     }
 
     appendNumber(number) {
@@ -34,12 +36,26 @@ class Calculator {
 
     chooseOperation(operation) {
         if (this.currentOperand === '') return;
-        if (this.currentOperand !=='') {
-            this.calculate();
-        }
+        this.calculate();
         this.operation = operation;
         this.previousOperand = this.currentOperand;
-        this.currentOperand = '';
+        this.currentOperand = '0';
+    }
+
+    calculatePow() {
+        let calculation;
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+        calculation = Math.pow(prev, current);
+        this.powOperation = false;
+        if (isNaN(calculation)) {
+            this.error = true;
+            return;
+        }    
+        this.currentOperand = calculation;
+        console.log(prev + '^' + current + '='+calculation);
+        this.previousOperand = this.previousInMemory;
+        this.previousInMemory = '';
     }
 
     calculateCurrent(operator) {
@@ -64,6 +80,7 @@ class Calculator {
     }
 
     calculate() {
+    	console.log('calc');
         let calculation;
         const prev = parseFloat(this.previousOperand);
         const current = parseFloat(this.currentOperand);
@@ -85,6 +102,7 @@ class Calculator {
                 return;
         }
         // this.readyToReset = true;
+        console.log(prev + this.operation + current + '='+calculation);
         if (isNaN(calculation)) {
             this.error = true;
             return;
@@ -112,8 +130,24 @@ class Calculator {
       }
     
     updateDisplay() {
-        if (this.pow) {
-            
+        if (this.powOperation) {
+			if (this.operation === undefined && this.previousOperand === '') {
+				this.previousOperand = this.currentOperand;
+				this.currentOperand = '0';
+			}     	
+        	if (this.previousInMemory === '' && this.operation != undefined) {
+                this.previousInMemory = this.previousOperand;
+                this.previousOperand = this.currentOperand;
+                this.currentOperand = '0';
+        	}
+
+        	if (this.operation != undefined) {
+        		this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousInMemory)} ${this.operation} ${this.getDisplayNumber(this.previousOperand)} ^`;	
+        	} else {
+        		this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ^`;
+        	}
+
+            this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
             return;
         }
 
@@ -122,7 +156,7 @@ class Calculator {
             this.currentOperandTextElement.innerText = 'Error';
         } else this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
 
-        if (this.operation != null) {
+        if (this.operation != undefined) {
             this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
         } else {
             this.previousOperandTextElement.innerText = '';
@@ -142,6 +176,7 @@ const previousOperandTextElement = document.querySelector('[previous-operand]');
 const currentOperandTextElement = document.querySelector('[current-operand]');
 
 const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
+calculator.updateDisplay();
 
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -152,6 +187,9 @@ numberButtons.forEach(button => {
 
 operationButtons.forEach(button => {
     button.addEventListener('click', () => {
+        if (calculator.powOperation) {
+        	calculator.calculatePow();
+        }
         calculator.chooseOperation(button.innerText);
         calculator.updateDisplay();
     })
@@ -168,7 +206,10 @@ deleteButton.addEventListener('click', () => {
 });
 
 equalButton.addEventListener('click', () => {
-    calculator.calculate();
+    if (calculator.powOperation) {
+        calculator.calculatePow();
+    }
+	calculator.calculate();
     calculator.updateDisplay();
 });
 
@@ -178,11 +219,13 @@ plusmnButton.addEventListener('click', () => {
 });
 
 sqrtButton.addEventListener('click', () => {
-    calculator.calculateCurrent('sqrt');
-    calculator.updateDisplay();
+	if (!calculator.powOperation) {
+	    calculator.calculateCurrent('sqrt');
+	    calculator.updateDisplay();
+	}
 });
 
 powButton.addEventListener('click', () => {
-    calculator.pow = true;
+    calculator.powOperation = true;
     calculator.updateDisplay();
 });
