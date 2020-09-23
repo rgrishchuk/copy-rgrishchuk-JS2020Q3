@@ -25,12 +25,13 @@ body {
 	cursor: pointer;
 	font-size: 2rem;
 	border: 2px solid #fff;
-	background-color:  #99ceff;
+	border-radius: 7px;
+	/*background-color:  #99ceff;*/
 	outline: none;
 }
 
 .calc > button:hover {
-	background-color: #e6f3ff;
+	/*background-color: #e6f3ff;*/
 }
 
 .span-2 {
@@ -67,3 +68,36 @@ body {
 /*[delete] {
 	background-color: red;
 }*/
+
+[equal] {
+	background-color: #ff6600;
+}
+
+[equal]:hover {
+	background-color: #ff8533;
+}
+
+[operator], [pow], [sqrt], [plusmn] {
+	background-color: #999999;
+}
+
+[operator]:hover, [pow]:hover, [sqrt]:hover, [plusmn]:hover {
+	background-color: #cccccc;
+}
+
+[all-clear], [delete] {
+	background-color: #ff0000;
+	color: #fff;
+}
+
+[all-clear]:hover, [delete]:hover {
+	background-color: #ff4d4d;
+}
+
+[number] {
+	background-color: #e6e6e6;
+}
+
+[number]:hover {
+	background-color: #f2f2f2;
+}

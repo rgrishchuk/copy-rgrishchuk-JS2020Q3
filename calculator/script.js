@@ -25,12 +25,8 @@ class Calculator {
     	this.currentOperand = this.currentOperand + '';
         if (this.currentOperand !=='0') {
             this.currentOperand = this.currentOperand.slice(0,-1);
-            if (this.currentOperand == '') this.currentOperand = '0';
+            if (this.currentOperand == '' || this.currentOperand == '-') this.currentOperand = '0';
         }
-    }
-
-    switchDisplayToPow() {
-        this.powOperation = true;
     }
 
     appendNumber(number) {
@@ -41,7 +37,11 @@ class Calculator {
     }
 
     chooseOperation(operation) {
+    	this.currentOperand = this.currentOperand + '';
         if (this.currentOperand === '') return;
+        if (this.currentOperand.slice(-1) === '.') {
+        	this.currentOperand = this.currentOperand.slice(0,-1);
+        }
         if (this.currentOperand === '0.') this.currentOperand = '0';
         this.calculate();
         this.operation = operation;
