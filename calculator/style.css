@@ -1,0 +1,104 @@
+* {
+	font-family: 'Rubik', sans-serif;
+	font-weight: normal;
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+.font-small {
+	font-size: .9rem;
+}
+
+.calc {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+	min-height: 100vh;
+	grid: minmax(calc(25vh), auto) repeat(5, calc(70vh / 5)) / repeat(5, calc(70vh / 5));
+}
+
+.calc > button {
+	cursor: pointer;
+	font-size: 2rem;
+	border: 2px solid #fff;
+	border-radius: 7px;
+	outline: none;
+}
+
+.span-2 {
+	grid-column: span 2;
+}
+
+.row-3 {
+	grid-row: span 3; 
+}
+
+.display {
+	grid-column: 1 / -1;
+	border: 2px solid #fff;
+	background-color: #000;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-around;
+	padding-right: 1rem;
+	padding-left: 1rem;
+	word-wrap: break-word;
+	word-break: break-all; 
+}
+
+.display .display-current {
+	font-size: 3rem;
+}
+
+.display .display-previous {
+	font-size: 2rem;
+	color:  #ccc;
+}
+
+[equal] {
+	background-color: #ff6600;
+}
+
+[equal]:hover {
+	background-color: #ff8533;
+}
+
+[operator], [pow], [sqrt], [plusmn] {
+	background-color: #999999;
+}
+
+[operator]:hover, [pow]:hover, [sqrt]:hover, [plusmn]:hover {
+	background-color: #cccccc;
+}
+
+[all-clear], [delete] {
+	background-color: #ff0000;
+	color: #fff;
+}
+
+[all-clear]:hover, [delete]:hover {
+	background-color: #ff4d4d;
+}
+
+[number] {
+	background-color: #e6e6e6;
+}
+
+[number]:hover {
+	background-color: #f2f2f2;
+}
+
+@media screen and (max-width:800px) {
+	* {
+		font-size: .9rem;
+	}	
+	.calc {
+		grid: minmax(calc(25vw), auto) repeat(5, calc(65vw / 5)) / repeat(5, calc(90vw / 5));
+	}
+}
