@@ -1,3 +1,7 @@
+function toFixed(value) {
+	var power = Math.pow(10, 14);
+  	return String(Math.round(value * power) / power);
+}
 class Calculator {
     constructor(previousOperandTextElement, currentOperandTextElement) {
         this.previousOperandTextElement = previousOperandTextElement;
@@ -18,6 +22,7 @@ class Calculator {
     }
 
     delete() {
+    	this.currentOperand = this.currentOperand + '';
         if (this.currentOperand !=='0') {
             this.currentOperand = this.currentOperand.slice(0,-1);
             if (this.currentOperand == '') this.currentOperand = '0';
@@ -29,6 +34,7 @@ class Calculator {
     }
 
     appendNumber(number) {
+    	this.currentOperand = this.currentOperand + '';
         if (number === '.' && this.currentOperand.includes('.')) return;
         if (number === '.' && this.currentOperand === '') this.currentOperand = '0';
         this.currentOperand = this.currentOperand.toString() + number.toString();
@@ -36,6 +42,7 @@ class Calculator {
 
     chooseOperation(operation) {
         if (this.currentOperand === '') return;
+        if (this.currentOperand === '0.') this.currentOperand = '0';
         this.calculate();
         this.operation = operation;
         this.previousOperand = this.currentOperand;
@@ -101,7 +108,9 @@ class Calculator {
             default:
                 return;
         }
-        // this.readyToReset = true;
+         if (!(Number.isInteger(prev)) || !(Number.isInteger(current))) {
+            	calculation = toFixed(calculation);
+         }
         console.log(prev + this.operation + current + '='+calculation);
         if (isNaN(calculation)) {
             this.error = true;
