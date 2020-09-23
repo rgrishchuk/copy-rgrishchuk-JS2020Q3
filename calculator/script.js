@@ -25,7 +25,9 @@ class Calculator {
     	this.currentOperand = this.currentOperand + '';
         if (this.currentOperand !=='0') {
             this.currentOperand = this.currentOperand.slice(0,-1);
-            if (this.currentOperand == '' || this.currentOperand == '-') this.currentOperand = '0';
+            if (this.currentOperand == '' || this.currentOperand == '-' || this.currentOperand == '-0') {
+            	this.currentOperand = '0';
+            }
         }
     }
 
@@ -37,12 +39,9 @@ class Calculator {
     }
 
     chooseOperation(operation) {
-    	this.currentOperand = this.currentOperand + '';
+        this.currentOperand = this.currentOperand + '';
+        this.currentOperand = parseFloat(this.currentOperand);
         if (this.currentOperand === '') return;
-        if (this.currentOperand.slice(-1) === '.') {
-        	this.currentOperand = this.currentOperand.slice(0,-1);
-        }
-        if (this.currentOperand === '0.') this.currentOperand = '0';
         this.calculate();
         this.operation = operation;
         this.previousOperand = this.currentOperand;
@@ -59,8 +58,10 @@ class Calculator {
             this.error = true;
             return;
         }    
+        if (!(Number.isInteger(calculation))) {
+            calculation = Number.parseFloat(calculation.toPrecision(14));
+        }
         this.currentOperand = calculation;
-        console.log(prev + '^' + current + '='+calculation);
         this.previousOperand = this.previousInMemory;
         this.previousInMemory = '';
     }
@@ -87,7 +88,6 @@ class Calculator {
     }
 
     calculate() {
-    	console.log('calc');
         let calculation;
         const prev = parseFloat(this.previousOperand);
         const current = parseFloat(this.currentOperand);
@@ -108,10 +108,9 @@ class Calculator {
             default:
                 return;
         }
-         if (!(Number.isInteger(prev)) || !(Number.isInteger(current))) {
-            	calculation = toFixed(calculation);
-         }
-        console.log(prev + this.operation + current + '='+calculation);
+        if (!(Number.isInteger(prev)) || !(Number.isInteger(current))) {
+            calculation = Number.parseFloat(calculation.toPrecision(14));
+        }
         if (isNaN(calculation)) {
             this.error = true;
             return;
@@ -129,7 +128,7 @@ class Calculator {
         if (isNaN(integerDigits)) {
           integerDisplay = '';
         } else {
-          integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 });
+          integerDisplay = integerDigits.toLocaleString('ru', { maximumFractionDigits: 0 });
         }
         if (decimalDigits != null) {
           return `${integerDisplay}.${decimalDigits}`;

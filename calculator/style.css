@@ -10,7 +10,7 @@ body {
 }
 
 .font-small {
-	font-size: 1.5rem;
+	font-size: .9rem;
 }
 
 .calc {
@@ -18,7 +18,7 @@ body {
 	justify-content: center;
 	align-content: center;
 	min-height: 100vh;
-	grid: minmax(150px, auto) repeat(5, 100px) / repeat(5, 100px) ;
+	grid: minmax(calc(25vh), auto) repeat(5, calc(70vh / 5)) / repeat(5, calc(70vh / 5));
 }
 
 .calc > button {
@@ -26,12 +26,7 @@ body {
 	font-size: 2rem;
 	border: 2px solid #fff;
 	border-radius: 7px;
-	/*background-color:  #99ceff;*/
 	outline: none;
-}
-
-.calc > button:hover {
-	/*background-color: #e6f3ff;*/
 }
 
 .span-2 {
@@ -52,6 +47,7 @@ body {
 	align-items: flex-end;
 	justify-content: space-around;
 	padding-right: 1rem;
+	padding-left: 1rem;
 	word-wrap: break-word;
 	word-break: break-all; 
 }
@@ -64,10 +60,6 @@ body {
 	font-size: 2rem;
 	color:  #ccc;
 }
-
-/*[delete] {
-	background-color: red;
-}*/
 
 [equal] {
 	background-color: #ff6600;
@@ -100,4 +92,13 @@ body {
 
 [number]:hover {
 	background-color: #f2f2f2;
+}
+
+@media screen and (max-width:800px) {
+	* {
+		font-size: .9rem;
+	}	
+	.calc {
+		grid: minmax(calc(25vw), auto) repeat(5, calc(65vw / 5)) / repeat(5, calc(90vw / 5));
+	}
 }
