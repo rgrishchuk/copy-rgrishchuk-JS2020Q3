@@ -7,9 +7,6 @@ class Calculator {
         this.previousOperandTextElement = previousOperandTextElement;
         this.currentOperandTextElement = currentOperandTextElement;
         this.clear();
-        this.powOperation = false;
-        this.error = false;
-        this.previousInMemory = '';
     }
 
     clear() {
@@ -19,6 +16,7 @@ class Calculator {
         this.operation = undefined;
         this.powOperation = false;
         this.error = false;
+        this.readyToClear = false;
     }
 
     delete() {
@@ -188,6 +186,10 @@ calculator.updateDisplay();
 
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
+        if (calculator.readyToClear) {
+            calculator.readyToClear = false;
+            calculator.currentOperand = '';
+        }
         calculator.appendNumber(button.innerText);
         calculator.updateDisplay();
     })
@@ -195,6 +197,7 @@ numberButtons.forEach(button => {
 
 operationButtons.forEach(button => {
     button.addEventListener('click', () => {
+        calculator.readyToClear = false;
         if (calculator.powOperation) {
         	calculator.calculatePow();
         }
@@ -209,8 +212,10 @@ allClearButton.addEventListener('click', () => {
 });
 
 deleteButton.addEventListener('click', () => {
-    calculator.delete();
-    calculator.updateDisplay();
+    if (!calculator.readyToClear) {
+        calculator.delete();
+        calculator.updateDisplay();
+    }
 });
 
 equalButton.addEventListener('click', () => {
@@ -219,6 +224,9 @@ equalButton.addEventListener('click', () => {
     }
 	calculator.calculate();
     calculator.updateDisplay();
+    if (calculator.previousOperand === '') {
+        calculator.readyToClear = true;
+    }
 });
 
 plusmnButton.addEventListener('click', () => {
@@ -228,8 +236,9 @@ plusmnButton.addEventListener('click', () => {
 
 sqrtButton.addEventListener('click', () => {
 	if (!calculator.powOperation) {
-	    calculator.calculateCurrent('sqrt');
-	    calculator.updateDisplay();
+        calculator.calculateCurrent('sqrt');
+        calculator.updateDisplay();
+        calculator.readyToClear = true;
 	}
 });
 
