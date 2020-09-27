@@ -1,0 +1,17 @@
+.button-primary {
+    border-radius: 6.25rem;
+    border: none;
+    background-color: $color-primary;
+    font-family: Georgia;
+    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 130%;
+    letter-spacing: 0.06rem;
+    color: $color-dark-xl;
+}
+
+.button-primary:hover {
+    cursor: pointer;
+    background-color: $color-primary-light;
+    color: $color-dark-xl;
+}

@@ -1,2 +1,23 @@
 @import "sass/base/_normalize";
+@import "sass/variables/_variables";
+@import "sass/components/_buttons";
 @import "sass/layout/_header";
+@import "sass/pages/_start";
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: grey;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
