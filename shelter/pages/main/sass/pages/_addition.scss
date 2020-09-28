@@ -1,0 +1,75 @@
+.addition {
+    background-color: $color-light-l;
+}
+
+.addition__content {
+    width: 75rem;
+    height: 17.75rem;
+    margin: 5rem auto 6.25rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addition__content__text {
+    width: 23.75rem;
+    height: 17.625rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.addition__content__text__heading {
+    font-family: Georgia;
+    font-weight: 400;
+    font-size: 2.25rem;
+    line-height: 130%;
+    letter-spacing: 0.1rem;
+    color: $color-dark-l;    
+}
+
+.addition__content__text__subheading {
+    font-family: Georgia;
+    font-weight: 400;
+    font-size: 0.9375rem;
+    line-height: 110%;
+    letter-spacing: 0.056rem;
+    color: $color-dark-l;
+}
+
+.addition__phone-number {
+    font-family: Georgia;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: 115%;
+    letter-spacing: 0.075rem;
+    color: $color-dark-l;
+}
+
+.addition__content__text {
+    margin-left: 1.875rem;
+}
+
+.addition__content__link {
+    width: 21.8125rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.9375rem 0.625rem 0.9375rem;
+    text-decoration: none;
+    background: $color-primary ;
+    border-radius: 9px;
+}
+
+.addition__content__text__heading {
+    width: 18.75rem;
+}
+
+.addition__content__information {
+    font-family: Arial;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 150%;
+    color: $color-dark-m;    
+}
