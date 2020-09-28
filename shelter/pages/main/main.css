@@ -442,7 +442,7 @@ h1 {
   color: #ffffff;
   font-family: Arial, sans-serif;
   font-weight: 400;
-  font-size: .8125rem;
+  font-size: 0.8125rem;
   line-height: 110%;
   letter-spacing: 0.08rem;
   text-align: center;
@@ -480,15 +480,15 @@ h1 {
   font-weight: 400;
   font-size: 0.9375rem;
   line-height: 160%;
-  color: #FAFAFA;
 }
 
 .list__link_disabled {
-  color: #F6F6F6;
+  color: #CDCDCD;
 }
 
 .list__link_active {
   border-bottom: solid 3px #F1CDB3;
+  color: #FAFAFA;
 }
 
 .list__link:hover {
@@ -719,6 +719,9 @@ h1 {
 }
 
 .help__content {
+  margin: 5rem 0 6.25rem 0;
+  width: 75rem;
+  height: 26.9375rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -729,8 +732,10 @@ h1 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 5rem 0 6.25rem 0;
-  width: 75rem;
+}
+
+.help__content__wrapper {
+  margin-top: 3.75em;
 }
 
 .help__content__title {
@@ -745,19 +750,27 @@ h1 {
 }
 
 .help__list {
-  margin-top: 3.5rem;
   width: 64.125rem;
   height: 17.5625rem;
-  display: -ms-grid;
-  display: grid;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  row-gap: 3.45rem;
   -ms-grid-rows: (7.0625rem)[2];
       grid-template-rows: repeat(2, 7.0625rem);
   -ms-grid-columns: (0.11fr)[5];
       grid-template-columns: repeat(5, 0.11fr);
   list-style-type: none;
+}
+
+.help__list__item:nth-child(n+2) {
+  margin-left: 7.5rem;
+}
+
+.help__list__item:nth-child(6) {
+  margin-left: 5.3125rem;
 }
 
 .help__list__link {
@@ -768,6 +781,9 @@ h1 {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -775,12 +791,13 @@ h1 {
 }
 
 .help__list__item__title {
+  margin-top: 1.875rem;
   font-family: Georgia;
   font-style: normal;
   font-weight: normal;
   font-size: 1.25rem;
   line-height: 115%;
-  letter-spacing: 0.06rem;
+  letter-spacing: 0.07rem;
   color: #545454;
 }
 
