@@ -1,56 +1,60 @@
 .footer {
     width: 100%;
-    background: url(../../assets/images/noise_transparent@2x.png), 
-    radial-gradient(110.67% 538.64% at 5.73% 50%, 
-    #513D2F 0%, #1A1A1C 100%), #211F20;
-}
+    background: $footer-gradient-background;
 
-.footer__content {
-    width: 100%;
-    margin-top: 2.5rem;
-    display: flex;
-    justify-content: space-between;
-}
+    &__content {
+        width: 100%;
+        margin-top: 4rem;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    &__contacts {
+        padding: 1.6rem 0 6rem;
+        //height: 14.625rem;
+        max-width: 28.16rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
-.footer__contacts {
-    margin-top: 1.3125rem;
-    height: 14.625rem;
-    width: 17.375rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+        &__title  {
+            @include h3;
+            //letter-spacing: 0.13rem;
+            color: $color-light-xl;
+        }
+        
+    }
+    
+    &__location {
+        padding: 1.6rem 0 6rem;
+        max-width: 30.2rem;
+        //height: 14.625rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        &__title  {
+            @include h3;
+            //letter-spacing: 0.13rem;
+            color: $color-light-xl;
+        }
 
-.footer__contacts__title, .footer__location__title  {
-    font-family: Georgia;
-    font-weight: 400;
-    font-size: 35px;
-    line-height: 130%;
-    letter-spacing: 0.13rem;
-    color: $color-light-xl;
-}
+    }
 
-.footer__location {
-    margin-top: 1.3125rem;
-    width: 18.875rem;
-    height: 14.625rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.footer__text {
-    margin-left: 1.25rem;
-    font-family: Georgia;
-    font-weight: 400;
-    font-size: 1.25rem;
-    line-height: 115%;
-    letter-spacing: 0.075rem;
-    color: $color-primary;
-}
-
-.footer__link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
+    &__text {
+        margin-left: 2rem;
+        @include h4;
+        //letter-spacing: 0.075rem;
+        color: $color-primary;
+    }
+    
+    &__link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+    
+    &__icon {
+        flex-shrink: 0;
+    }
 }
