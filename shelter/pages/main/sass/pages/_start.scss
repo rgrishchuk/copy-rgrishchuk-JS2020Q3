@@ -13,16 +13,18 @@
 .content-section {
     padding-top: 16.3rem;
     padding-bottom: 24.4rem;
-    max-width: 46;
+    //max-width: 46rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
 
     &__heading {
+        display: flex;
+        flex-direction: column;
         @include h2;
         color: $color-light-xl;
-        max-width: 31rem;
+        //max-width: 31rem;
     }
     
     &__subheading {

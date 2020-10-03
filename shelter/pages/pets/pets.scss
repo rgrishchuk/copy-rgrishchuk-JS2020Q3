@@ -1,0 +1,160 @@
+//@import "../main/sass/base/_normalize";
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+:root {
+    font-size: 10px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+@import "../main/sass/variables/_variables";
+@import "../main/sass/components/_buttons";
+@import "../main/sass/layout/_header";
+@import "../main/sass/layout/footer";
+
+.header {
+    top: 0rem;
+    padding: 3rem 0 3rem;
+    position: fixed;
+    background-color: $color-light-xl;
+
+    .logo {
+        &__title {
+            color: $color-dark-l;
+        }
+        &__subtitle {
+            color: $color-dark-3xl;
+        }
+    }
+    
+    .list {
+    
+        &__link {
+    
+            &_disabled {
+                color: $color-dark-l;
+            }
+            
+            &_active {
+                color: $color-dark-3xl;
+            }
+            
+            &:hover {
+                color: $color-dark-3xl;
+            }        
+        }
+    
+    }   
+
+}
+
+
+.pets {
+    padding-top: 12rem;
+    background-color:  $color-light-l;
+    
+    &__content {
+        padding-top: 8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__title {
+            max-width: 40rem;
+            @include h3;
+            color: $color-dark-l;
+        }
+
+        &__list {
+            display: flex;
+            flex-direction: column;
+            //justify-content: center;
+        }
+
+        &__list__buttons {
+            margin: 4.5rem 0 10rem;
+            width: 34rem;
+            display: flex;
+            align-self: center;
+            justify-content: space-between;
+
+            &__title {
+                width: 100%;
+                @include h4;
+                text-align: center;
+            }
+
+            .button-round {
+                // display: flex;
+                // justify-content: center;
+                // align-content: center;
+                // text-align: center;
+            }
+        }
+
+    }
+
+    &__list {
+        margin-top: 4.5rem;
+        list-style-type: none;
+        display: flex;
+        flex-wrap: wrap;
+    
+    }
+
+    &__item {
+    
+        margin: 1.5rem 0 1.5rem 4rem;
+        
+        &__card {
+            display: flex;
+            //justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 0.9rem;
+            background-color: $color-light-s;
+    
+            &:hover {
+                cursor: pointer;
+                background-color: $color-light-xl;
+                box-shadow: 0px 0.2rem 3.5rem 1.4rem rgba(13, 13, 13, 0.04);            
+            }
+    
+            &__image {
+                display: flex;
+            }
+        
+            &__title {
+                padding: 3rem 0 3rem;
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 2rem;
+                line-height: 2.3rem;
+                letter-spacing: 0.06em;
+                color: $color-dark-l;
+            }
+    
+            &__button {
+                padding-bottom: 3rem;
+            }
+        }
+    }
+    
+    .wrapper {
+        max-width: 128rem;
+    }
+}
+
+

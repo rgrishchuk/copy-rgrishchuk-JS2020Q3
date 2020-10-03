@@ -15,7 +15,9 @@
     flex-direction: column;
     
     &__heading {
-        max-width: 37rem;
+        display: flex;
+        flex-direction: column;
+        //max-width: 37rem;
         @include h3;
         color: $color-dark-l;
     }

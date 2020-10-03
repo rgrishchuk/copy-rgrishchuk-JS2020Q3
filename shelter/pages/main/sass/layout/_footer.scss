@@ -18,6 +18,8 @@
         justify-content: space-between;
 
         &__title  {
+            display: flex;
+            flex-direction: column;
             @include h3;
             //letter-spacing: 0.13rem;
             color: $color-light-xl;
@@ -26,7 +28,7 @@
     }
     
     &__location {
-        padding: 1.6rem 0 6rem;
+        padding: 1.6rem 0 6rem 0;
         max-width: 30.2rem;
         //height: 14.625rem;
         display: flex;
@@ -34,6 +36,9 @@
         justify-content: space-between;
         
         &__title  {
+            margin-left: 0.1rem;
+            display: flex;
+            flex-direction: column;
             @include h3;
             //letter-spacing: 0.13rem;
             color: $color-light-xl;
@@ -44,7 +49,7 @@
     &__text {
         margin-left: 2rem;
         @include h4;
-        //letter-spacing: 0.075rem;
+        letter-spacing: 0.12rem;
         color: $color-primary;
     }
     

@@ -19,18 +19,20 @@ h1 {
 .logo {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     &__title {
         @include logo-title;
         color: $color-primary;
     }
     &__subtitle {
-        margin-top: 1rem;
+        //margin-top: 1rem;
         @include logo-subtitle;
         color: $color-light-xl;
     }
 }
 
 .menu {
+    margin: 1.6rem 0 1.7rem;
     width: 44.3rem;
     display: flex;
 }
@@ -49,9 +51,14 @@ h1 {
     
     &__link {
         font-family: Arial;
-        font-weight: 400;
+        font-weight: normal;
         font-size: 1.5rem;
-        line-height: 160%;
+        //line-height: 160%;
+        line-height: 2.4rem;
+        letter-spacing: 0.005rem;
+        @-moz-document url-prefix() {
+            letter-spacing: 0.03rem;
+        }
         
         &_disabled {
             color: #CDCDCD;

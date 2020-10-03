@@ -1,3 +1,7 @@
+button {
+    outline: none;
+}
+
 .button-primary {
     padding: 1.5rem 4.5rem;
     border-radius: 10rem;
@@ -6,8 +10,8 @@
     font-family: Georgia;
     font-weight: 400;
     font-size: 1.7rem;
-    line-height: 130%;
-    letter-spacing: 0.1rem;
+    line-height: 2.2rem;
+    letter-spacing: 0.104rem;
     color: $color-dark-xl;
 }
 
@@ -18,16 +22,16 @@
 }
 
 .button-secondary {
-    padding: 1.3rem 4.3rem;
+    padding: 1.3rem 4.3rem 1.3rem 4.3rem;
     background: none;
     border: 0.2rem solid $color-primary;
 }
 
 .button-secondary:hover {
-    border: 0.1rem solid $color-primary-light;
+    border: 0.2rem solid $color-primary-light;
 }
 
-.button-arrow {
+.button-round {
     width: 5.2rem;
     height: 5.2rem;
     display: flex;
@@ -39,7 +43,23 @@
     
 }
 
-.button-arrow:hover {
+.button-round:disabled {
+    width: 5.2rem;
+    height: 5.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10rem;
+    border: 2px solid $color-dark-s;
+    background-color: transparent;
+
+    h4 {
+        color: $color-dark-s;
+    }
+}
+
+.button-round:hover:enabled {
+    cursor: pointer;
     background-color: $color-primary-light;
     border: none;
 }

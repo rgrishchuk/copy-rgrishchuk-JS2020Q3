@@ -16,8 +16,11 @@
         }
     
         &__title {
+            margin-left: 0.1rem;
+            display: flex;
+            flex-direction: column;
             @include h3;
-            max-width: 31rem;
+            //max-width: 31rem;
             //letter-spacing: 0.13rem;
             color: $color-dark-l;
             text-align: center;
@@ -30,7 +33,7 @@
         //height: 17.5625rem;
         display: flex;
         flex-wrap: wrap;
-        row-gap: 5.52rem;
+        row-gap: 5.5rem;
         grid-template-rows: repeat(2, 11.3rem);
         grid-template-columns: repeat(5, 0.11fr);
         list-style-type: none;

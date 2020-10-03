@@ -1,13 +1,4 @@
 @import "sass/base/_normalize";
-@import "sass/variables/_variables";
-@import "sass/components/_buttons";
-@import "sass/layout/_header";
-@import "sass/pages/_start";
-@import "sass/pages/_about";
-@import "sass/pages/_friends";
-@import "sass/pages/_help";
-@import "sass/pages/_addition";
-@import "sass/layout/footer";
 
 * {
     margin: 0;
@@ -26,3 +17,13 @@
     display: flex;
     flex-direction: column;
 }
+
+@import "sass/variables/_variables";
+@import "sass/components/_buttons";
+@import "sass/layout/_header";
+@import "sass/pages/_start";
+@import "sass/pages/_about";
+@import "sass/pages/_friends";
+@import "sass/pages/_help";
+@import "sass/pages/_addition";
+@import "sass/layout/footer";

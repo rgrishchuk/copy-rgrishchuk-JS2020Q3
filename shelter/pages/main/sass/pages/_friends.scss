@@ -4,14 +4,18 @@
     background-color: $color-light-l;
 
     &__content {
-        margin: 8rem 0 10rem 0;
+        margin: 8rem auto 10rem auto;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
 
         &__heading {
-            max-width: 40rem;
+            padding-left: 0.1rem;
+           
+            display: flex;
+            flex-direction: column;
+            //max-width: 40rem;
             @include h3;
             text-align: center;
             color: $color-dark-l;
@@ -44,9 +48,8 @@
             &__image {
                 //padding: 5.2rem 7.5rem 0 7.5rem;
                 display: flex;
-            
             }
-            
+
             &:hover {
                 cursor: pointer;
                 background-color: $color-light-xl;
@@ -60,16 +63,21 @@
                 font-weight: normal;
                 font-size: 2rem;
                 line-height: 2.3rem;
-                letter-spacing: 0.1rem;
+                letter-spacing: 0.107rem;
                 color: $color-dark-l;
             }
 
             &__button {
+                margin-left: 0.1rem;
                 padding-bottom: 3rem;
             }
             
         }
         
+    }
+
+    &__button {
+        margin-left: 0.2rem;
     }
     
 }
