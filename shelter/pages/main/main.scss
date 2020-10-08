@@ -10,7 +10,12 @@
 }
 
 :root {
+    //font-size: 0.83vw;
     font-size: 10px;
+}
+
+body {
+    width: 100%;
 }
 
 .main {
@@ -27,3 +32,17 @@
 @import "sass/pages/_help";
 @import "sass/pages/_addition";
 @import "sass/layout/footer";
+
+// @media screen and (min-width: 1200px) {
+//     :root {
+//         font-size: 10px;
+//     }
+// }
+
+@media screen and (min-width: 768px) 
+              and (max-width: 1279px) {
+
+    .wrapper {
+        width: 100%;
+    }
+}

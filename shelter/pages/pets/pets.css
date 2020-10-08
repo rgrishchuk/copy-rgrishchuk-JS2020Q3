@@ -66,7 +66,7 @@ button {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 10rem;
-  border: 2px solid #f1cdb3;
+  border: 0.2rem solid #f1cdb3;
   background-color: transparent;
 }
 
@@ -83,7 +83,7 @@ button {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 10rem;
-  border: 2px solid #cdcdcd;
+  border: 0.2rem solid #cdcdcd;
   background-color: transparent;
 }
 
@@ -109,19 +109,15 @@ button {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  max-width: 120rem;
+  width: 120rem;
   margin: 0 auto;
 }
 
 .header {
+  width: 100%;
   top: 6rem;
   position: absolute;
-  width: 100vw;
   max-width: 100%;
-}
-
-h1 {
-  display: none;
 }
 
 .logo {
@@ -138,6 +134,7 @@ h1 {
 }
 
 .logo__title {
+  margin: 0;
   font-family: Georgia;
   font-style: normal;
   font-weight: normal;
@@ -192,6 +189,7 @@ h1 {
   font-size: 1.5rem;
   line-height: 2.4rem;
   letter-spacing: 0.005rem;
+  text-decoration: none;
 }
 
 @-moz-document url-prefix() {
@@ -205,13 +203,28 @@ h1 {
 }
 
 .list__link_active {
-  border-bottom: solid 3px #f1cdb3;
+  border-bottom: solid 0.3rem #f1cdb3;
   color: #fafafa;
 }
 
 .list__link:hover {
   cursor: pointer;
   color: #fafafa;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .header {
+    top: 3rem;
+  }
+  .header .wrapper {
+    width: 100%;
+  }
+  .header .wrapper .logo {
+    margin-left: 3rem;
+  }
+  .header .wrapper .menu {
+    margin-right: 3rem;
+  }
 }
 
 .footer {
@@ -228,6 +241,12 @@ h1 {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.footer__content__text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .footer__contacts {
@@ -262,7 +281,22 @@ h1 {
   color: #ffffff;
 }
 
+.footer__contacts__image {
+  width: 25%;
+  max-width: 30rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.footer__contacts__icon {
+  width: 4rem;
+  max-width: 40px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .footer__location {
+  margin-left: 16rem;
   padding: 1.6rem 0 6rem 0;
   max-width: 30.2rem;
   display: -webkit-box;
@@ -295,6 +329,13 @@ h1 {
   color: #ffffff;
 }
 
+.footer__location__icon {
+  width: 2.2rem;
+  max-width: 22px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .footer__text {
   margin-left: 2rem;
   font-family: Georgia;
@@ -320,6 +361,36 @@ h1 {
 .footer__icon {
   -ms-flex-negative: 0;
       flex-shrink: 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .footer__content {
+    margin-top: 3rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .footer__contacts {
+    padding: 0;
+  }
+  .footer__location {
+    padding: 0;
+    margin-left: 6rem;
+  }
+  .footer__contacts__email, .footer__location__adress:first-child {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+  .footer__contacts__image {
+    margin-top: 6.5rem;
+    width: 30rem;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
 }
 
 .header {
@@ -350,11 +421,13 @@ h1 {
 }
 
 .pets {
+  width: 100%;
   padding-top: 12rem;
   background-color: #f6f6f6;
 }
 
 .pets__content {
+  width: 100%;
   padding-top: 8rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -421,10 +494,13 @@ h1 {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .pets__item {
-  margin: 1.5rem 0 1.5rem 4rem;
+  margin: 1.5rem 0 1.5rem;
 }
 
 .pets__item__card {
@@ -470,7 +546,32 @@ h1 {
   padding-bottom: 3rem;
 }
 
-.pets .wrapper {
-  max-width: 128rem;
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .wrapper {
+    width: 100%;
+  }
+  .pets__content {
+    padding-top: 6rem;
+  }
+  .pets__content__title:first-child {
+    padding-top: 2rem;
+  }
+  .pets__content__list__buttons {
+    margin-top: 1rem;
+    margin-bottom: 7.6rem;
+  }
+  .pets__list {
+    margin-top: 3rem;
+    width: 58rem;
+  }
+  .pets__item:nth-last-child(-n+2) {
+    display: none;
+  }
+  .pets__item {
+    margin: 0 0 3rem 0;
+  }
+  .pets__item:nth-child(odd) {
+    margin-right: 4rem;
+  }
 }
 /*# sourceMappingURL=pets.css.map */

@@ -1,9 +1,11 @@
 .friends {
+    width: 100%;
     display: flex;
     flex-direction: column;
     background-color: $color-light-l;
 
     &__content {
+        width: 100%;
         margin: 8rem auto 10rem auto;
         display: flex;
         flex-direction: column;
@@ -24,13 +26,16 @@
     }
 
     &__slider {
-        min-width: 120rem;
+        width: 100%;
+        max-width: 120rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
         &__wrapper {
             padding: 6rem 0 6rem;
+            //width: 82.5%;
+            //max-width: 99rem;
             width: 99rem;
             display: flex;
             justify-content: space-between;
@@ -46,8 +51,11 @@
             background-color: $color-light-s;
 
             &__image {
-                //padding: 5.2rem 7.5rem 0 7.5rem;
                 display: flex;
+                img {
+                    width: 100%;
+                    object-fit: contain;
+                }            
             }
 
             &:hover {
@@ -71,7 +79,15 @@
                 margin-left: 0.1rem;
                 padding-bottom: 3rem;
             }
-            
+
+        }
+
+        &__button-left, &__button-right {
+            img {
+                width: 1.4rem;
+                max-width: 100%;
+                object-fit: contain;
+            }            
         }
         
     }
@@ -80,4 +96,34 @@
         margin-left: 0.2rem;
     }
     
+}
+
+@media screen and (min-width: 768px) 
+              and (max-width: 1279px) {
+    
+    .friends {
+        &__slider {
+            //padding: 0 3.91%;
+            justify-content: center;    
+            &__wrapper {
+                margin-left: 1.2rem;
+                margin-right: 1.2rem;
+                width: 58rem;
+            }
+
+            &__card:last-child {
+                display: none;
+            }
+
+            .button-round {
+                flex-shrink: 0;
+            }
+        }
+
+        &__button {
+            margin-left: 0;
+            padding-left: 4.4rem;
+            padding-right: 4.4rem;
+        }
+    }            
 }

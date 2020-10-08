@@ -1,9 +1,9 @@
 .addition {
+    width: 100%;
     background-color: $color-light-l;
 
     &__content {
         width: 100%;
-        //height: 17.75rem;
         margin: 8rem auto 10rem auto;
         display: flex;
         justify-content: center;
@@ -11,12 +11,16 @@
         &__image {
             display: flex;
             padding: 1.2rem 0.1rem 1.1rem 0;
+            img {
+                width: 50.5rem;
+                max-width: 100%;
+                object-fit: contain;
+            }
         }
 
         &__text {
             max-width: 38rem;
             margin-left: 3rem;
-            //height: 17.625rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -24,17 +28,12 @@
             &__heading {
                 display: flex;
                 flex-direction: column;
-                //max-width: 30rem;
                 @include h3;
-                //letter-spacing: 0.1rem;
                 color: $color-dark-l;    
             }
             
             &__subheading {
-                //margin-top: 2rem;
-                //margin-bottom: 2rem;
                 @include h5;
-                //letter-spacing: 0.056rem;
                 color: $color-dark-l;
             }
             
@@ -49,16 +48,20 @@
             text-decoration: none;
             background: $color-primary ;
             border-radius: 9px;
+
+            img {
+                width: 3rem;
+                max-width: 100%;
+                object-fit: contain;
+            }
         }
         
         
         &__information {
-            //margin-top: 2rem;
             font-family: Arial;
             font-style: italic;
             font-weight: normal;
             font-size: 1.2rem;
-            //line-height: 150%;
             line-height: 1.8rem;
             @-moz-document url-prefix() {
                 font-size: 1.1rem;
@@ -75,4 +78,38 @@
         color: $color-dark-l;
     }
    
+}
+
+@media screen and (min-width: 768px) 
+              and (max-width: 1279px) {
+    .addition {
+       
+        &__content {
+            margin-top: 7.9rem;
+            flex-direction: column;
+            align-items: center;
+            
+            &__text {
+                order: -1;
+                margin-left: 0;
+
+                &__subheading {
+                    margin-top: 2rem;
+                    margin-bottom: 2rem;
+                }
+            }
+
+            &__information {
+                margin-top: 2rem;
+            }
+
+            &__image {
+                margin: 6.1rem 0.1rem 0 0;
+                padding: 0;           
+            }
+    
+        }
+
+    }
+                
 }
