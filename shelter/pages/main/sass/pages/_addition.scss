@@ -82,34 +82,58 @@
 
 @media screen and (min-width: 768px) 
               and (max-width: 1279px) {
+
+    @import "_addition768";                
+
+}
+
+@media screen and (max-width: 767px) {
+
+    @import "_addition768";                
+    
     .addition {
-       
         &__content {
-            margin-top: 7.9rem;
-            flex-direction: column;
-            align-items: center;
-            
+            margin-top: 4.2rem;
+            margin-bottom: 4.2rem;
+            text-align: center;
             &__text {
-                order: -1;
-                margin-left: 0;
+                align-items: center;
+
+                &__heading {
+                    width: 30rem;
+                    @include h3-mobile;
+                    display: inline-block;
+                }
 
                 &__subheading {
-                    margin-top: 2rem;
-                    margin-bottom: 2rem;
+                    @-moz-document url-prefix() {
+                        margin-top: 2.05rem;
+                        margin-bottom: 1.9rem;;
+                    }
+                    @include paragraph-l;
                 }
             }
 
+            &__link {
+                width: 28.1rem;
+            }
+
             &__information {
-                margin-top: 2rem;
+                text-align: justify;
+                width: 28rem;
             }
 
             &__image {
-                margin: 6.1rem 0.1rem 0 0;
-                padding: 0;           
+                justify-content: center;
+                margin: 0;
+                margin-top: 4.2rem;
+                width: 81.3%;
             }
-    
         }
 
+        &__phone-number {
+            @include h5;
+        }
+    
     }
-                
 }

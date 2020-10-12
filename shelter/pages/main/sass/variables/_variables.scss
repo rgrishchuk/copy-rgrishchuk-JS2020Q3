@@ -26,7 +26,6 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
         size: 4.4rem;
         weight: 400;
     }
-    //line-height: 130%;
     line-height: 5.7rem;
 }
 
@@ -37,7 +36,6 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
         weight: normal;
         size: 3.5rem;
     }
-    //line-height: 130%;
     line-height: 4.5rem;
     letter-spacing: 0.21rem;
 }
@@ -50,7 +48,7 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
         size: 2.5rem;
     }        
     line-height: 130%;
-    letter-spacing: 0.06rem;        
+    letter-spacing: 0.15rem;        
 }
 
 @mixin h4 {
@@ -60,10 +58,8 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
         weight: normal;
         size: 2rem;
     }
-    //line-height: 115%;
     line-height: 2.3rem;
     letter-spacing: 0.11rem;
-    //letter-spacing: 0.12rem;
 }
 
 @mixin h5 {
@@ -73,7 +69,6 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
         weight: normal;
         size: 1.5rem;
     }
-    //line-height: 110%;
     line-height: 1.7rem;
     letter-spacing: 0.09rem;
 }
@@ -84,7 +79,6 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
         family: Arial;
         size: 1.5rem;
     }
-    //line-height: 160%;
     line-height: 2.4rem;
     letter-spacing: 0.0002rem;
     @-moz-document url-prefix() {
@@ -100,7 +94,6 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
         weight: normal;
         size: 1.2rem;
     }
-    //line-height: 150%; 
     line-height: 1.8rem; 
 }
 
@@ -111,7 +104,6 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
         weight: normal;
         size: 3.2rem;
     }
-    //line-height: 110%;
     line-height: 3.5rem;
     letter-spacing: 0.175rem; 
 }
@@ -123,10 +115,8 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
         weight: normal;        
         size: 1.3rem;
     }
-    //line-height: 110%;
     line-height: 1.5rem;
     letter-spacing: 0.13rem;
-    //align-self: flex-end;
     text-align: right;
 }
 

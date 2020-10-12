@@ -1,0 +1,36 @@
+.wrapper {
+    width: 100%;
+}
+
+.pets {
+    
+    &__content {
+        padding-top: 6rem;
+
+        &__title:first-child {
+            padding-top: 2rem;
+        }
+
+        &__list__buttons {
+            margin-top: 1rem;
+            margin-bottom: 7.6rem;
+        }
+    }
+
+    &__list {
+        margin-top: 3rem;
+        width: 58rem;
+    }
+
+    &__item:nth-last-child(-n+2) {
+        display: none;
+    }
+
+    &__item {
+        margin: 0 0 3rem 0;
+    }
+
+    &__item:nth-child(odd) {
+        margin-right: 4rem;
+    }
+}                

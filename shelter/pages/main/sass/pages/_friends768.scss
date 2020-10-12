@@ -1,0 +1,24 @@
+.friends {
+    &__slider {
+        justify-content: center;    
+        &__wrapper {
+            margin-left: 1.2rem;
+            margin-right: 1.2rem;
+            width: 58rem;
+        }
+
+        &__card:last-child {
+            display: none;
+        }
+
+        .button-round {
+            flex-shrink: 0;
+        }
+    }
+
+    &__button {
+        margin-left: 0;
+        padding-left: 4.4rem;
+        padding-right: 4.4rem;
+    }
+}            

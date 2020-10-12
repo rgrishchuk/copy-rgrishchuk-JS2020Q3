@@ -1,0 +1,23 @@
+.about {
+    &__content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__text {
+        padding: 0;
+        margin-bottom: 8rem;
+        width: 43.6rem;
+        order: -1;
+        &__subheading {
+            @-moz-document url-prefix() {
+                letter-spacing: 0.019rem;
+            }
+        }
+    }
+
+    &__pets {
+        margin: 0;
+    }
+
+}                

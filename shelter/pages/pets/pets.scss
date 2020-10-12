@@ -1,4 +1,4 @@
-//@import "../main/sass/base/_normalize";
+@import "../main/sass/base/_normalize";
 
 * {
     margin: 0;
@@ -28,10 +28,6 @@
     padding: 3rem 0 3rem;
     position: fixed;
     background-color: $color-light-xl;
-
-    .menu {
-        //width: 44.3rem;
-    }
 
     .logo {
         &__title {
@@ -163,49 +159,96 @@
 
 @media screen and (min-width: 768px) 
               and (max-width: 1279px) {
+    
+    @import "../main/sass/pages/pets768";
+    
+}
 
-    .wrapper {
-        width: 100%;
+@media screen and (max-width: 767px) {
+    
+    @import "../main/sass/pages/pets768";
+
+    .header {
+        .menu {
+            margin: 1.9rem 5rem 1.9rem 0;
+        }
     }
 
     .pets {
-        
-        &__content {
-            padding-top: 6rem;
 
-            &__title:first-child {
-                padding-top: 2rem;
+        &__content {
+
+            padding-top: 4.2rem;
+
+            @-moz-document url-prefix() {
+                padding-top: 4.1rem;
+            }
+        
+            &__title {
+                &:first-child {
+                    padding-top: 0;
+                }
+               
+                @include h3-mobile;
             }
 
-            &__list__buttons {
-                margin-top: 1rem;
-                margin-bottom: 7.6rem;
+            &__list {
+                &__buttons {
+                    margin: 1.2rem 0 4.2rem;
+                    width: 30rem;
+                }
             }
         }
 
         &__list {
-            margin-top: 3rem;
-            width: 58rem;
+            margin-top: 4.2rem;
+            width: 27rem;
+            align-self: center;
         }
-
-        &__item:nth-last-child(-n+2) {
-            display: none;
-        }
-
+        
         &__item {
-            margin: 0 0 3rem 0;
-        }
+            &:nth-child(2n+1) {
+                margin-right: 0;
+            }            
+            &:nth-last-child(-n+5) {
+                display: none;
+            }
 
-        &__item:nth-child(odd) {
-            margin-right: 4rem;
+            &__card {
+                &__image {
+                    width: 27rem;
+                    & img {
+                        width: 100%;
+                        object-fit: contain;
+                    }
+                    
+                }
+            }
         }
-    }                
+    }
     
-    // .footer {
-    //     .wrapper {
-    //         width: 100%;
-    //     }
-    // }                
-    
-
 }
+
+@media screen and (max-width: 319px) {
+    :root {
+        
+        //font-size: 7px;
+        font-size: 3vw;
+        .menu__burger {
+            width: 3rem;
+        }
+    
+    }
+}
+
+// @media screen and (max-width: 200px) {
+//     :root {
+//        font-size: 5px;
+//     }
+// }
+
+// @media screen and (max-width: 150px) {
+//     :root {
+//       font-size: 3px;
+//     }
+// }

@@ -1,8 +1,6 @@
 .wrapper {
     display: flex;
     justify-content: space-between;
-    //width: 100%;
-    //width: 93.75%;
     width: 120rem;
     margin: 0 auto;
 }
@@ -11,13 +9,8 @@
     width: 100%;
     top: 6rem;
     position: absolute;
-    //width: 100vw;
     max-width: 100%;
 }
-
-// h1 {
-//     display: none;
-// }
 
 .logo {
     display: flex;
@@ -29,7 +22,6 @@
         color: $color-primary;
     }
     &__subtitle {
-        //margin-top: 1rem;
         @include logo-subtitle;
         color: $color-light-xl;
     }
@@ -37,10 +29,11 @@
 
 .menu {
     margin: 1.6rem 0 1.7rem;
-    //width: 36.92%;
-    //max-width: 44.3rem;
     width: 44.3rem;
     display: flex;
+    &__burger {
+        display: none;
+    }
 }
 
 .list {
@@ -50,7 +43,6 @@
     list-style-type: none;
 
     &__item {
-        //padding-top: 1.6rem;
         display: flex;
         align-items: center;
     }
@@ -59,7 +51,6 @@
         font-family: Arial;
         font-weight: normal;
         font-size: 1.5rem;
-        //line-height: 160%;
         line-height: 2.4rem;
         letter-spacing: 0.005rem;
         text-decoration: none;
@@ -86,18 +77,34 @@
 
 @media screen and (min-width: 768px) 
               and (max-width: 1279px) {
-    
+
+    @import "_header768";
+}
+
+@media screen and (max-width: 767px) {
+
+
+    @import "_header768";
+
     .header {
-        top: 3rem;
-        .wrapper {
-            width: 100%;
-            .logo {
-                margin-left: 3rem;
+        
+        .logo {
+            margin-left: 1rem;
+        }
+
+        .menu {
+            width: 3rem;
+            margin: 2rem 5.3rem 1.8rem 0;
+            
+            .list {
+                display: none;
             }
-            .menu {
-                margin-right: 3rem;
+
+            &__burger {
+                display: block;
             }
         }
+
     }                
 
 }

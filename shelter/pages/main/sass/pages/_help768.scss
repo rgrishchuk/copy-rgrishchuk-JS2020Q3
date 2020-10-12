@@ -1,0 +1,32 @@
+.help {
+        
+    &__content {
+        &__wrapper {
+            
+        }
+    }
+
+    &__list {
+
+        max-width: 63rem;
+        justify-content: center;
+
+        &__item {
+            width: 17rem;
+
+            &:nth-child(n+2) {
+                margin-left: 0;
+            }
+            
+            &:nth-child(3n+2) {
+                margin-left: 6rem;
+                margin-right: 6rem;
+            }
+
+            &:nth-child(6) {
+                margin-left: 0;
+            }
+        }
+    }
+
+} 

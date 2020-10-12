@@ -76,37 +76,64 @@
 
 @media screen and (min-width: 768px) 
               and (max-width: 1279px) {
+
+    @import "_help768";            
+           
+}
+
+@media screen and (max-width: 767px) {
  
+    @import "_help768";            
+
     .help {
-        
         &__content {
+
+            margin: 4.2rem 0 4.2rem;
+            @-moz-document url-prefix() {
+                margin: 4.1rem 0 4.2rem;
+            }
+
+
+            &__title {
+                @include h3-mobile;
+            }
+
             &__wrapper {
-                
+                margin-top: 4.2rem;
             }
         }
 
         &__list {
-
-            max-width: 63rem;
-            justify-content: center;
-
+            width: 29rem;
+            row-gap: 3rem;
+            justify-content: flex-start;
             &__item {
-                width: 17rem;
-
-                &:nth-child(n+2) {
-                    margin-left: 0;
+                width: 13rem;
+                &__title {
+                    margin-top: 2rem;
+                    @include h5;
                 }
-                
+
+                &__img {
+                    width: 5rem;
+                    height: 5rem;
+                }
+
                 &:nth-child(3n+2) {
-                    margin-left: 60px;
-                    margin-right: 60px;
+                    margin-left: 0;
+                    margin-right: 0;
                 }
 
-                &:nth-child(6) {
-                    margin-left: 0;
+                &:nth-child(2n) {
+                    margin-left: 3rem;
+                    margin-right: 0;
                 }
             }
-        }
 
-    }            
+            &__link {
+                max-height: 8.7rem;
+            }
+        }
+    }
+           
 }

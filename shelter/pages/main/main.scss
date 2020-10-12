@@ -10,7 +10,6 @@
 }
 
 :root {
-    //font-size: 0.83vw;
     font-size: 10px;
 }
 
@@ -33,16 +32,17 @@ body {
 @import "sass/pages/_addition";
 @import "sass/layout/footer";
 
-// @media screen and (min-width: 1200px) {
-//     :root {
-//         font-size: 10px;
-//     }
-// }
+@media screen and (max-width: 319px) {
+    :root {
+        font-size: 3vw;
+    }
+    .menu__burger {
+        width: 3rem;
+    }
 
-@media screen and (min-width: 768px) 
-              and (max-width: 1279px) {
-
-    .wrapper {
-        width: 100%;
+    .start {
+        .content-section {
+            padding-bottom: 32.8125vw;
+        }
     }
 }
