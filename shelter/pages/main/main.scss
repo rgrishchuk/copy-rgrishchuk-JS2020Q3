@@ -17,6 +17,12 @@ body {
     width: 100%;
 }
 
+.body-wrapper {
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
+}
+
 .main {
     display: flex;
     flex-direction: column;
@@ -25,12 +31,14 @@ body {
 @import "sass/variables/_variables";
 @import "sass/components/_buttons";
 @import "sass/layout/_header";
+@import "sass/components/_burger_menu";
 @import "sass/pages/_start";
 @import "sass/pages/_about";
 @import "sass/pages/_friends";
 @import "sass/pages/_help";
 @import "sass/pages/_addition";
 @import "sass/layout/footer";
+@import "sass/components/_popup";
 
 @media screen and (max-width: 319px) {
     :root {

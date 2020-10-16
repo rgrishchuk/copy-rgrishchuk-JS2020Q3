@@ -13,6 +13,17 @@
     font-size: 10px;
 }
 
+body {
+    width: 100%;
+}
+
+.body-wrapper {
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+
 .main {
     display: flex;
     flex-direction: column;
@@ -21,19 +32,45 @@
 @import "../main/sass/variables/_variables";
 @import "../main/sass/components/_buttons";
 @import "../main/sass/layout/_header";
+@import "../main/sass/components/_burger_menu";
 @import "../main/sass/layout/_footer";
 
+.menu__burger {
+    position: fixed;
+    top: 4.5rem;
+    right: 5.3rem;
+    z-index: 9999;
+    color: #000000;
+
+    &.active {
+        color: $color-primary;
+    }
+}
+
+.burger-menu {
+    position: fixed;
+    &__logo__link {
+        text-decoration: none;
+    }
+}
+
 .header {
+    //width: 100vw;
     top: 0rem;
     padding: 3rem 0 3rem;
     position: fixed;
     background-color: $color-light-xl;
 
     .logo {
+        &__link {
+            text-decoration: none;
+        }
+
         &__title {
             color: $color-dark-l;
         }
         &__subtitle {
+            margin-top: 1rem;
             color: $color-dark-3xl;
         }
     }
@@ -41,12 +78,9 @@
     .list {
     
         &__link {
-    
-            &_disabled {
-                color: $color-dark-l;
-            }
-            
-            &_active {
+            color: $color-dark-l;
+
+            &.active {
                 color: $color-dark-3xl;
             }
             
@@ -81,7 +115,6 @@
         &__list {
             display: flex;
             flex-direction: column;
-            //justify-content: center;
         }
 
         &__list__buttons {
@@ -97,12 +130,6 @@
                 text-align: center;
             }
 
-            .button-round {
-                // display: flex;
-                // justify-content: center;
-                // align-content: center;
-                // text-align: center;
-            }
         }
 
     }
@@ -121,7 +148,6 @@
         
         &__card {
             display: flex;
-            //justify-content: space-evenly;
             align-items: center;
             flex-direction: column;
             border-radius: 0.9rem;
@@ -231,8 +257,6 @@
 
 @media screen and (max-width: 319px) {
     :root {
-        
-        //font-size: 7px;
         font-size: 3vw;
         .menu__burger {
             width: 3rem;

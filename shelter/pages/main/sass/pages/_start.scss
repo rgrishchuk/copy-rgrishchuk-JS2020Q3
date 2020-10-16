@@ -80,9 +80,9 @@
                 @-moz-document url-prefix() {
                     margin-bottom: 4.1rem;
                 }
-                display: inline;
-                text-align: center;
-                flex-direction: row;
+                //display: inline;
+                //text-align: center;
+                //flex-direction: row;
                 @include h3-mobile;
             }            
 

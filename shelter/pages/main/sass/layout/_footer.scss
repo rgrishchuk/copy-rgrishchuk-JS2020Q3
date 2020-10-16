@@ -15,7 +15,8 @@
     
     &__contacts {
         padding: 1.6rem 0 6rem;
-        max-width: 28.16rem;
+        //max-width: 28.16rem;
+        max-width: 28rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -42,7 +43,8 @@
     }
     
     &__location {
-        margin-left: 16rem;
+        //margin-left: 16rem;
+        margin-left: 15.8rem;
         padding: 1.6rem 0 6rem 0;
         max-width: 30.2rem;
         display: flex;
@@ -104,29 +106,54 @@
         &__location {
             text-align: center;
             margin-left: 0;
-            margin-bottom: 5rem;
+            margin-bottom: 4rem;
+            align-items: flex-start;
             &__title {
+                width: 27rem;
+                @include h3-mobile;
                 margin-left: 0;
-                 
+                align-self: center;                 
             }
 
-            &__title + a {
-                margin-top: 3.3rem;
-                margin-bottom: 3.3rem;
-            }
+            // &__title + a {
+            //     margin-top: 3.3rem;
+            //     margin-bottom: 3.3rem;
+            // }
         }
 
         &__contacts {
+            &__title {
+                @include h3-mobile;
+            }
             margin-bottom: 4rem;
             text-align: center;
             &__image {
-                margin-top: 4.2rem;
-                width: 81.3%;
+                margin-top: 0;
+                width: 81.25%;
             }
         }    
     
         &__text {
             text-align: left;
+        }
+
+        &__link {
+            margin-top: 4rem;
+            margin-bottom: 0;
+            justify-content: center;
+        }
+        @-moz-document url-prefix() {
+            &__link:nth-child(even) {
+                margin-top: 3.9rem;
+                margin-bottom: 0;
+                justify-content: center;
+            }
+    
+            &__link:nth-child(odd) {
+                margin-top: 4rem;
+                margin-bottom: 0;
+                justify-content: center;
+            }
         }
     }
                 

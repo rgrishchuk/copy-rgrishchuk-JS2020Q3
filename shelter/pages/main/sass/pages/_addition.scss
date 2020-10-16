@@ -10,7 +10,7 @@
 
         &__image {
             display: flex;
-            padding: 1.2rem 0.1rem 1.1rem 0;
+            padding: 1.1rem 0 1rem 0.1rem;
             img {
                 width: 50.5rem;
                 max-width: 100%;
@@ -46,13 +46,17 @@
             justify-content: space-between;
             padding: 1rem 1.5rem 1rem 1.5rem;
             text-decoration: none;
-            background: $color-primary ;
+            background: $color-primary;
             border-radius: 9px;
 
             img {
                 width: 3rem;
                 max-width: 100%;
                 object-fit: contain;
+            }
+
+            &:hover {
+                background: $color-primary-light;
             }
         }
         
@@ -102,7 +106,7 @@
                 &__heading {
                     width: 30rem;
                     @include h3-mobile;
-                    display: inline-block;
+                    //display: inline-block;
                 }
 
                 &__subheading {
@@ -127,7 +131,7 @@
                 justify-content: center;
                 margin: 0;
                 margin-top: 4.2rem;
-                width: 81.3%;
+                width: 81.25%;
             }
         }
 

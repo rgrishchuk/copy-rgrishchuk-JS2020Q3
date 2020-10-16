@@ -20,6 +20,10 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
     radial-gradient(110.67% 538.64% at 5.73% 50%, #513D2F 0%, #1A1A1C 100%), 
   #211F20;    
 
+@mixin Blackout {
+    background: rgba(41, 41, 41, 0.6);
+}  
+
 @mixin h2 {
     font: {
         family: Georgia;
@@ -123,4 +127,14 @@ $footer-gradient-background: url(../../assets/images/noise_transparent@2x.png),
 @mixin card-hover {
     background: #C4C4C4;
     box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+}
+
+@mixin paragraph-mobile-menu {
+    font: {
+        family: Arial;
+        style: normal;
+        weight: normal;
+        size: 3.2rem;
+    }
+    line-height: 5.1rem;
 }

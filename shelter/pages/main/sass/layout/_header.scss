@@ -1,3 +1,7 @@
+a.off {
+    pointer-events: none;
+}
+
 .wrapper {
     display: flex;
     justify-content: space-between;
@@ -33,6 +37,7 @@
     display: flex;
     &__burger {
         display: none;
+        z-index: 9999;
     }
 }
 
@@ -58,13 +63,13 @@
             letter-spacing: 0.03rem;
         }
         
-        &_disabled {
+        &.disabled {
             color: #CDCDCD;
         }
         
-        &_active {
+        &.active {
             border-bottom: solid 0.3rem $color-primary;
-            color: $color-light-s
+            color: $color-light-s;
         }
         
         &:hover {
@@ -86,10 +91,17 @@
 
     @import "_header768";
 
+    .menu__burger {
+        display: block;
+    }
+
     .header {
         
         .logo {
             margin-left: 1rem;
+            &__subtitle {
+                margin-top: 1rem;
+            }
         }
 
         .menu {
@@ -100,9 +112,9 @@
                 display: none;
             }
 
-            &__burger {
-                display: block;
-            }
+            // &__burger {
+            //     display: block;
+            // }
         }
 
     }                
