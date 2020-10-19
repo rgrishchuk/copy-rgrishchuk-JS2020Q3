@@ -7,7 +7,7 @@
             width: 58rem;
         }
 
-        &__card:last-child {
+        &__card:nth-child(3) {
             display: none;
         }
 

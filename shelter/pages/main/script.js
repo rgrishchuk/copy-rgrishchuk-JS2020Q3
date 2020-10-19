@@ -28,9 +28,46 @@ function createRandomPets(petsList, count, currPets) {
   return result;
 };
 
+function createPetCardHTML(pet, classNames) {
+  let resultHTML = null;
+  resultHTML = document.createElement("div");
+  resultHTML.classList.add("friends__slider__card");
+  if (classNames) resultHTML.classList.add(...classNames.split(" "));
+  
+  let element = document.createElement("label");
+  element.innerHTML = pet.id;
+  resultHTML.appendChild(element);
+
+  element = document.createElement("div");
+  element.classList.add("friends__slider__card__image");
+  let img = document.createElement("img");
+  img.src = pet.img;
+  img.alt = "Image pet" + pet.name;
+  element.appendChild(img);
+  resultHTML.appendChild(element);
+
+  element = document.createElement("p");
+  element.classList.add("friends__slider__card__title");
+  element.innerHTML = pet.name;
+  resultHTML.appendChild(element);
+
+  element = document.createElement("div");
+  element.classList.add("friends__slider__card__button");
+  let button = document.createElement("button");
+  button.classList.add("button-primary","button-secondary");
+  button.type = "button";
+  button.innerHTML = "Learn more";
+  element.appendChild(button);
+  resultHTML.appendChild(element);
+
+  return resultHTML;
+};
+
 // Create slider
 function createSlider(petsList) {
+  let isEnabled = true;
   let index = 0;
+  
   // Add id for pet
   petsList.forEach((pet) => {
     pet.id = index;
@@ -40,56 +77,97 @@ function createSlider(petsList) {
   // Generate pets
   let pets = createRandomPets(petsList, 3, []);
 
+  // Generate HTML
   let sliderHTML = document.querySelector(".friends__slider__wrapper");
   let petCardHTML = null;
-  // Generate HTML
+  let currentSlide = document.createElement("div");
+  currentSlide.classList.add("slide-current");
+  
   pets.forEach((pet) => {
-    petCardHTML = document.createElement("div");
-    petCardHTML.classList.add("friends__slider__card");
-    
-    let element = document.createElement("label");
-    element.innerHTML = pet.id;
-    petCardHTML.appendChild(element);
-
-    element = document.createElement("div");
-    element.classList.add("friends__slider__card__image");
-    let img = document.createElement("img");
-    img.src = pet.img;
-    img.alt = "Image pet" + pet.name;
-    element.appendChild(img);
-    petCardHTML.appendChild(element);
-
-    element = document.createElement("p");
-    element.classList.add("friends__slider__card__title");
-    element.innerHTML = pet.name;
-    petCardHTML.appendChild(element);
-
-    element = document.createElement("div");
-    element.classList.add("friends__slider__card__button");
-    let button = document.createElement("button");
-    button.classList.add("button-primary","button-secondary");
-    button.type = "button";
-    button.innerHTML = "Learn more";
-    element.appendChild(button);
-    petCardHTML.appendChild(element);
-
-    sliderHTML.appendChild(petCardHTML);
+    petCardHTML = createPetCardHTML(pet, null);
+    currentSlide.appendChild(petCardHTML);
   });
+  sliderHTML.appendChild(currentSlide);
 
   // Create popup window for card
   createPopup(petsList);
 
   let btnLeft = document.querySelector(".friends__slider__button-left");
   let btnRight = document.querySelector(".friends__slider__button-right");
+  
+  function findCurrPets () {
+    let currPetsId = document.querySelectorAll(".friends__slider__card > label");
+    let result = [];
+    currPetsId.forEach((label) => {
+      result.push(petsList[label.innerHTML]);
+    });
+    return result;
+  }
 
+  // Create HTML for next slide
+  function createNextSlideHTML() {
+    let currPets = findCurrPets();
+    let nextPets = createRandomPets(petsList, 3, currPets);
+    let nextSlide = document.createElement("div");
+    nextSlide.classList.add("slide-next");
+    nextPets.forEach((pet) => {
+      nextSlide.appendChild(createPetCardHTML(pet, null));
+    });
+    sliderHTML.appendChild(nextSlide);
+    
+    document.querySelectorAll(".slide-current .friends__slider__card").forEach((card) => {
+      if (getComputedStyle(card).display == "none") card.parentElement.removeChild(card);
+    });
+  }
+
+  function switchSlide(direction) {
+    if (isEnabled) {
+      isEnabled = false;
+      // Create next slide
+      createNextSlideHTML();
+      // Hide current slide
+      let current = document.querySelector(".slide-current");
+      current.classList.add("to-" + direction);
+      current.addEventListener("animationend", () => {
+        current.parentElement.removeChild(current);
+      });
+      // Show next slide
+      let next = document.querySelector(".slide-next");
+      next.classList.add("to-" + direction);
+      next.addEventListener("animationend", () => {
+        next.className = "slide-current";
+        isEnabled = true;
+      });
+    };
+  }
+
+  // Click on left
   btnLeft.onclick = function() {
-    alert('Left');
+    switchSlide("left");
+    // if (isEnabled) {
+    //   isEnabled = false;
+    //   // Create next slide
+    //   createNextSlideHTML();
+    //   // Hide current slide
+    //   let current = document.querySelector(".slide-current");
+    //   current.classList.add("to-left");
+    //   current.addEventListener("animationend", () => {
+    //     current.parentElement.removeChild(current);
+    //   });
+    //   // Show next slide
+    //   let next = document.querySelector(".slide-next");
+    //   next.classList.add("from-right");
+    //   next.addEventListener("animationend", () => {
+    //     next.className = "slide-current";
+    //     isEnabled = true;
+    //   });
+    // };
   }
 
+  // Click on right
   btnRight.onclick = function() {
-    alert('Right');
+    switchSlide("right")
   }
-
 }
 
 function createPopup(petsList) {
@@ -112,13 +190,11 @@ function createPopup(petsList) {
           popup.querySelector(".pet-name").innerHTML = pet.name;
           popup.querySelector(".pet-type").innerHTML = pet.type + ' - ' + pet.breed;
           popup.querySelector(".pet-description").innerHTML = pet.description;
-          popup.querySelector(".pet-age").innerHTML = pet.age;
-          popup.querySelector(".pet-inoculations").innerHTML = pet.inoculations;
-          popup.querySelector(".pet-diseases").innerHTML = pet.diseases;
-          popup.querySelector(".pet-parasites").innerHTML = pet.parasites;
-          
+          popup.querySelector(".pet-age").innerHTML = "<b>Age:</b> " + pet.age;
+          popup.querySelector(".pet-inoculations").innerHTML = "<b>Inoculations:</b> " + pet.inoculations.join(", ");
+          popup.querySelector(".pet-diseases").innerHTML = "<b>Diseases:</b> " + pet.diseases;
+          popup.querySelector(".pet-parasites").innerHTML = "<b>Parasites:</b> " + pet.parasites;
           popup.style.display = "flex";
-
       }
   });
 

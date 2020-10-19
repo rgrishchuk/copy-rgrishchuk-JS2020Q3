@@ -30,12 +30,62 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-
+        
         &__wrapper {
-            padding: 6rem 0 6rem;
+            position: relative;
+            margin: 6rem 0 6rem;
+            min-height: 43.5rem;
             width: 99rem;
             display: flex;
-            justify-content: space-between;
+            //justify-content: space-between;
+            overflow: hidden;
+
+            .slide-current, .slide-next {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                overflow: hidden;
+                transition: all 5s;
+                flex-shrink: 0;
+                animation: 0.3s ease-in-out;
+            }
+            
+            .slide-current {
+                position: absolute;
+                
+                left: 0;   
+            }
+
+            .slide-next {
+                position: absolute;
+                left: 100%;   
+            }
+
+            .slide-current.to-left {
+                // animation-duration: 1s;
+                animation-name: left;
+                animation-fill-mode: forwards;
+            }
+
+            .slide-current.to-right {
+                // animation-duration: 1s;
+                animation-name: right;
+                animation-fill-mode: forwards;
+            }
+
+            .slide-next.to-left {
+                // animation-duration: 1s;
+                animation-name: right;
+                animation-fill-mode: forwards;
+                animation-direction: reverse;
+            }
+
+            .slide-next.to-right {
+                // animation-duration: 1s;
+                animation-name: left;
+                animation-fill-mode: forwards;
+                animation-direction: reverse;
+            }
         }
 
         &__card {
@@ -46,6 +96,8 @@
             flex-direction: column;
             border-radius: 0.9rem;
             background-color: $color-light-s;
+            flex-shrink: 0;
+            transition: all 1s;
 
             & > label {
                 display: none;
@@ -100,6 +152,22 @@
     
 }
 
+@keyframes left {
+    from {
+        left: 0;
+    } to {
+        left: -100%;
+    }
+}
+
+@keyframes right {
+    from {
+        left: 0;
+    } to {
+        left: 100%;
+    }
+}
+
 @media screen and (min-width: 768px) 
               and (max-width: 1279px) {
     @import "_friends768";
@@ -126,9 +194,11 @@
 
             &__wrapper {
                 margin: 0;
-                margin-left: calc((100% - 27rem) / 2;
-                margin-right: calc((100% - 27rem) / 2;
-                padding: 4.2rem 0 2rem;
+                margin-left: calc((100% - 27rem) / 2);
+                margin-right: calc((100% - 27rem) / 2);
+                margin-top: 4.2rem;
+                margin-bottom: 2rem;
+                //padding: 4.2rem 0 2rem;
                 width: 27rem;
                 order: -1;
             }

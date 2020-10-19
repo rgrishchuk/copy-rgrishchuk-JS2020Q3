@@ -46,6 +46,7 @@
             padding-top: 5rem;
             margin-left: 3rem;
             width: 35.1rem;
+            overflow: hidden;
 
             .pet-name {
                 @include h3;
@@ -69,9 +70,9 @@
                 &__item {
                     display: flex;
                     padding-bottom: 1rem;
-                    &__label {
-                        font-weight: bold;
-                    }
+                    // &__label {
+                    //     font-weight: bold;
+                    // }
                 }
             }
         }
@@ -83,11 +84,13 @@
 }
 
 .dot-round {
+    margin-top: 0.7rem;
     height: .4rem;
     width: .4rem;
     margin-right: 1rem;
     border-radius: 50%;
-    align-self: center;
+    flex-shrink: 0;
+    // /align-self: center;
     border: none;
     background-color: $color-primary;
 }
