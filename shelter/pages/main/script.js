@@ -91,6 +91,7 @@ function createSlider(petsList) {
 
   // Create popup window for card
   createPopup(petsList);
+  
 
   let btnLeft = document.querySelector(".friends__slider__button-left");
   let btnRight = document.querySelector(".friends__slider__button-right");
@@ -138,30 +139,13 @@ function createSlider(petsList) {
         next.className = "slide-current";
         isEnabled = true;
       });
+      createPopup(petsList);
     };
   }
 
   // Click on left
   btnLeft.onclick = function() {
     switchSlide("left");
-    // if (isEnabled) {
-    //   isEnabled = false;
-    //   // Create next slide
-    //   createNextSlideHTML();
-    //   // Hide current slide
-    //   let current = document.querySelector(".slide-current");
-    //   current.classList.add("to-left");
-    //   current.addEventListener("animationend", () => {
-    //     current.parentElement.removeChild(current);
-    //   });
-    //   // Show next slide
-    //   let next = document.querySelector(".slide-next");
-    //   next.classList.add("from-right");
-    //   next.addEventListener("animationend", () => {
-    //     next.className = "slide-current";
-    //     isEnabled = true;
-    //   });
-    // };
   }
 
   // Click on right
