@@ -106,7 +106,8 @@
                                 <img class="slider__arrow" src="../../assets/icons/Arrow.svg" alt="Arrow-left"> 
                             </button>
                             <div class="friends__slider__wrapper">
-                                <div class="friends__slider__card">
+                                <!-- <div class="friends__slider__card" id="card1">
+                                    <label>1</label>
                                     <div class="friends__slider__card__image">
                                         <img class="friends__slider__card__img" src="../../assets/images/pets-katrine.png" alt="Katrine">
                                     </div>
@@ -115,7 +116,8 @@
                                         <button class="button-primary button-secondary" type="button">Learn more</button>
                                     </div>
                                 </div>
-                                <div class="friends__slider__card">
+                                <div class="friends__slider__card" id="card2">
+                                    <label>2</label>
                                     <div class="friends__slider__card__image">
                                         <img class="friends__slider__card__img" src="../../assets/images/pets-jennifer.png" alt="Jennifer">
                                     </div>
@@ -124,7 +126,8 @@
                                         <button class="button-primary button-secondary" type="button">Learn more</button>
                                     </div>
                                 </div>
-                                <div class="friends__slider__card">
+                                <div class="friends__slider__card" id="card3">
+                                    <label>3</label>
                                     <div class="friends__slider__card__image">
                                         <img class="friends__slider__card__img" src="../../assets/images/pets-woody.png" alt="Woody">
                                     </div>    
@@ -132,7 +135,7 @@
                                     <div class="friends__slider__card__button">
                                         <button class="button-primary button-secondary" type="button">Learn more</button>
                                     </div>    
-                                </div>
+                                </div> -->
                             </div>
                             <button class="friends__slider__button-right button-round" type="button">
                                 <img class="slider__arrow arrow-right" src="../../assets/icons/Arrow.svg" alt="Arrow-right"> 
@@ -313,7 +316,7 @@
         </div>
         <!-- End burger menu -->
         <!-- Popup window -->
-        <div class="popup" id="popup">
+        <!-- <div class="popup" id="popup">
             <div class="popup__wrapper">
                 <button class="popup__close button-round" type="button">
                     <img class="slider__arrow" src="../../assets/icons/icon-close.svg" alt="Close icon"> 
@@ -325,21 +328,77 @@
                     <div class="popup__content__text">
                         <h3 class="pet-name">Jennifer</h3>
                         <h4 class="pet-type">Dog - Labrador</h4>
-                        <p class="pet-description">
+                        <h5 class="pet-description">
                             Jennifer is a sweet 2 months old Labrador that is patiently waiting to find a new forever home. 
                             This girl really enjoys being able to go outside to run and play, but won't hesitate to play up
                              a storm in the house if she has all of her favorite toys.
-                        </p>
+                        </h5>
                         <ul class="pet-list">
-                            <li>Age: 2 months</li>
-                            <li>Inoculations: none</li>
-                            <li>Diseases: none</li>
-                            <li>Parasites: none</li>
+                            <li class="pet-list__item">      
+                                <div class="dot-round"></div>                  
+                                <span class="pet-list__item__label">Age:&nbsp;</span>
+                                <span class="pet-age"> 2 months</span>
+                            </li>
+                            <li class="pet-list__item">
+                                <div class="dot-round"></div>
+                                <span class="pet-list__item__label">Inoculations:&nbsp;</span>
+                                <span class="pet-inoculations">none</span>
+                            </li>
+                            <li class="pet-list__item">
+                                <div class="dot-round"></div>
+                                <span class="pet-list__item__label">Diseases:&nbsp;</span>
+                                <span class="pet-diseases">none</span>
+                            </li>
+                            <li class="pet-list__item">
+                                <div class="dot-round"></div>
+                                <span class="pet-list__item__label">Parasites:&nbsp;</span>
+                                <span class="pet-parasites">none</span>
+                            </li>
                         </ul>
                     </div>
                 </div>    
             </div>
-        </div>
+        </div> -->
+        <div class="popup" id="popup">
+            <div class="popup__wrapper">
+                <button class="popup__close button-round" type="button">
+                    <img class="slider__arrow" src="../../assets/icons/icon-close.svg" alt="Close icon"> 
+                </button>
+                <div class="popup__content">
+                    <div class="popup__content__image">
+                        <img class="pet-image" src="" alt="Pet image">
+                    </div>
+                    <div class="popup__content__text">
+                        <h3 class="pet-name"></h3>
+                        <h4 class="pet-type"></h4>
+                        <h5 class="pet-description">
+                        </h5>
+                        <ul class="pet-list">
+                            <li class="pet-list__item">      
+                                <div class="dot-round"></div>                  
+                                <span class="pet-list__item__label">Age:&nbsp;</span>
+                                <span class="pet-age"></span>
+                            </li>
+                            <li class="pet-list__item">
+                                <div class="dot-round"></div>
+                                <span class="pet-list__item__label">Inoculations:&nbsp;</span>
+                                <span class="pet-inoculations"></span>
+                            </li>
+                            <li class="pet-list__item">
+                                <div class="dot-round"></div>
+                                <span class="pet-list__item__label">Diseases:&nbsp;</span>
+                                <span class="pet-diseases"></span>
+                            </li>
+                            <li class="pet-list__item">
+                                <div class="dot-round"></div>
+                                <span class="pet-list__item__label">Parasites:&nbsp;</span>
+                                <span class="pet-parasites"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>    
+            </div>
+        </div>        
         <!-- End popup window -->
         <div class="blackout">
         </div>

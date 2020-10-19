@@ -11,31 +11,143 @@
     height: 100%; 
     overflow: auto;
     background: rgba(41, 41, 41, 0.6);
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &__wrapper {
+        margin-left: 3.9rem;
+    }
+
+    &__content {
+        &:hover {
+            cursor: default;
+            box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+        }
+        width: 90rem;
+        display: flex;
+        background: $color-light-s;
+        border-radius: 0.9rem;
+
+        &__image {
+            display: flex;
+            height: 50rem;
+            width: 50rem;
+            flex-shrink: 0;
+            .pet-image {
+                border-radius: 0.9rem 0 0 0.9rem;
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+
+        &__text {
+            padding-top: 5rem;
+            margin-left: 3rem;
+            width: 35.1rem;
+
+            .pet-name {
+                @include h3;
+            }
+
+            .pet-type {
+                margin-top: 1rem;
+                @include h4;
+            }
+
+            .pet-description {
+                margin-top: 4rem;
+                margin-bottom: 4rem;
+                @include h5;
+            }
+
+            .pet-list {
+                @include h5;
+                line-height: 1.8rem;
+                list-style-type: none;
+                &__item {
+                    display: flex;
+                    padding-bottom: 1rem;
+                    &__label {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+    
+    &__close {
+        margin-left: 89rem;
+    }
 }
 
-.popup__content {
-    width: 90rem;
-    height: 50rem;
-    background: $color-light-s;
-    border-radius: 0.9rem;
-    // margin: 15% auto;
-    // padding: 20px;
-    border: 1px solid #888;
+.dot-round {
+    height: .4rem;
+    width: .4rem;
+    margin-right: 1rem;
+    border-radius: 50%;
+    align-self: center;
+    border: none;
+    background-color: $color-primary;
 }
 
-.popup__close {
-    margin-left: 89rem;
+@media screen and (min-width: 768px) 
+              and (max-width: 1279px) {
+
+    @import "_popup768";            
+                
 }
-// .close {
-//     color: #aaa;
-//     float: right;
-//     font-size: 28px;
-//     font-weight: bold;
-// }
-  
-// .close:hover,
-// .close:focus {
-//     color: black;
-//     text-decoration: none;
-//     cursor: pointer;
-// }
+
+@media screen and (max-width: 767px) {
+
+    @import "_popup768";            
+
+    .popup {
+        align-items: center;
+
+        &__wrapper {
+            margin-left: 3rem;
+        }
+    
+        &__content {
+            width: 24rem;
+
+            &__image {
+                display: none;
+            }
+
+            &__text {
+
+                margin-left: 1rem;
+                margin-bottom: 0.5rem;
+
+                width: 22rem;
+
+                .pet-name {
+                    margin-left: 0.4rem;
+                    text-align: center;
+                }
+    
+                .pet-type {
+                    text-align: center;
+                }
+    
+                .pet-description {
+                    margin-top: 2.1rem;
+                    margin-bottom: 2.3rem;
+                    text-align: justify;
+                }
+
+                .pet-list {
+                    margin-left: 0.1rem;
+                }
+    
+            }
+        }
+
+        &__close {
+            margin-left: 21.8rem;
+        }
+    }
+}

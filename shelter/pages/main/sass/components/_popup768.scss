@@ -1,0 +1,53 @@
+.popup {
+    &__wrapper {
+        margin-left: 4.3rem;
+    }
+
+    &__content {
+        width: 63rem;
+
+        &__image {
+            height: 35rem;
+            width: 35rem;
+        }
+
+        &__text {
+            padding-top: 1rem;
+            margin-left: 1.1rem;
+            width: 26rem;
+
+            .pet-name {
+                @include h3;
+            }
+
+            .pet-type {
+                margin-top: 1rem;
+                @include h4;
+            }
+
+            .pet-description {
+                margin-top: 2.1rem;
+                margin-bottom: 1.9rem;
+                
+                font-family: Georgia;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 1.3rem;
+                line-height: 1.4rem;
+                letter-spacing: 0.075rem;                
+            }
+
+            .pet-list {
+                &__item {
+                    padding-bottom: 0.5rem;
+                }
+            }
+
+        }        
+    }
+
+    &__close {
+        margin-left: 62.1rem;
+    }
+
+}

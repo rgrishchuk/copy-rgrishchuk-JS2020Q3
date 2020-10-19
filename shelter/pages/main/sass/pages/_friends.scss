@@ -47,9 +47,14 @@
             border-radius: 0.9rem;
             background-color: $color-light-s;
 
+            & > label {
+                display: none;
+            }
+
             &__image {
                 display: flex;
                 img {
+                    border-radius: 0.9rem 0.9rem 0 0;
                     width: 100%;
                     object-fit: contain;
                 }            
