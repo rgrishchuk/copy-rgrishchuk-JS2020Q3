@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    font-size: 10px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+}
+
+.date {
+    font-size: 2rem;
+    font-weight: 600;
+
+}
+
+.time {
+    font-family: monospace;
+    font-size: 5rem;
+    font-weight: 600;
+}
+
+
+.greeting {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.name {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.question {
+    margin-top: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.task {
+    font-size: 2rem;
+    font-weight: 600;
+}
