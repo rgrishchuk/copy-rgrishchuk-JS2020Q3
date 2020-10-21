@@ -58,6 +58,19 @@ button {
     }
 }
 
+.button-num-page:disabled {
+    background-color: $color-primary;
+    border: 0.2rem solid $color-primary;
+    h4 {
+        color: $color-dark-3xl;
+    }
+}
+
+.button-num-page:hover:disabled {
+    background-color: $color-primary-light;
+    border: none;
+}
+
 .button-round:hover:enabled {
     cursor: pointer;
     background-color: $color-primary-light;

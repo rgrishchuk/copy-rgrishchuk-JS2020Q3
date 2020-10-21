@@ -1,4 +1,3 @@
-
 async function getJSON() {
   const url = '../../assets/pets.json';
   const res = await fetch(url);
@@ -42,7 +41,7 @@ function createPetCardHTML(pet, classNames) {
   element.classList.add("friends__slider__card__image");
   let img = document.createElement("img");
   img.src = pet.img;
-  img.alt = "Image pet" + pet.name;
+  img.alt = "Image pet " + pet.name;
   element.appendChild(img);
   resultHTML.appendChild(element);
 

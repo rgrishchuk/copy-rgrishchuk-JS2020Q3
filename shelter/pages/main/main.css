@@ -444,6 +444,20 @@ button {
   color: #cdcdcd;
 }
 
+.button-num-page:disabled {
+  background-color: #f1cdb3;
+  border: 0.2rem solid #f1cdb3;
+}
+
+.button-num-page:disabled h4 {
+  color: #292929;
+}
+
+.button-num-page:hover:disabled {
+  background-color: #fddcc4;
+  border: none;
+}
+
 .button-round:hover:enabled {
   cursor: pointer;
   background-color: #fddcc4;
@@ -2151,7 +2165,7 @@ a.off {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  z-index: 1;
+  z-index: 9991;
   left: 0;
   top: 0;
   width: 100%;

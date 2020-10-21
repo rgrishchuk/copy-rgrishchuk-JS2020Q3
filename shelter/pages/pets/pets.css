@@ -444,6 +444,20 @@ button {
   color: #cdcdcd;
 }
 
+.button-num-page:disabled {
+  background-color: #f1cdb3;
+  border: 0.2rem solid #f1cdb3;
+}
+
+.button-num-page:disabled h4 {
+  color: #292929;
+}
+
+.button-num-page:hover:disabled {
+  background-color: #fddcc4;
+  border: none;
+}
+
 .button-round:hover:enabled {
   cursor: pointer;
   background-color: #fddcc4;
@@ -996,6 +1010,278 @@ a.off {
   }
 }
 
+.popup {
+  display: none;
+  position: fixed;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 9991;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(41, 41, 41, 0.6);
+}
+
+.popup:hover {
+  cursor: pointer;
+}
+
+.popup__wrapper {
+  margin-left: 3.9rem;
+}
+
+.popup__content {
+  width: 90rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #fafafa;
+  border-radius: 0.9rem;
+}
+
+.popup__content:hover {
+  cursor: default;
+  -webkit-box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+          box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
+}
+
+.popup__content__image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50rem;
+  width: 50rem;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+.popup__content__image .pet-image {
+  border-radius: 0.9rem 0 0 0.9rem;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.popup__content__text {
+  padding-top: 5rem;
+  margin-left: 3rem;
+  width: 35.1rem;
+  overflow: hidden;
+}
+
+.popup__content__text .pet-name {
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 3.5rem;
+  line-height: 4.5rem;
+  letter-spacing: 0.21rem;
+}
+
+.popup__content__text .pet-type {
+  margin-top: 1rem;
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2rem;
+  line-height: 2.3rem;
+  letter-spacing: 0.11rem;
+}
+
+.popup__content__text .pet-description {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5rem;
+  line-height: 1.7rem;
+  letter-spacing: 0.09rem;
+}
+
+.popup__content__text .pet-list {
+  font-family: Georgia;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5rem;
+  line-height: 1.7rem;
+  letter-spacing: 0.09rem;
+  line-height: 1.8rem;
+  list-style-type: none;
+}
+
+.popup__content__text .pet-list__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-bottom: 1rem;
+}
+
+.popup__close {
+  margin-left: 89rem;
+}
+
+.dot-round {
+  margin-top: 0.7rem;
+  height: .4rem;
+  width: .4rem;
+  margin-right: 1rem;
+  border-radius: 50%;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  border: none;
+  background-color: #f1cdb3;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .popup__wrapper {
+    margin-left: 4.3rem;
+  }
+  .popup__content {
+    width: 63rem;
+  }
+  .popup__content__image {
+    height: 35rem;
+    width: 35rem;
+  }
+  .popup__content__text {
+    padding-top: 1rem;
+    margin-left: 1.1rem;
+    width: 26rem;
+  }
+  .popup__content__text .pet-name {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 3.5rem;
+    line-height: 4.5rem;
+    letter-spacing: 0.21rem;
+  }
+  .popup__content__text .pet-type {
+    margin-top: 1rem;
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2rem;
+    line-height: 2.3rem;
+    letter-spacing: 0.11rem;
+  }
+  .popup__content__text .pet-description {
+    margin-top: 2.1rem;
+    margin-bottom: 1.9rem;
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+    letter-spacing: 0.075rem;
+  }
+  .popup__content__text .pet-list__item {
+    padding-bottom: 0.5rem;
+  }
+  .popup__close {
+    margin-left: 62.1rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .popup__wrapper {
+    margin-left: 4.3rem;
+  }
+  .popup__content {
+    width: 63rem;
+  }
+  .popup__content__image {
+    height: 35rem;
+    width: 35rem;
+  }
+  .popup__content__text {
+    padding-top: 1rem;
+    margin-left: 1.1rem;
+    width: 26rem;
+  }
+  .popup__content__text .pet-name {
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 3.5rem;
+    line-height: 4.5rem;
+    letter-spacing: 0.21rem;
+  }
+  .popup__content__text .pet-type {
+    margin-top: 1rem;
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2rem;
+    line-height: 2.3rem;
+    letter-spacing: 0.11rem;
+  }
+  .popup__content__text .pet-description {
+    margin-top: 2.1rem;
+    margin-bottom: 1.9rem;
+    font-family: Georgia;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+    letter-spacing: 0.075rem;
+  }
+  .popup__content__text .pet-list__item {
+    padding-bottom: 0.5rem;
+  }
+  .popup__close {
+    margin-left: 62.1rem;
+  }
+  .popup {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .popup__wrapper {
+    margin-left: 3rem;
+  }
+  .popup__content {
+    width: 24rem;
+  }
+  .popup__content__image {
+    display: none;
+  }
+  .popup__content__text {
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+    width: 22rem;
+  }
+  .popup__content__text .pet-name {
+    margin-left: 0.4rem;
+    text-align: center;
+  }
+  .popup__content__text .pet-type {
+    text-align: center;
+  }
+  .popup__content__text .pet-description {
+    margin-top: 2.1rem;
+    margin-bottom: 2.3rem;
+    text-align: justify;
+  }
+  .popup__content__text .pet-list {
+    margin-left: 0.1rem;
+  }
+  .popup__close {
+    margin-left: 21.8rem;
+  }
+}
+
 .menu__burger {
   position: fixed;
   top: 4.5rem;
@@ -1021,6 +1307,7 @@ a.off {
   padding: 3rem 0 3rem;
   position: fixed;
   background-color: #ffffff;
+  z-index: 9980;
 }
 
 .header .logo__link {
@@ -1127,8 +1414,31 @@ a.off {
           justify-content: space-between;
 }
 
+.pets__list.fadeOut {
+  -webkit-animation: 0.3s ease-in-out;
+          animation: 0.3s ease-in-out;
+  -webkit-animation-name: fadeOut;
+          animation-name: fadeOut;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.pets__list.fadeIn {
+  opacity: 0;
+  -webkit-animation: 0.3s ease-in-out;
+          animation: 0.3s ease-in-out;
+  -webkit-animation-name: fadeIn;
+          animation-name: fadeIn;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
 .pets__item {
   margin: 1.5rem 0 1.5rem;
+}
+
+.pets__item > label {
+  display: none;
 }
 
 .pets__item__card {
@@ -1159,6 +1469,10 @@ a.off {
   display: flex;
 }
 
+.pets__item__card__image img {
+  border-radius: 0.9rem 0.9rem 0 0;
+}
+
 .pets__item__card__title {
   padding: 3rem 0 3rem;
   font-family: Georgia;
@@ -1172,6 +1486,42 @@ a.off {
 
 .pets__item__card__button {
   padding-bottom: 3rem;
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
@@ -1192,14 +1542,8 @@ a.off {
     margin-top: 3rem;
     width: 58rem;
   }
-  .pets__item:nth-last-child(-n+2) {
-    display: none;
-  }
   .pets__item {
     margin: 0 0 3rem 0;
-  }
-  .pets__item:nth-child(odd) {
-    margin-right: 4rem;
   }
 }
 
@@ -1221,14 +1565,8 @@ a.off {
     margin-top: 3rem;
     width: 58rem;
   }
-  .pets__item:nth-last-child(-n+2) {
-    display: none;
-  }
   .pets__item {
     margin: 0 0 3rem 0;
-  }
-  .pets__item:nth-child(odd) {
-    margin-right: 4rem;
   }
   .header .menu {
     margin: 1.9rem 5rem 1.9rem 0;
@@ -1265,9 +1603,6 @@ a.off {
   }
   .pets__item:nth-child(2n+1) {
     margin-right: 0;
-  }
-  .pets__item:nth-last-child(-n+5) {
-    display: none;
   }
   .pets__item__card__image {
     width: 27rem;

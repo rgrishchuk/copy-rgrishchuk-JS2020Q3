@@ -22,15 +22,15 @@
         width: 58rem;
     }
 
-    &__item:nth-last-child(-n+2) {
-        display: none;
-    }
+    // &__item:nth-last-child(-n+2) {
+    //     display: none;
+    // }
 
     &__item {
         margin: 0 0 3rem 0;
     }
 
-    &__item:nth-child(odd) {
-        margin-right: 4rem;
-    }
+    // &__item:nth-child(odd) {
+    //     margin-right: 4rem;
+    // }
 }                
