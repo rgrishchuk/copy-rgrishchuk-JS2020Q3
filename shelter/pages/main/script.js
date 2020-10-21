@@ -144,12 +144,12 @@ function createSlider(petsList) {
 
   // Click on left
   btnLeft.onclick = function() {
-    switchSlide("left");
+    switchSlide("right");
   }
 
   // Click on right
   btnRight.onclick = function() {
-    switchSlide("right")
+    switchSlide("left")
   }
 }
 
