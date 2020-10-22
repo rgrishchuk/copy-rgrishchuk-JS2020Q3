@@ -4,8 +4,10 @@ const time = document.querySelector('#time'),
     name = document.querySelector('#name'),
     question = document.querySelector('#question'),
     task = document.querySelector('#task'),
-    nextImg = document.querySelector('#next-image');
-
+    nextImg = document.querySelector('#next-image'),
+    blockquote = document.querySelector('blockquote'),
+    quoteAuthor = document.querySelector('.author'),
+    btnUpdateQuote = document.querySelector('.btnUpdateQuote');
 
 let imgNight = null,
     imgMorning = null,
@@ -175,6 +177,16 @@ nextImg.addEventListener('click', () => {
     if (current.indexImg > 23) current.indexImg = 0;
     changeBackground(current.indexImg);  
 });
+
+async function getQuote() {  
+    const url = `https://quote-garden.herokuapp.com/api/v2/quotes/random`;
+    const res = await fetch(url);
+    const data = await res.json(); 
+    blockquote.textContent = data.quote.quoteText;
+    quoteAuthor.textContent = data.quote.quoteAuthor;
+}
+document.addEventListener('DOMContentLoaded', getQuote);
+btnUpdateQuote.addEventListener('click', getQuote);
 
 showDateTime();
 getName();
