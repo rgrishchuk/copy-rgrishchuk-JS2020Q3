@@ -14,10 +14,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>Momentum</h1>
     <div class="background"></div>
-
     <div class="quote">
-        <!-- <i id="btnUpdateQuote" class="fa fa-refresh fa-spin fa-3x fa-fw btnUpdateQuote"></i> -->
         <i id="btnUpdateQuote" class="fa fa-refresh fa-3x fa-fw btnUpdateQuote"></i>
         <blockquote>
             <div class="blockquote__error">
@@ -29,7 +28,6 @@
         <div class="author"> 
         </div>
     </div>
-
     <div class="weather">
         <div class="weather__header">
             <div class="cityLabel">Enter location</div>
@@ -61,11 +59,11 @@
     <div class="date" id="date"></div>
     <div class="time" id="time"></div>
     <h2 class="greeting" id="greeting"></h2>
-    <input class="name" id="name" class  type="text" spellcheck="false" title="Press enter to confirm" maxlength="60">
+    <input class="name" id="name" class  type="text" spellcheck="false" autocomplete="off" title="Remember to hit Enter key to save" maxlength="30">
     <h3 class="questionCity" id="questionCity">What Is Your Location?</h3>
-    <input class="city" id="city" class type="text" spellcheck="false" maxlength="30">
+    <input class="city" id="city" class type="text" spellcheck="false" autocomplete="off" title="Remember to hit Enter key to save" maxlength="30">
     <h3 class="question" id="question">What Is Your Focus For Today?</h3>
-    <input class="task" id="task" class type="text" spellcheck="false" maxlength="60">
+    <input class="task" id="task" class type="text" spellcheck="false" autocomplete="off" title="Remember to hit Enter key to save" maxlength="60">
     <div class="next-image animate" id="next-image" title="Next Image">
         <i class="fa fa-play-circle-o" aria-hidden="true"></i>
     </div>

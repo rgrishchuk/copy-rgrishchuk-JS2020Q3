@@ -57,8 +57,8 @@ function generateImages(timeOfDay) {
         do {
             id = '' + getRandomIntInclusive(1, 20);
             if (id.length == 1) id = '0' + id;
-            img = `url('assets/images/${timeOfDay}/${id}.jpg')`;
-            // img = `assets/images/${timeOfDay}/${id}.jpg`;
+            //img = `url('assets/images/${timeOfDay}/${id}.jpg')`;
+            img = `assets/images/${timeOfDay}/${id}.jpg`;
         } while (result.includes(img));
         result.push(img);
     }
@@ -75,13 +75,15 @@ function changeBackground(indexImage) {
         nextImg.classList.add('animate');
         nextImgIcon.classList.remove('fa-play-circle-o');
         nextImgIcon.classList.add('fa-spinner', 'fa-pulse'); 
-        let currBackground = document.querySelector('.background');
-        let newBackground = document.createElement('div');
-        newBackground.classList.add('background', 'fadeIn');
-        newBackground.style.backgroundImage = images[indexImage];
-        document.body.prepend(newBackground);
-        newBackground.addEventListener('animationend', () => {
-            newBackground.classList.remove('fadeIn'); 
+        let img = new Image();
+        img.src = images[indexImage];
+        img.addEventListener('load', () => {
+            let currBackground = document.querySelector('.background');
+            let newBackground = document.createElement('div');
+            newBackground.style.backgroundImage = `url('${img.src}')`;
+            newBackground.classList.add('background');
+            document.body.prepend(newBackground);
+
             currBackground.classList.add('fadeOut');
             currBackground.addEventListener('animationend', () => {
                 currBackground.parentElement.removeChild(currBackground);
@@ -90,8 +92,7 @@ function changeBackground(indexImage) {
                 nextImgIcon.classList.add('fa-play-circle-o');
                 isUpdateBackground = true;
             });
-        });
-    
+        })
     }
 }
 
@@ -100,7 +101,6 @@ function changeView(hour) {
     changeBackground(hour);
     if (hour < 6) {
         greeting.textContent = "Good Night, ";
-        //document.body.style.color = "white";
     } else if (hour < 12) {
         greeting.textContent = "Good Morning, ";
     } else if (hour < 18) {
@@ -124,7 +124,6 @@ function showDateTime() {
     });
     date.innerHTML = dateString.charAt(0).toUpperCase() + dateString.substr(1);
     time.innerHTML = `${addZero(hour)}:${addZero(min)}:${addZero(sec)}`;
-    //if (sec === 0) alert('0');
     if (isStart) {
         isStart = false;
         changeView(hour);
@@ -167,6 +166,11 @@ function toLocalStorage(input, name) {
 } 
  
 function setName(e) {
+    if (e.which == 27 || e.key === 'Escape') {
+        input = current[name];
+        name.blur();
+        return;
+    }
     if (e.type === 'keypress') {
         if (e.which == 13 || e.keyCode == 13) {
             toLocalStorage(name.value, 'name');
@@ -176,6 +180,11 @@ function setName(e) {
 }
 
 function setCity(e) {
+    if (e.which == 27 || e.key === 'Escape') {
+        input = current[city];
+        city.blur();
+        return;
+    }
     if (e.type === 'keypress') {
         if (e.which == 13 || e.keyCode == 13) {
             toLocalStorage(city.value, 'city');
@@ -187,6 +196,11 @@ function setCity(e) {
 }
 
 function setTask(e) {
+    if (e.which == 27 || e.key === 'Escape') {
+        input = current[task];
+        task.blur();
+        return;
+    }
     if (e.type === 'keypress') {
         if (e.which == 13 || e.keyCode == 13) {
             toLocalStorage(task.value, 'task');
@@ -299,15 +313,6 @@ async function getWeather() {
 document.addEventListener('DOMContentLoaded', getWeather);
 btnUpdateWeather.addEventListener('click', getWeather);
 
-// function setCity(event) {
-// if (event.code === 'Enter') {
-//   getWeather();
-//   city.blur();
-// }
-// }
-
-// city.addEventListener('keypress', setCity);
-
 showDateTime();
 getName();
 getCity();
@@ -318,6 +323,7 @@ name.addEventListener('focus', () => {
     current['name'] = name.value;
     name.value = '';
 });
+name.addEventListener('keydown', setName);
 name.addEventListener('keypress', setName);
 name.addEventListener('blur', () => name.value = current['name']);
 
@@ -325,6 +331,7 @@ city.addEventListener('focus', () => {
     current['city'] = city.value;
     city.value = '';
 });
+city.addEventListener('keydown', setCity);
 city.addEventListener('keypress', setCity);
 city.addEventListener('blur', () => city.value = current['city']);
 
@@ -332,5 +339,6 @@ task.addEventListener('focus', () => {
     current['task'] = task.value;
     task.value = '';
 });
+task.addEventListener('keydown', setTask);
 task.addEventListener('keypress', setTask);
 task.addEventListener('blur', () => task.value = current['task']);
