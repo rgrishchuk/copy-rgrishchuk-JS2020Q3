@@ -5,9 +5,22 @@ const time = document.querySelector('#time'),
     question = document.querySelector('#question'),
     task = document.querySelector('#task'),
     nextImg = document.querySelector('#next-image'),
-    blockquote = document.querySelector('blockquote'),
+    nextImgIcon = nextImg.querySelector('i'),
+    blockquoteError = document.querySelector('.blockquote__error'),
+    blockquote = document.querySelector('.blockquote__text'),
     quoteAuthor = document.querySelector('.author'),
-    btnUpdateQuote = document.querySelector('.btnUpdateQuote');
+    btnUpdateQuote = document.querySelector('.btnUpdateQuote'),
+    weatherError = document.querySelector('.weather__error'),
+    weatherErrorText = weatherError.querySelector('.weather__error__text'),
+    weatherContent = document.querySelector('.weather__content'),
+    weatherIcon = document.querySelector('.weather-icon'),
+    temperature = document.querySelector('.temperature'),
+    humidity = document.querySelector('.humidity'),
+    windSpeed = document.querySelector('.windSpeed'),
+    weatherDescription = document.querySelector('.weather-description'),
+    city = document.querySelector('.city'),
+    cityLabel = document.querySelector('.cityLabel'),
+    btnUpdateWeather = document.querySelector('.btnUpdateWeather');
 
 let imgNight = null,
     imgMorning = null,
@@ -18,6 +31,7 @@ let images = null;
 
 let current = {
     name: null,
+    city: null,
     task: null,
     hour: null,
     indexImg: null,
@@ -25,6 +39,9 @@ let current = {
 
 let isStart = true;
 let isEnable = true;
+let isUpdateQuote = true;
+let isUpdateWeather = true;
+let isUpdateBackground = true;
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -53,18 +70,29 @@ function addZero(n) {
 }   
 
 function changeBackground(indexImage) {
-    let currBackground = document.querySelector('.background');
-    let newBackground = document.createElement('div');
-    newBackground.classList.add('background', 'fadeIn');
-    newBackground.style.backgroundImage = images[indexImage];
-    document.body.prepend(newBackground);
-    newBackground.addEventListener('animationend', () => {
-        newBackground.classList.remove('fadeIn'); 
-        currBackground.classList.add('fadeOut');
-        currBackground.addEventListener('animationend', () => {
-            currBackground.parentElement.removeChild(currBackground);
+    if (isUpdateBackground) {
+        isUpdateBackground = false;
+        nextImg.classList.add('animate');
+        nextImgIcon.classList.remove('fa-play-circle-o');
+        nextImgIcon.classList.add('fa-spinner', 'fa-pulse'); 
+        let currBackground = document.querySelector('.background');
+        let newBackground = document.createElement('div');
+        newBackground.classList.add('background', 'fadeIn');
+        newBackground.style.backgroundImage = images[indexImage];
+        document.body.prepend(newBackground);
+        newBackground.addEventListener('animationend', () => {
+            newBackground.classList.remove('fadeIn'); 
+            currBackground.classList.add('fadeOut');
+            currBackground.addEventListener('animationend', () => {
+                currBackground.parentElement.removeChild(currBackground);
+                nextImgIcon.classList.remove('fa-spinner', 'fa-pulse', 'fa-fw');
+                nextImg.classList.remove('animate');
+                nextImgIcon.classList.add('fa-play-circle-o');
+                isUpdateBackground = true;
+            });
         });
-    });
+    
+    }
 }
 
 function changeView(hour) {
@@ -112,6 +140,15 @@ function getName() {
     }
 }
 
+function getCity() {
+    if (localStorage.getItem('city') === null) {
+        city.value = '[Enter Place]';
+    } else {
+        city.value = localStorage.getItem('city');
+        cityLabel.textContent = city.value;
+    }
+}
+
 function getTask() {
     if (localStorage.getItem('task') === null) {
         task.value = '[Enter Focus]';
@@ -127,14 +164,24 @@ function toLocalStorage(input, name) {
         localStorage.setItem(name, input);
         current[name] = input;
     }
-}
-
-
+} 
+ 
 function setName(e) {
     if (e.type === 'keypress') {
         if (e.which == 13 || e.keyCode == 13) {
             toLocalStorage(name.value, 'name');
             name.blur();
+        }
+    } 
+}
+
+function setCity(e) {
+    if (e.type === 'keypress') {
+        if (e.which == 13 || e.keyCode == 13) {
+            toLocalStorage(city.value, 'city');
+            city.blur();
+            cityLabel.textContent = city.value;
+            getWeather();
         }
     } 
 }
@@ -147,20 +194,6 @@ function setTask(e) {
         }
     } 
 }
-
-name.addEventListener('focus', () => {
-    current['name'] = name.value;
-    name.value = '';
-});
-name.addEventListener('keypress', setName);
-name.addEventListener('blur', () => name.value = current['name']);
-
-task.addEventListener('focus', () => {
-    current['task'] = task.value;
-    task.value = '';
-});
-task.addEventListener('keypress', setTask);
-task.addEventListener('blur', () => task.value = current['task']);
 
 imgNight = generateImages("night");
 imgMorning = generateImages("morning");
@@ -178,16 +211,126 @@ nextImg.addEventListener('click', () => {
     changeBackground(current.indexImg);  
 });
 
+function stopSpiner(spiner) {
+    spiner.classList.remove('fa-spin');
+}
+
+function displayErrorQuote() {
+    blockquoteError.classList.add('active');
+    blockquote.textContent = "Sorry, there was an error. Try updating again.";
+    quoteAuthor.textContent = "";
+}
+
 async function getQuote() {  
-    const url = `https://quote-garden.herokuapp.com/api/v2/quotes/random`;
-    const res = await fetch(url);
-    const data = await res.json(); 
-    blockquote.textContent = data.quote.quoteText;
-    quoteAuthor.textContent = data.quote.quoteAuthor;
+    if (isUpdateQuote) {
+        isUpdateQuote = false;
+        btnUpdateQuote.classList.add('fa-spin');
+
+        const url = `https://quote-garden.herokuapp.com/api/v2/quotes/random`;
+        try {
+            const res = await fetch(url);
+            const data = await res.json(); 
+            
+            if (data == undefined) {
+                displayErrorQuote();
+                setTimeout(stopSpiner, 200, btnUpdateQuote);
+                isUpdateQuote = true;            
+            } else {
+                blockquoteError.classList.remove('active');
+                blockquote.textContent = data.quote.quoteText;
+                quoteAuthor.textContent = data.quote.quoteAuthor;
+            }
+        } catch (error) {
+            displayErrorQuote();
+            setTimeout(stopSpiner, 200, btnUpdateQuote);
+            isUpdateQuote = true;            
+        }
+        setTimeout(stopSpiner, 200, btnUpdateQuote);
+        isUpdateQuote = true;            
+
+    }
 }
 document.addEventListener('DOMContentLoaded', getQuote);
 btnUpdateQuote.addEventListener('click', getQuote);
 
+function displayErrorWeather(errorText = 'No data') {
+    weatherErrorText.textContent = errorText; 
+    weatherContent.classList.add('hide');
+    weatherError.classList.add('active');
+}
+
+async function getWeather() {
+    if (isUpdateWeather) {
+        isUpdateWeather = false;
+        btnUpdateWeather.classList.add('fa-spin');
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=2497afbe0c7a794c5b79f203d4db6786&units=metric`;
+        
+        try {
+            const res = await fetch(url);
+            const data = await res.json();
+            if (data == undefined) {
+                displayErrorWeather("Sorry, there was an error. Try updating again.");    
+            } else {
+                if (data.cod == '200')
+                {
+                    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+                    weatherDescription.textContent = data.weather[0].description;
+                    temperature.textContent = `${data.main.temp}°C`;
+                    humidity.textContent = `Humidity ${data.main.humidity}%`;
+                    windSpeed.textContent = `${data.wind.speed}m/s`;
+                    weatherError.classList.remove('active');
+                    weatherContent.classList.remove('hide');
+                } else {
+                    displayErrorWeather(data.message);
+                }
+    
+            }
+                
+        } catch (error) {
+            displayErrorWeather(error);
+            setTimeout(stopSpiner, 300, btnUpdateWeather);
+            isUpdateWeather = true;
+        }
+        setTimeout(stopSpiner, 300, btnUpdateWeather);
+        isUpdateWeather = true;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', getWeather);
+btnUpdateWeather.addEventListener('click', getWeather);
+
+// function setCity(event) {
+// if (event.code === 'Enter') {
+//   getWeather();
+//   city.blur();
+// }
+// }
+
+// city.addEventListener('keypress', setCity);
+
 showDateTime();
 getName();
+getCity();
+getWeather();
 getTask();
+
+name.addEventListener('focus', () => {
+    current['name'] = name.value;
+    name.value = '';
+});
+name.addEventListener('keypress', setName);
+name.addEventListener('blur', () => name.value = current['name']);
+
+city.addEventListener('focus', () => {
+    current['city'] = city.value;
+    city.value = '';
+});
+city.addEventListener('keypress', setCity);
+city.addEventListener('blur', () => city.value = current['city']);
+
+task.addEventListener('focus', () => {
+    current['task'] = task.value;
+    task.value = '';
+});
+task.addEventListener('keypress', setTask);
+task.addEventListener('blur', () => task.value = current['task']);

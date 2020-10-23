@@ -9,29 +9,65 @@
     <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@400;500;600;700&display=swap" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link href="assets/css/owfont-regular.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="background"></div>
 
     <div class="quote">
-        <button class="btnUpdateQuote" id="btnUpdateQuote">Update</button>
+        <!-- <i id="btnUpdateQuote" class="fa fa-refresh fa-spin fa-3x fa-fw btnUpdateQuote"></i> -->
+        <i id="btnUpdateQuote" class="fa fa-refresh fa-3x fa-fw btnUpdateQuote"></i>
         <blockquote>
-            You were not born a winner, and you were not born a loser. You are what you make yourself be.
+            <div class="blockquote__error">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            </div>
+            <div class="blockquote__text">
+            </div>
         </blockquote>
         <div class="author"> 
-         Lou Holtz
+        </div>
+    </div>
+
+    <div class="weather">
+        <div class="weather__header">
+            <div class="cityLabel">Enter location</div>
+            <i class="fa fa-refresh fa-3x fa-fw btnUpdateWeather"></i>
+        </div>
+        <div class="weather__error">
+            <div class="weather__error__icon">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            </div>
+            <div class="weather__error__text"></div>
+        </div>
+        <div class="weather__content">
+            <div class="weather__content__icon">
+                <i class="weather-icon owf  owf-3x owf-pull-left owf-border"></i>
+            </div>
+            <div class="weather__content__data">
+                <div class="weather-description"></div>
+                <div class="weather__content__data__temp-wind">
+                    <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                    <div class="temperature"></div>
+                    <i class="fa fa-location-arrow" aria-hidden="true"></i>
+                    <div class="windSpeed"></div>
+                </div>
+                <div class="humidity"></div>
+            </div>
         </div>
     </div>
 
     <div class="date" id="date"></div>
     <div class="time" id="time"></div>
     <h2 class="greeting" id="greeting"></h2>
-    <input class="name" id="name" class  type="text" spellcheck="false" title="Press enter to confirm">
+    <input class="name" id="name" class  type="text" spellcheck="false" title="Press enter to confirm" maxlength="60">
+    <h3 class="questionCity" id="questionCity">What Is Your Location?</h3>
+    <input class="city" id="city" class type="text" spellcheck="false" maxlength="30">
     <h3 class="question" id="question">What Is Your Focus For Today?</h3>
-    <input class="task" id="task" class type="text" spellcheck="false">
-    <div class="next-image" id="next-image">
-        <img src="assets/images/arrow.svg" alt="next image" title="next image" class="next-image">
+    <input class="task" id="task" class type="text" spellcheck="false" maxlength="60">
+    <div class="next-image animate" id="next-image" title="Next Image">
+        <i class="fa fa-play-circle-o" aria-hidden="true"></i>
     </div>
     <script src="script.js"></script>
 </body>
