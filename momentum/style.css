@@ -1,3 +1,8 @@
+:root {
+  font-size: 10px;
+  color: white;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,14 +11,12 @@
 
 body {
   position: relative;
-  font-size: 10px;
   height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
-  transition: 2s;
+  justify-content: space-around;
 }
 
 h1 {
@@ -25,7 +28,7 @@ h1 {
   position: absolute;
   top: 0;
   left: 0;
-  min-height: 100vh;
+  height: 100%;
   width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -56,99 +59,106 @@ h1 {
   to { opacity: 1 }
 }
 
+.date-time__wrapper, .greeting__wrapper, .name__wrapper, .city__wrapper, .task__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.date-time__wrapper {
+  margin-top: 10%;
+}
+
 .date {
-  margin-top: 15rem;
   font-family: 'Lobster', cursive;
-  font-size: 2rem;
+  font-size: 3.2rem;
   font-weight: 400;
-  letter-spacing: .5rem;
-  text-shadow: black 0 0 1rem;
+  letter-spacing: .8rem;
+  text-shadow: black 0 0 1.6rem;
 }
 
 .time {
   font-family: 'Fira Mono', monospace;
-  font-size: 5rem;
+  font-size: 12rem;
   font-weight: 700;
-  text-shadow: black 0 0 1.2rem;
+  text-shadow: black 0 0 1.9rem;
 }
 
 
 .greeting {
   font-family: 'Sansita Swashed', cursive;
-  font-size: 2rem;
+  font-size: 3.2rem;
   font-weight: 400;
-  letter-spacing: .5rem;
+  letter-spacing: .8rem;
   opacity: .8;
-  text-shadow: black 0 0 1.2rem;
+  text-shadow: black 0 0 1rem;
 }
 
 .name {
   font-family: 'Sansita Swashed', cursive;
-  font-size: 2.2rem;
+  font-size: 3.3rem;
   font-weight: 500;
   opacity: .8;
-  text-shadow: black 0 0 1.2rem;
+  text-shadow: black 0 0 1rem;
   outline: 0;
-  min-width: 1px;
   transition: .3s;
 }
 
 .name:hover, .name:focus {
   opacity: 1;
-  letter-spacing: .2rem;
-  text-shadow: blue 0 0 1.2rem;
+  letter-spacing: .3rem;
+  text-shadow: blue 0 0 1.9rem;
 }
 
 .questionCity {
-  margin-top: 1rem;
   font-family: 'Sansita Swashed', cursive;
-  font-size: 2rem;
+  font-size: 3.2rem;
   font-weight: 400;
-  letter-spacing: .5rem;
+  letter-spacing: .8rem;
   opacity: .8;
-  text-shadow: black 0 0 1.2rem;
+  text-shadow: black 0 0 1.9rem;
 }
 
 .city {
   font-family: 'Sansita Swashed', cursive;
-  font-size: 2.2rem;
+  font-size: 3.3rem;
   font-weight: 500;
   opacity: .8;
-  text-shadow: black 0 0 1.2rem;
+  text-shadow: black 0 0 1.9rem;
   outline: 0;
-  min-width: 1px;
   transition: 0.3s;
 }
 
 .city:hover, .city:focus {
   opacity: 1;
-  letter-spacing: .2rem;
-  text-shadow: green 0 0 1.2rem;
+  letter-spacing: .3rem;
+  text-shadow: green 0 0 1.9rem;
 }
 
 .question {
-  margin-top: 2rem;
   font-family: 'Indie Flower', cursive;
-  font-size: 2rem;
+  font-size: 3.2rem;
   font-weight: 400;
   opacity: .9;
-  text-shadow: black 0 0 1.2rem;
+  text-shadow: black 0 0 1.9rem;
 }
 
 .task {
   font-family: 'Indie Flower', cursive;
-  font-size: 2.2rem;
+  font-size: 3.3rem;
   font-weight: 400;
   opacity: .8;
-  text-shadow: black 0 0 1.2rem;
+  text-shadow: black 0 0 1.9rem;
   outline: 0;
   transition: 0.3s;
 }
 
 .task:hover, .task:focus {
   opacity: 1;
-  letter-spacing: .2rem;
-  text-shadow: red 0 0 1.2rem;
+  letter-spacing: .3rem;
+  text-shadow: red 0 0 1.9rem;
 }
 
 input[type=text] {
@@ -162,11 +172,11 @@ input[type=text] {
 
 .next-image {
   right: 0;
-  font-size: 3rem;
-  margin-top: 1rem;
-  width: 3rem;
+  font-size: 4.8rem;
+  width: 4.8rem;
   opacity: .7;
   transition: 0.3s;
+  text-align: center;
 }
 
 .next-image:not(.animate):hover {
@@ -181,32 +191,33 @@ input[type=text] {
 }
 
 .quote {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 0.2rem;
+  overflow: hidden;
+  margin: 0.3rem;
   display: flex;
   flex-direction: column;
-  width: 40%;
-  border-radius: .3rem;
-  color: black;
-  background-color: rgba(244, 244, 244, 0.7);
-  text-shadow: black 0 0 .1rem;
+  justify-content: space-between;
+  height: 20rem;
+  width: 95%;
+  border-radius: .5rem;
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+  text-shadow: white 0 0 .5rem;
 }
 
 blockquote {
-  padding: .5rem;
+  padding: .8rem;
   display: flex;
+  justify-content: center;
   font-family: 'Open Sans', sans-serif;
   font-style: italic;
-  font-size: 1.4rem;
+  font-size: 2.24rem;
   text-align: justify;
 }
 
 .blockquote__error {
   display: none;
   color: red;
-  margin-right: .2rem;
+  margin-right: .3rem;
 }
 
 .blockquote__error.active {
@@ -214,24 +225,25 @@ blockquote {
 }
 
 .author {
-  padding-right: .5rem;
+  padding-right: .8rem;
   font-family: 'Open Sans', sans-serif;
-  font-size: 1.4rem;
+  font-size: 2.24rem;
   align-self: flex-end;
 }
 
 .weather {
   display: flex;
   flex-direction: column;
-  padding: .5rem;
+  padding: .8rem;
   position: absolute;
   top: 0;
   right: 0;
   font-family: 'Open Sans', sans-serif;
-  font-size: 1rem;
+  font-size: 1.6rem;
+  height: 12rem;
   width: 30%;
-  max-width: 20rem;
-  border-radius: .3rem;
+  max-width: 32rem;
+  border-radius: .48rem;
   background-color: rgba(0,0,0,0.5);
 }
 
@@ -250,14 +262,15 @@ blockquote {
 }
 
 .weather__error__icon {
-  margin-left: .2rem;
+  margin-left: .3rem;
   align-self: start;
-  font-size: 2rem;
+  font-size: 3.2rem;
   color: red;
 }
 
 .weather__error__text {
-  font-size: 1.4rem;
+  margin-left: 0.2rem;
+  font-size: 2.24rem;
 }
 
 .weather__error__text::first-letter {
@@ -274,33 +287,34 @@ blockquote {
 }
 
 .temperature {
-  margin-right: .5rem;
+  margin-right: .8rem;
 }
 
 .btnUpdateWeather {
   align-self: flex-end;
-  font-size: 2rem;  
+  font-size: 3.2rem;  
   transition: 0.3s;
 }
 
 .btnUpdateWeather:hover {
   transform: scale(1.2);
-  text-shadow:  black 0 0 1.2rem;
+  text-shadow:  black 0 0 1.9rem;
 }
 
 .cityLabel {
-  font-size: 1.4rem;
-  text-shadow:lime 0 0 .2rem;
-  max-width: 30rem;
+  font-size: 2.24rem;
+  text-shadow:lime 0 0 .3rem;
+  max-width: 48rem;
   overflow: hidden;
 }
 
 .btnUpdateQuote {
-  color: black;
+  font-size: 3.2rem;
+  color: white;
   transition: 0.3s;
 }
 
-.btnUpdateQuote:hover {
+.btnUpdateQuote:not(.fa-spin):hover {
   cursor: pointer;
   transform: scale(1.1);
 }
@@ -309,6 +323,262 @@ blockquote {
   color: white;
 }
 
-.btnUpdateWeather:hover {
+.btnUpdateWeather:not(.fa-spin):hover {
   cursor: pointer;
+}
+
+
+@media screen and (max-width: 1119px) {
+  .date-time__wrapper {
+    margin-top: 15%;
+  }
+
+  .blockquote__text, .author, .btnUpdateQuote {
+    font-size: 2rem;
+  }
+  
+}
+
+@media screen and (max-width: 850px) {
+  .time {
+    font-size: 7rem;
+  }
+
+  .greeting, .name, .name:hover, .name:focus,
+  .questionCity, .city, .city:hover, .city:focus,
+   .question, .task, .task:hover, .task:focus {
+    font-size: 2.5rem;
+    letter-spacing: normal;
+  }
+
+  .blockquote__text, .author, .btnUpdateQuote {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  body {
+    justify-content: space-between;
+  }
+  
+  .greeting, .name, .name:hover, .name:focus,
+  .questionCity, .city, .city:hover, .city:focus,
+   .question {
+    font-size: 2rem;
+    letter-spacing: normal;
+  }
+
+  .task, .task:hover, .task:focus {
+    font-size: 1.8rem;
+    letter-spacing: normal;
+  }
+
+  .date-time__wrapper {
+    margin-top: 0rem;
+  }
+
+  .weather {
+    position: static;
+    justify-self: flex-start;
+    padding: 0.1rem;
+    border-radius: 0;
+    height: 11rem;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .weather__content {
+    display: flex;
+  }
+
+  .weather__content__data {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .blockquote__text, .author, .btnUpdateQuote {
+    font-size: 1.7rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+  body {
+    justify-content: space-between;
+  }
+  
+  .greeting, .name, .name:hover, .name:focus,
+  .questionCity, .city, .city:hover, .city:focus,
+   .question, .task, .task:hover, .task:focus {
+    font-size: 1.4rem;
+    letter-spacing: normal;
+  }
+
+  .weather {
+    height: 4.5rem;
+  }
+
+  .weather, .cityLabel, .btnUpdateWeather, .weather-icon, .weather__error__icon, .weather__error__text {
+    font-size: 1.2rem;
+  }
+  
+  .date-time__wrapper {
+    margin-top: 0;
+  }
+
+  .date {
+    font-size: 2rem;
+    letter-spacing: 0;
+  }
+
+  .time {
+    font-size: 5.5rem;
+  }
+
+  .blockquote__text, .author, .btnUpdateQuote {
+    font-size: 1.4rem;
+  }
+
+  .next-image {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-height: 900px) 
+              and (min-width: 501px) {
+
+  .blockquote__text, .author, .btnUpdateQuote {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-height: 900px) 
+              and (min-width: 801px) {
+
+  .blockquote__text, .author, .btnUpdateQuote {
+    font-size: 1.7rem;
+  }
+}
+
+@media screen and (max-height: 799px) 
+              and (min-width: 501px) {
+  .next-image {
+    font-size: 3rem;
+  }
+  
+  body {
+    justify-content: space-between;
+  }
+
+  .date-time__wrapper {
+    margin-top: 0;
+  }
+
+  .date {
+    font-size: 2rem;
+  }
+
+  .time {
+    font-size: 5rem;
+  }
+
+  .greeting, .name, .name:hover, .name:focus,
+  .questionCity, .city, .city:hover, .city:focus,
+   .question, .task, .task:hover, .task:focus {
+    font-size: 1.4rem;
+    letter-spacing: normal;
+  }
+
+  .weather {
+    position: static;
+    justify-self: flex-start;
+    padding: 0.1rem;
+    border-radius: 0;
+    height: 4.4rem;
+    max-width: 100%;
+    width: 100%;
+    font-size: 1.4rem;
+  }
+  
+  .weather__content {
+    display: flex;
+  }
+
+  .weather, .cityLabel, .btnUpdateWeather, .weather-icon, .weather__error__icon, .weather__error__text {
+    font-size: 1.4rem;
+  }
+  
+  .weather__content__data {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+}
+
+@media screen and (max-height: 500px) 
+              and (min-width: 320px) {
+
+  .weather {
+    position: static;
+    justify-self: flex-start;
+    padding: 0.1rem;
+    border-radius: 0;
+    height: 11rem;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .weather__content {
+    display: flex;
+  }
+
+  .weather__content__data {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  blockquote {
+    padding: 0.1rem;
+  }
+   
+  .blockquote__text, .author {
+    font-size: 1.4rem;
+  }
+
+  .date-time__wrapper {
+    margin-top: 0;
+  }
+
+  .greeting, .name, .name:hover, .name:focus,
+  .questionCity, .city, .city:hover, .city:focus,
+   .question, .task, .task:hover, .task:focus, .cityLabel, 
+   .weather-icon, .btnUpdateWeather, .weather__content__data {
+    font-size: 1.4rem;
+    letter-spacing: normal;
+  }
+
+  .weather {
+    height: 4.4rem;
+  }
+            
+  .date {
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
+  }
+  .time {
+    font-size: 1.4rem;
+  }
+
+  .next-image {
+    font-size: 1.4rem;
+  }
 }

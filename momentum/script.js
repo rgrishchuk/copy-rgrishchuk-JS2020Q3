@@ -35,6 +35,7 @@ let current = {
     task: null,
     hour: null,
     indexImg: null,
+    icon: null,
 };
 
 let isStart = true;
@@ -57,7 +58,6 @@ function generateImages(timeOfDay) {
         do {
             id = '' + getRandomIntInclusive(1, 20);
             if (id.length == 1) id = '0' + id;
-            //img = `url('assets/images/${timeOfDay}/${id}.jpg')`;
             img = `assets/images/${timeOfDay}/${id}.jpg`;
         } while (result.includes(img));
         result.push(img);
@@ -112,7 +112,6 @@ function changeView(hour) {
 
 function showDateTime() {
     let today = new Date(),
-    //let today = new Date(2020, 09, 19, 24, 00, 00),
         hour = today.getHours(),
         min = today.getMinutes(),
         sec = today.getSeconds();
@@ -246,18 +245,16 @@ async function getQuote() {
             const data = await res.json(); 
             
             if (data == undefined) {
+                quoteAuthor.textContent = "";
                 displayErrorQuote();
-                setTimeout(stopSpiner, 200, btnUpdateQuote);
-                isUpdateQuote = true;            
             } else {
                 blockquoteError.classList.remove('active');
                 blockquote.textContent = data.quote.quoteText;
                 quoteAuthor.textContent = data.quote.quoteAuthor;
             }
         } catch (error) {
+            quoteAuthor.textContent = "";
             displayErrorQuote();
-            setTimeout(stopSpiner, 200, btnUpdateQuote);
-            isUpdateQuote = true;            
         }
         setTimeout(stopSpiner, 200, btnUpdateQuote);
         isUpdateQuote = true;            
@@ -287,6 +284,8 @@ async function getWeather() {
             } else {
                 if (data.cod == '200')
                 {
+                    if (current.icon) weatherIcon.classList.remove(current.icon);
+                    current.icon = `owf-${data.weather[0].id}`;
                     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
                     weatherDescription.textContent = data.weather[0].description;
                     temperature.textContent = `${data.main.temp}°C`;
@@ -301,9 +300,7 @@ async function getWeather() {
             }
                 
         } catch (error) {
-            displayErrorWeather(error);
-            setTimeout(stopSpiner, 300, btnUpdateWeather);
-            isUpdateWeather = true;
+            displayErrorWeather("Network error");
         }
         setTimeout(stopSpiner, 300, btnUpdateWeather);
         isUpdateWeather = true;
