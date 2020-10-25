@@ -357,6 +357,10 @@ body {
   width: 100%;
 }
 
+.body.no-scroll {
+  overflow: hidden;
+}
+
 .body-wrapper {
   position: relative;
   overflow-x: hidden;
@@ -734,6 +738,10 @@ a.off {
 .menu__burger {
   -webkit-transition-duration: .25s;
           transition-duration: .25s;
+}
+
+.menu__burger:hover {
+  cursor: pointer;
 }
 
 .menu__burger.active {

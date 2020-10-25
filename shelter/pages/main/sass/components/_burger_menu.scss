@@ -71,6 +71,11 @@
 
 .menu__burger {
     transition-duration: .25s;
+    
+    &:hover {
+        cursor: pointer;
+    }
+
     &.active {
         transform: rotate(-90deg);
     }

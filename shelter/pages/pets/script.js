@@ -221,6 +221,7 @@ function createPopup(petsList) {
   // When the user clicks on the button, open the modal
   petCards.forEach(function(petCard){
       petCard.onclick = function(e) {
+          document.querySelector(".body").classList.add("no-scroll");
           let id = e.target.closest(".pets__item").querySelector("label").innerHTML;
           let pet = petsList[id];
           popup.querySelector(".pet-image").src = pet.img;
@@ -238,12 +239,14 @@ function createPopup(petsList) {
   // When the user clicks on <span> (x), close the modal
   btnClose.onclick = function() {
     popup.style.display = "none";
+    document.querySelector(".body").classList.remove("no-scroll");
   }
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
     if (event.target == popup) {
       popup.style.display = "none";
+      document.querySelector(".body").classList.remove("no-scroll");
     }
   } 
 }
@@ -255,7 +258,13 @@ function showBurgerMenu() {
     document.querySelector(".blackout").classList.toggle("active");
     document.querySelector(".menu__burger").classList.toggle("active");
     document.querySelector(".burger-menu").classList.toggle("active");
+    document.querySelector(".body").classList.toggle("no-scroll");
 };
+
+document.querySelector("#burger-menu__pets").addEventListener('click', () => {
+  showBurgerMenu();
+  window.scrollTo(0,0);
+});
 
 document.querySelector(".menu__burger").addEventListener("click", () => {
     showBurgerMenu();
