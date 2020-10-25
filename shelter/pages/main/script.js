@@ -161,7 +161,6 @@ function createPopup(petsList) {
   let petCards = document.querySelectorAll(".friends__slider__card");
 
   // Get the <span> element that closes the modal
-  //let span = document.getElementsByClassName("popup__close")[0];
   let btnClose = document.querySelector(".popup__close");
 
   // When the user clicks on the button, open the modal

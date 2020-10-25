@@ -361,6 +361,10 @@ body {
   overflow: hidden;
 }
 
+#burger-menu__pets:hover {
+  cursor: pointer;
+}
+
 .body-wrapper {
   position: relative;
   overflow-x: hidden;

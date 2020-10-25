@@ -377,6 +377,10 @@ body {
           flex-direction: column;
 }
 
+#burger-menu__about:hover {
+  cursor: pointer;
+}
+
 button {
   outline: none;
 }
