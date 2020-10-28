@@ -161,6 +161,7 @@ class Keyboard {
         if (key == null) return;
         if (e.type === 'mousedown') {
             key.classList.add('pressed');
+            this.playSound(key.id);
             e.stopImmediatePropagation();
         }
         if (e.type === 'mouseup') {
@@ -231,6 +232,7 @@ class Keyboard {
         let key = document.querySelector(`#${e.code}`);
         if (e.type === 'keydown') {
             if (key) {
+                // this.playSound(e.code);
                 key.classList.add('pressed');
                 if (this.inputElement) this.inputElement.focus();
                 if (e.code === 'CapsLock' && !this.properties.capsDown) {
@@ -265,6 +267,20 @@ class Keyboard {
         
     }
 
+    playSound(key) {
+        if (this.properties.sound) {
+            let lang = this.properties.lang;
+            if (!key.match(/CapsLock|Backspace|Enter/)) {
+                if (key.match(/ShiftLeft|ShiftRight/)) key = 'Shift'
+                else key = 'all';
+            };
+            let audio = document.querySelector(`audio[data-key="${lang}_${key}"]`);
+            if (audio == null) return;
+            audio.currentTime = 0;
+            audio.play();
+        }
+    }
+
     constructor () {
         this.getProperties();
         this.init();
@@ -296,6 +312,63 @@ class Keyboard {
         document.body.appendChild(this.elements.main);
 
         this.elements.keys = this.elements.keysContainer.querySelectorAll(".keyboard__key");
+        this.addAudioFiles();
+    }
+
+    addAudioFiles() {
+        // add audio files
+
+        // 4 english keyboard
+        let audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/en_Shift.wav";
+        audio.setAttribute('data-key', "en_Shift");
+        document.body.appendChild(audio);
+
+        audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/en_CapsLock.wav";
+        audio.setAttribute('data-key', "en_CapsLock");
+        document.body.appendChild(audio);
+
+        audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/en_Backspace.wav";
+        audio.setAttribute('data-key', "en_Backspace");
+        document.body.appendChild(audio);
+
+        audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/en_Enter.wav";
+        audio.setAttribute('data-key', "en_Enter");
+        document.body.appendChild(audio);
+
+        audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/en_key.mp3";
+        audio.setAttribute('data-key', "en_all");
+        document.body.appendChild(audio);
+
+        // 4 russian keyboard
+        audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/ru_Shift.wav";
+        audio.setAttribute('data-key', "ru_Shift");
+        document.body.appendChild(audio);
+
+        audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/ru_CapsLock.wav";
+        audio.setAttribute('data-key', "ru_CapsLock");
+        document.body.appendChild(audio);
+
+        audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/ru_Backspace.wav";
+        audio.setAttribute('data-key', "ru_Backspace");
+        document.body.appendChild(audio);
+
+        audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/ru_Enter.wav";
+        audio.setAttribute('data-key', "ru_Enter");
+        document.body.appendChild(audio);
+
+        audio = document.createElement('audio');
+        audio.src = "keyboard/assets/sound/ru_key.mp3";
+        audio.setAttribute('data-key', "ru_all");
+        document.body.appendChild(audio);
     }
 
     createKey(key, lang) {
