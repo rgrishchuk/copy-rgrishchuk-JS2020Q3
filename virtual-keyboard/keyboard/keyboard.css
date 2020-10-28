@@ -1,0 +1,181 @@
+.keyboard {
+    position: fixed;
+    bottom: 0;
+    padding: 1em;
+    user-select: none;
+    transition: bottom .5s;
+    /* background-color: lightgray; */
+    font-size: 10px;
+    background-color: dimgray;
+    border-radius: 5px;
+}
+
+.keyboard-hidden {
+    bottom: -100%;
+}
+
+.keyboard-on {
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    background-color: dimgray;
+    border-radius: 5px;
+}
+
+.keyboard-on.hidden {
+    display: none;
+}
+
+.keyboard__keys {
+    display: grid;
+    row-gap: 5px;
+    /* text-align: center; */
+}
+
+.grid-row {
+    display: grid;
+    column-gap: 5px;
+    justify-content: center;
+}
+
+.keyboard__key {
+    height: 4.5em;
+    width: 4.5em;
+    /* width: 7em;  */
+    /* margin: 0.1em; */
+    /* padding: 0;
+    border: 0 solid; */
+    /* border-radius: 0.3em; */
+    outline: none;
+    /* font-size: 3em; */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center;
+    justify-content: center; */
+    /* vertical-align: top;
+    position: relative; */
+    background-color: white;
+}
+
+.keyboard__key.pressed {
+    background-color: limegreen;
+}
+
+.basic {
+    /* padding: .2em; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    /* height: 3em; */
+}
+
+.sub {
+    padding-left: .2em;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.4em;
+    /* height: 1.5em; */
+}
+
+.keyboard__key.shift-on .basic {
+    padding-left: .2em;
+    justify-content: right;
+    font-size: 1.4em;
+    justify-content: left;
+    color:green;
+}
+
+.keyboard__key.shift-on .sub {
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    color: red;
+}
+
+.material-icons {
+    font-size: 2.2rem;
+}
+
+.keyboard-on {
+    display: grid;
+    column-gap: 5px;
+    grid-template-columns: repeat(2, auto);    
+}
+
+#Space {
+    width: 34.5rem;
+}
+
+#CapsLock::before {
+    content: '';
+    margin-left: 2px;
+    /* position: absolute;
+    top: 0.5em;
+    right: 0.5em; */
+    width: 0.2em;
+    height: 0.2em;
+    border:solid 1px black;
+    border-radius: 50%;
+}
+
+.keyboard__key.active {
+    color: lightseagreen;
+}
+
+#CapsLock.active::before {
+    background: lightseagreen;
+    border:solid 1px lightseagreen;
+}
+/* .keyboard__key.active::before {
+    background: lightseagreen;
+    border:solid 1px lightseagreen;
+} */
+
+#Lang {
+    justify-content: flex-start;
+}
+
+#Lang > .sub {
+    padding-right: 2px;
+    justify-content: flex-end;
+}
+
+/* .keyboard__key:active {
+    background-color:#ededed;
+}
+
+.keyboard__key_wide {
+    width: 2.5em;
+}
+
+.keyboard__key_extra-wide {
+    width: 7.9em;
+}
+
+.keyboard__key_activatable::after {
+    content: '';
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    width: 0.2em;
+    height: 0.2em;
+    border:solid 1px black;
+    border-radius: 50%;
+}
+
+.keyboard__key_active {
+    color: lightseagreen;
+}
+
+.keyboard__key_active::after {
+    background: lightseagreen;
+    border:solid 1px lightseagreen;
+}
+
+.material-icons {
+    font-size: 2em;
+} */
