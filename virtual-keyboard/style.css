@@ -56,10 +56,11 @@ textarea {
     font-size: 2.5rem;
     margin-bottom: 5px;
     width: 90%;
-    border-radius: 10px;
+    border-radius: 2px;
     outline:none;
 }
 
 textarea:focus {
-    border-color: limegreen;
+    border: 2px solid limegreen;
+    
 }

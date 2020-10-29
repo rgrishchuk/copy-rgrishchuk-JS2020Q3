@@ -17,13 +17,16 @@
 .keyboard-on {
     padding: 5px;
     position: fixed;
-    bottom: 0;
+    top: 0;
+    right: 0;
+    /* bottom: 0; */
     background-color: dimgray;
     border-radius: 5px;
+    transition: top .3s;
 }
 
 .keyboard-on.hidden {
-    display: none;
+    top: -100%;
 }
 
 .keyboard__keys {
@@ -56,11 +59,21 @@
     justify-content: center; */
     /* vertical-align: top;
     position: relative; */
+    border-radius: .2em;
+    box-shadow: 0 3px 0 black;
     background-color: white;
+    transition: background .3s;
+}
+
+.keyboard__key:hover {
+    border: 1px solid black;
+    /* background: lightgray; */
 }
 
 .keyboard__key.pressed {
-    background-color: limegreen;
+    background: limegreen; 
+    transform: translateY(2px);
+    box-shadow: none;
 }
 
 .basic {
@@ -69,6 +82,7 @@
     justify-content: center;
     align-items: center;
     font-size: 2em;
+    /* color: black; */
     /* height: 3em; */
 }
 
@@ -78,6 +92,7 @@
     justify-content: left;
     align-items: center;
     font-size: 1.4em;
+    color: red;
     /* height: 1.5em; */
 }
 
@@ -86,14 +101,15 @@
     justify-content: right;
     font-size: 1.4em;
     justify-content: left;
-    color:green;
+    color: red;
+    order: -1;
 }
 
 .keyboard__key.shift-on .sub {
     justify-content: center;
     align-items: center;
     font-size: 2em;
-    color: red;
+    color: black;
 }
 
 .material-icons {
@@ -123,12 +139,14 @@
 }
 
 .keyboard__key.active {
-    color: lightseagreen;
+    color: blue;
 }
 
 #CapsLock.active::before {
-    background: lightseagreen;
-    border:solid 1px lightseagreen;
+    /* background: lightseagreen;
+    border:solid 1px lightseagreen; */
+    background: blue;
+    border:solid 1px blue;
 }
 /* .keyboard__key.active::before {
     background: lightseagreen;
@@ -143,39 +161,3 @@
     padding-right: 2px;
     justify-content: flex-end;
 }
-
-/* .keyboard__key:active {
-    background-color:#ededed;
-}
-
-.keyboard__key_wide {
-    width: 2.5em;
-}
-
-.keyboard__key_extra-wide {
-    width: 7.9em;
-}
-
-.keyboard__key_activatable::after {
-    content: '';
-    position: absolute;
-    top: 0.5em;
-    right: 0.5em;
-    width: 0.2em;
-    height: 0.2em;
-    border:solid 1px black;
-    border-radius: 50%;
-}
-
-.keyboard__key_active {
-    color: lightseagreen;
-}
-
-.keyboard__key_active::after {
-    background: lightseagreen;
-    border:solid 1px lightseagreen;
-}
-
-.material-icons {
-    font-size: 2em;
-} */

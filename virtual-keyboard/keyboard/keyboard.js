@@ -12,7 +12,6 @@ class Keyboard {
         capsLock: false,
         capsDown: false,
         shift: false,
-        shiftDown: false,
         sound: false,
         voice: false,
         lang: "en",
@@ -156,19 +155,20 @@ class Keyboard {
     };
 
     mouseEvent = e => {
-        if (this.inputElement) this.inputElement.focus();
         let key = e.target.closest('.keyboard__key');
-        if (key == null) return;
+        if (key == null) {
+            e.preventDefault();
+            return false;
+        };
+
         if (e.type === 'mousedown') {
             key.classList.add('pressed');
             this.playSound(key.id);
             e.stopImmediatePropagation();
-        }
-        if (e.type === 'mouseup') {
+        } else if (e.type === 'mouseup') {
             key.classList.remove('pressed');
             return;
         }
-        // console.log(key);
         switch (key.id) {
             case 'keyboard-on':
                 this.show();
@@ -224,12 +224,20 @@ class Keyboard {
             default:
                 this.input(key);
                 break;
-
         }
+        e.preventDefault();
+        return false;
     }
     
     handleEvent = e => {
-        let key = document.querySelector(`#${e.code}`);
+        if (e.code == null) return;
+        // console.log(e.code);
+        let key ='';
+        try {
+            key = document.querySelector(`#${e.code}`);
+        } catch (error) {
+            return;  
+        }
         if (e.type === 'keydown') {
             if (key) {
                 // this.playSound(e.code);
@@ -239,8 +247,7 @@ class Keyboard {
                     this.properties.capsDown = true;
                     this.switchCaps();
                 }
-                if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !this.properties.shiftDown) {
-                    this.properties.shiftDown = true;
+                if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !this.properties.shift) {
                     this.switchShift();
                 }
                 if (e.code === 'Tab' && this.inputElement) {
@@ -259,7 +266,6 @@ class Keyboard {
             if (e.code === 'CapsLock') this.properties.capsDown = false;
             if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
                 this.switchShift();
-                this.properties.shiftDown = false;
             }
             //return;
         }
@@ -278,14 +284,47 @@ class Keyboard {
             if (audio == null) return;
             audio.currentTime = 0;
             audio.play();
+            
         }
     }
 
     constructor () {
         this.getProperties();
         this.init();
+        this.initSpeech();
         // document.addEventListener('keydown', this.handleEvent);
         // document.addEventListener('keyup', this.handleEvent);
+    }
+
+    initSpeech() {
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        this.recognition = new SpeechRecognition();
+        this.recognition.interimResults = true;
+        // SpeechRecognition.continuous = true;
+
+        this.recognition.addEventListener('result', e => {
+            const transcript = Array.from(e.results)
+              .map(result => result[0])
+              .map(result => result.transcript)
+              .join('');
+        
+            console.log(e);
+        
+            if (e.results[0].isFinal) {
+                if (this.inputElement) {
+                    //this.inputElement.value = this.inputElement.value + transcript;
+                    this.insertWords(transcript);
+                }
+            }
+
+        });
+
+        this.recognition.addEventListener('end', () => {
+            console.log('stop');
+            console.log(this.recognition.lang);
+            if (this.properties.voice) this.recognition.start()
+            else this.recognition.stop();
+        });
     }
 
     init() {
@@ -394,9 +433,9 @@ class Keyboard {
         }
         
         keyButton.appendChild(basic);
-        keyButton.addEventListener('mousedown', this.mouseEvent);
-        keyButton.addEventListener('mouseup', this.mouseEvent);
-        // keyButton.addEventListener('click', this.mouseEvent);
+        //keyButton.addEventListener('mousedown', this.mouseEvent);
+        //keyButton.addEventListener('mouseup', this.mouseEvent);
+        //keyButton.addEventListener('click', this.mouseEvent);
         return keyButton;
     }
 
@@ -471,8 +510,12 @@ class Keyboard {
     }
     
     switchLang() {
-        if (this.properties.lang === 'en') this.properties.lang = 'ru'
-            else this.properties.lang = 'en';
+        if (this.properties.lang === 'en') {
+            this.properties.lang = 'ru';
+        } else {
+            this.properties.lang = 'en';
+        }
+        this.switchRecognitionLang();
         this.updateKeys();
         this.saveProperties();
         document.querySelector('#Lang > .sub').innerHTML = this.properties.lang;
@@ -491,9 +534,24 @@ class Keyboard {
 
     }
 
+    switchRecognitionLang() {
+        if (this.properties.lang === 'en') {
+            this.recognition.lang = 'en-US';
+        } else {
+            this.recognition.lang = 'ru-RU';
+        };
+    }
+
     switchVoice() {
         this.properties.voice = !this.properties.voice;
         document.querySelector('#Voice').classList.toggle('active');
+        if (this.properties.voice) {
+            this.switchRecognitionLang();
+            this.recognition.start();
+        } else {
+            this.recognition.stop();
+            //this.recognition.abort();
+        }
     }
 
     saveProperties() {
@@ -503,6 +561,15 @@ class Keyboard {
     getProperties() {
         let prop = localStorage.getItem('vkbd-lang');
         if (prop != null) this.properties.lang = prop;
+    }
+
+    insertWords(words) {
+        let cursorStart = this.inputElement.selectionStart; 
+        let cursorEnd = this.inputElement.selectionEnd; 
+        this.inputElement.value = this.inputElement.value.slice(0, cursorStart) + 
+            words + this.inputElement.value.slice(cursorEnd);
+        this.inputElement.selectionStart = cursorStart + words.length;
+        this.inputElement.selectionEnd = this.inputElement.selectionStart;    
     }
 
     insert(insertSymbol) {
@@ -634,8 +701,11 @@ window.addEventListener("DOMContentLoaded", function () {
         element.addEventListener('click', (e) => {
             keyboard.inputElement = element;
         });
-         element.addEventListener('focus', (e) => {
+        element.addEventListener('focus', (e) => {
             keyboard.inputElement = element;
+        });
+        element.addEventListener('blur', (e) => {
+            keyboard.inputElement = null;
         });
     });
     document.addEventListener('keydown', keyboard.handleEvent);
@@ -646,4 +716,6 @@ window.addEventListener("DOMContentLoaded", function () {
     document.addEventListener('blur', () => {
         document.querySelectorAll('.keyboard__key').forEach((element) => element.classList.remove('pressed'));
     });
+    document.querySelector('#virtual_keyboard').addEventListener('mousedown', keyboard.mouseEvent);
+    document.querySelector('.keyboard-on').addEventListener('mousedown', keyboard.mouseEvent);
 });
