@@ -197,6 +197,9 @@ class Keyboard {
             case 'Voice':
                 this.switchVoice();
                 break;
+            case 'keyboard-voice':
+                this.switchVoice();
+                break;
             case 'Enter':
                 this.inputSpec("\n");
                 break;
@@ -231,7 +234,6 @@ class Keyboard {
     
     handleEvent = e => {
         if (e.code == null) return;
-        // console.log(e.code);
         let key ='';
         try {
             key = document.querySelector(`#${e.code}`);
@@ -240,7 +242,6 @@ class Keyboard {
         }
         if (e.type === 'keydown') {
             if (key) {
-                // this.playSound(e.code);
                 key.classList.add('pressed');
                 if (this.inputElement) this.inputElement.focus();
                 if (e.code === 'CapsLock' && !this.properties.capsDown) {
@@ -267,7 +268,6 @@ class Keyboard {
             if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
                 this.switchShift();
             }
-            //return;
         }
         
         
@@ -292,15 +292,17 @@ class Keyboard {
         this.getProperties();
         this.init();
         this.initSpeech();
-        // document.addEventListener('keydown', this.handleEvent);
-        // document.addEventListener('keyup', this.handleEvent);
     }
 
     initSpeech() {
-        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        this.recognition = new SpeechRecognition();
-        this.recognition.interimResults = true;
-        // SpeechRecognition.continuous = true;
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (window.SpeechRecognition == undefined) {
+                document.querySelector('#Voice').classList.add('disable');
+                document.querySelector('#keyboard-voice').classList.add('disable');                
+                return;
+            };
+            this.recognition = new SpeechRecognition();
+            this.recognition.interimResults = true;
 
         this.recognition.addEventListener('result', e => {
             const transcript = Array.from(e.results)
@@ -308,11 +310,8 @@ class Keyboard {
               .map(result => result.transcript)
               .join('');
         
-            console.log(e);
-        
             if (e.results[0].isFinal) {
                 if (this.inputElement) {
-                    //this.inputElement.value = this.inputElement.value + transcript;
                     this.insertWords(transcript);
                 }
             }
@@ -320,8 +319,6 @@ class Keyboard {
         });
 
         this.recognition.addEventListener('end', () => {
-            console.log('stop');
-            console.log(this.recognition.lang);
             if (this.properties.voice) this.recognition.start()
             else this.recognition.stop();
         });
@@ -333,14 +330,16 @@ class Keyboard {
         keyboardOn.classList.add('keyboard-on', 'hidden');
         let keyboardButton = this.createKey('Keyboard', lang); 
         keyboardButton.id = 'keyboard-on';
+        let keyboardVoice = this.createKey('Voice', lang);
+        keyboardVoice.id = 'keyboard-voice';
         let keyboardLang = this.createKey('Lang', lang);
         keyboardLang.id = 'keyboard-lang';
         keyboardOn.appendChild(keyboardButton);
+        keyboardOn.appendChild(keyboardVoice);
         keyboardOn.appendChild(keyboardLang);
         document.body.appendChild(keyboardOn);
 
         this.elements.main = document.createElement("div");
-        // this.elements.main.classList.add('keyboard','keyboard-hidden');
         this.elements.main.classList.add('keyboard');
         this.elements.main.setAttribute("id", "virtual_keyboard");
         this.elements.keysContainer = document.createElement("div");
@@ -433,9 +432,6 @@ class Keyboard {
         }
         
         keyButton.appendChild(basic);
-        //keyButton.addEventListener('mousedown', this.mouseEvent);
-        //keyButton.addEventListener('mouseup', this.mouseEvent);
-        //keyButton.addEventListener('click', this.mouseEvent);
         return keyButton;
     }
 
@@ -535,22 +531,30 @@ class Keyboard {
     }
 
     switchRecognitionLang() {
-        if (this.properties.lang === 'en') {
-            this.recognition.lang = 'en-US';
-        } else {
-            this.recognition.lang = 'ru-RU';
-        };
+        if  (this.recognition) {
+            if (this.properties.lang === 'en') {
+                this.recognition.lang = 'en-US';
+            } else {
+                this.recognition.lang = 'ru-RU';
+            };
+        }
     }
 
     switchVoice() {
-        this.properties.voice = !this.properties.voice;
-        document.querySelector('#Voice').classList.toggle('active');
-        if (this.properties.voice) {
-            this.switchRecognitionLang();
-            this.recognition.start();
-        } else {
-            this.recognition.stop();
-            //this.recognition.abort();
+        if  (this.recognition) {
+            try {
+                this.properties.voice = !this.properties.voice;
+                document.querySelector('#Voice').classList.toggle('active');
+                document.querySelector('#keyboard-voice').classList.toggle('active');
+                if (this.properties.voice) {
+                    this.switchRecognitionLang();
+                    this.recognition.start();
+                } else {
+                    this.recognition.stop();
+                }
+            } catch (error) {
+                
+            }
         }
     }
 
@@ -587,8 +591,6 @@ class Keyboard {
             return;
         }
         this.inputElement.focus();
-        // let sub = key.querySelector('.sub').innerHTML;
-        // let basic = key.querySelector('.basic').innerHTML;
         let sub = this.keys[this.properties.lang][key.id].shift;
         let basic = this.keys[this.properties.lang][key.id].value;
 
