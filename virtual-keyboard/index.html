@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual keyboard</title>
+    <link rel="icon" type="image/png" href="keyboard/assets/image/keyboard.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="keyboard/keyboard.css">
+</head>
+<body>
+    <h1>Virtual keyboard</h1>
+    <div class="instruction">
+        <ul> <h2>Important:</h2>
+            <li>
+                input is only done when the <b>textarea</b> has <b>focus</b>
+            </li>
+            <li>
+                to use voice input in <b>Mozilla Firefox</b>, you need to change the <b>media.webspeech.recognition.enable</b>  
+                and <b>media.webspeech.recognition.force_enable</b> flags to <b>true</b> in <b>about: config</b>
+            </li>
+        </ul>
+    </div>
+    <textarea name="" id="text" cols="30" rows="7" class="use-virtual-keyboard" placeholder="Enter somthing ..." spellcheck="false" autocomplete="off"></textarea>
+    <script src="keyboard/keyboard.js"></script>
+</body>
+</html>
