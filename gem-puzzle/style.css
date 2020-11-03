@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+div {
+    cursor: pointer;
+}
+.box {
+    position: relative;
+    border: 3px solid blue;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.cell {
+    position: absolute;
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    user-select: none;
+    background-attachment: scroll;
+    transition: all .3s;
+}
+
+.cell.copy {
+    opacity: 0.5;
+}
+
+.cell.copy.hidden {
+    display: none;
+}
+
+.cell.copy.test {
+    opacity: 0;
+}
+
+.not-animate {
+    transition: none;
+}
+
+.cell:hover {
+    cursor: pointer;
+}
+
+.empty {
+    border: none;
+    opacity: 0;
+}
