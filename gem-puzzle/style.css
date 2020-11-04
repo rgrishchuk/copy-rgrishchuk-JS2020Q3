@@ -12,9 +12,17 @@ body {
     overflow: hidden;
 }
 
-div {
-    cursor: pointer;
+.statusbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.timer {
+    display: flex;
+    align-items: center;
+}
+
 .box {
     position: relative;
     border: 3px solid blue;
@@ -25,6 +33,7 @@ div {
 }
 
 .cell {
+    cursor: pointer;
     position: absolute;
     border: 1px solid black;
     box-sizing: border-box;
@@ -60,4 +69,21 @@ div {
 .empty {
     border: none;
     opacity: 0;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu__list {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.menu__list__item:hover {
+    cursor: pointer;
 }
