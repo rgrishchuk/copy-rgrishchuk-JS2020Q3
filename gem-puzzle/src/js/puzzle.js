@@ -9,7 +9,7 @@ function getRandomIntInclusive(min, max) {
 }
 
 export default class GemPuzzle {
-  constructor(size, numbers, type = 'num') {
+  constructor(size, numbers, type = 'num', sound) {
     this.size = size;
     this.cellSize = (this.size / Math.sqrt(numbers));
     this.numbers = numbers;
@@ -27,35 +27,45 @@ export default class GemPuzzle {
       // this.img.src = 'assets/images/33.jpg';
       console.log(this.img);
     }
+    this.setSettings(this.numbers, this.type, sound);
   }
 
-  // isSolvable(numbers) {
-  //   let sum = 0;
-  //   let emptyIndex = 0;
-  //   for (let i = 0; i < numbers.length; i++) {
-  //     console.log(sum);
-  //     if (numbers[i] !== 0) {
-  //       for (let j = i + 1; j < numbers.length; j++) {
-  //         if (numbers[i] > numbers[j] && numbers[i] !== 0 && numbers[j] !== 0) {
-  //           console.log(`${numbers[i]} - ${numbers[j]}`);
-  //           sum = sum + 1;
-  //         };
-  //       }
-  //     } else {emptyIndex = i + 1};
-  //   }
-  //   sum = sum + Math.ceil(emptyIndex / Math.sqrt(this.numbers));
-  //   console.log(numbers);
-  //   //console.log(emptyIndex % Math.sqrt(this.numbers) + 1);
-  //   console.log(Math.ceil(emptyIndex / Math.sqrt(this.numbers)));
-  //   console.log(sum);
-  //   console.log(sum % 2 === 0);
-  //   //return (sum % 2) === 0;
-  //   if (this.numbers % 2 === 0) {
-  //     return (sum % 2 === 0)
-  //   } else {
-  //     return (sum % 2 !== 0)
-  //   }
-  // }
+  showImage() {
+    document.querySelectorAll('.cell').forEach((cell) => {
+      cell.parentNode.removeChild(cell);
+    });
+    const gameBox = document.querySelector('.box');
+    gameBox.style.backgroundSize = `${this.size}px ${this.size}px`;
+    gameBox.style.backgroundImage = `url('${this.img.src}')`;
+  }
+
+  newGame() {
+    this.timer.stop();
+    this.timer.clear();
+    this.moves = 0;
+    this.statusbar.setMoves(this.moves);
+    this.statusbar.setTimer(this.timer);
+    this.numbers = this.settings.numbers;
+    this.cellSize = (this.size / Math.sqrt(this.numbers));
+    this.type = this.settings.type;
+    this.isEnableEvent = true;
+    this.isPaused = false;
+    const gameBox = document.querySelector('.box');
+    gameBox.style.backgroundSize = '';
+    gameBox.style.backgroundImage = '';
+    if (this.type === 'img') {
+      this.img = new Image();
+      this.img.src = `assets/images/${getRandomIntInclusive(1, 150)}.jpg`;
+    }
+  }
+
+  setSettings(numbers, type, sound) {
+    this.settings = {
+      numbers: numbers,
+      type: type,
+      sound: sound,
+    };
+  }
 
   move(index) {
     const cell = this.cells[index];
@@ -63,6 +73,13 @@ export default class GemPuzzle {
       // cell.element.style.left = `${cell.left * this.cellSize}px`;
       // cell.element.style.top = `${cell.top * this.cellSize}px`;
       return;
+    }
+    if (this.settings.sound) {
+      const audio = document.querySelector('.audio__move');
+      if (audio !== null) {
+        audio.currentTime = 0;
+        audio.play();
+      }
     }
     const currLeft = cell.left;
     const currTop = cell.top;
@@ -117,7 +134,7 @@ export default class GemPuzzle {
       // console.log(`${emptyLeft} - ${emptyTop}`);
       // console.log(emptyIndex);
     }
-    // numbers = [3, 4, 2, 0, 5, 8, 7, 1, 6];
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 0];
     this.cells = [];
     numbers.forEach((num) => this.cells.push({ value: num }));
   }
@@ -129,12 +146,15 @@ export default class GemPuzzle {
       gameBox.classList.add('box');
       gameBox.style.height = `${this.size}px`;
       gameBox.style.width = `${this.size}px`;
+      this.overlay = document.createElement('div');
+      this.overlay.classList.add('overlay');
+      gameBox.appendChild(this.overlay);
       document.body.prepend(gameBox);
       document.body.prepend(this.statusbar.element);
     } else {
-      while (gameBox.firstChild) {
-        gameBox.removeChild(gameBox.firstChild);
-      }
+      document.querySelectorAll('.cell').forEach((cell) => {
+        cell.parentNode.removeChild(cell);
+      });
     }
     const cellsInRow = Math.sqrt(this.numbers);
     this.cells.forEach((cell, index) => {
@@ -159,7 +179,7 @@ export default class GemPuzzle {
         cell.top = top;
         cell.left = left;
         cell.element = cellElement;
-        if (this.type === 'num') { cellElement.innerHTML = cell.value; } else { cellElement.innerHTML = cell.value; this.insertImg(cellElement, cell); }
+        if (this.type === 'num') { cellElement.innerHTML = cell.value; } else { this.insertImg(cellElement, cell); }
         gameBox.appendChild(cellElement);
         this.addEventCell(cellElement, index);
       }
@@ -176,7 +196,8 @@ export default class GemPuzzle {
       this.isEnableEvent = true;
       if (this.isFinish()) {
         this.timer.stop();
-        alert('You win!!!');
+        document.dispatchEvent(new Event('win', { bubbles: true }));
+        // alert('You win!!!');
       }
     });
 
@@ -239,6 +260,32 @@ export default class GemPuzzle {
     cellElement.style.backgroundSize = `${this.size}px ${this.size}px`;
     cellElement.style.backgroundPosition = `${imgLeft}px ${imgTop}px`;
     cellElement.style.backgroundImage = `url('${this.img.src}')`;
+  }
+
+  overlayOn(opacity = 0.8) {
+    if (this.overlay) {
+      this.overlay.classList.add('active');
+      this.overlay.style.background = `rgba(0, 0, 0, ${opacity})`;
+    }
+  }
+
+  overlayOff() {
+    if (this.overlay) {
+      this.clearOverlay();
+      this.overlay.classList.remove('active');
+      this.overlay.style.background = '';
+    }
+  }
+
+  clearOverlay() {
+    if (this.overlay) {
+      this.overlay.innerHTML = '';
+    }
+  }
+
+  display(element) {
+    console.log(element);
+    if (this.overlay) this.overlay.appendChild(element);
   }
 
   pause() {

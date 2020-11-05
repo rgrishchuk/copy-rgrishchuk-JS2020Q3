@@ -26,7 +26,15 @@ export default class Menu {
     this[item].title = title;
   }
 
+  activeItem(item) {
+    this[item].classList.add('active');
+  }
+
+  disableItem(item) {
+    this[item].classList.remove('active');
+  }
+
   isActive(item) {
-    // return this[item]
+    return this[item].classList.contains('active');
   }
 }

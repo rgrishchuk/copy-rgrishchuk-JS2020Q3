@@ -20,7 +20,7 @@ export default class StatusBar {
     el.classList.add('moves');
     title = document.createElement('span');
     title.classList.add('moves__title');
-    title.innerHTML = 'Moves:';
+    title.innerHTML = '<b>Moves:</b>';
     el.appendChild(title);
     value = document.createElement('span');
     value.classList.add('moves__value');

@@ -3,11 +3,12 @@ export default class Timer {
   constructor(statusBar) {
     this.min = 0;
     this.sec = 0;
+    this.ms = 0;
     this.statusBar = statusBar;
     console.log(this.statusBar);
   }
 
-  time() {
+  time() { 
     if (this.sec === 59) {
       this.min += 1;
       this.sec = 0;
