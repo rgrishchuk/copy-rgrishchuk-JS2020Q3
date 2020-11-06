@@ -59,6 +59,30 @@ export default class GemPuzzle {
     }
   }
 
+  loadGame(data) {
+    // console.log(data);
+    this.moves = data.moves;
+    this.timer.clear();
+    this.timer.setTime(data.timer.min, data.timer.sec);
+    this.statusbar.setMoves(this.moves);
+    this.statusbar.setTimer(this.timer);
+    this.isEnableEvent = true;
+    this.isPaused = false;
+    this.type = data.type;
+    this.numbers = data.cells.length;
+    this.cellSize = (this.size / Math.sqrt(this.numbers));
+    const gameBox = document.querySelector('.box');
+    gameBox.style.backgroundSize = '';
+    gameBox.style.backgroundImage = '';
+    if (this.type === 'img') {
+      this.img = new Image();
+      this.img.src = data.img;
+    }
+    this.cells = data.cells;
+    this.empty.left = data.empty.left;
+    this.empty.top = data.empty.top;
+  }
+
   setSettings(numbers, type, sound) {
     this.settings = {
       numbers: numbers,
@@ -134,12 +158,12 @@ export default class GemPuzzle {
       // console.log(`${emptyLeft} - ${emptyTop}`);
       // console.log(emptyIndex);
     }
-    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 0];
+    // numbers = [1, 2, 3, 4, 5, 6, 7, 8, 0];
     this.cells = [];
     numbers.forEach((num) => this.cells.push({ value: num }));
   }
 
-  draw() {
+  draw(redraw = false) {
     let gameBox = document.querySelector('.box');
     if (gameBox == null) {
       gameBox = document.createElement('div');
@@ -158,8 +182,15 @@ export default class GemPuzzle {
     }
     const cellsInRow = Math.sqrt(this.numbers);
     this.cells.forEach((cell, index) => {
-      const left = (index) % cellsInRow;
-      const top = (index - left) / cellsInRow;
+      let left = null;
+      let top = null;
+      if (redraw) {
+        left = cell.left;
+        top = cell.top;
+      } else {
+        left = (index) % cellsInRow;
+        top = (index - left) / cellsInRow;
+      }
 
       const cellElement = document.createElement('div');
       cellElement.classList.add('cell');
@@ -170,11 +201,15 @@ export default class GemPuzzle {
       if (cell.value === 0) {
         cellElement.classList.add('empty');
         gameBox.appendChild(cellElement);
-        this.empty = {
-          left: left,
-          top: top,
-          element: cellElement,
-        };
+        if (redraw) {
+          this.empty.element = cellElement;
+        } else {
+          this.empty = {
+            left: left,
+            top: top,
+            element: cellElement,
+          };
+        }
       } else {
         cell.top = top;
         cell.left = left;

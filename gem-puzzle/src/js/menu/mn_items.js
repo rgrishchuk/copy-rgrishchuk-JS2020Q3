@@ -7,7 +7,12 @@ const menuItems = [
   {
     name: 'save',
     value: '<i class="material-icons-outlined">save</i>',
-    title: 'SAVE/LOAD GAME',
+    title: 'SAVE GAME',
+  },
+  {
+    name: 'load',
+    value: '<i class="material-icons-outlined">upgrade</i>',
+    title: 'LOAD GAME',
   },
   {
     name: 'pause',

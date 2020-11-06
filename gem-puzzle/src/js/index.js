@@ -181,10 +181,12 @@ function newGame() {
   gemPuzzle.generateCells();
   gemPuzzle.draw();
   menu.activeItem('pause');
+  menu.activeItem('save');
 }
 
 function win() {
   menu.disableItem('pause');
+  menu.disableItem('save');
   if (gemPuzzle.type === 'img') {
     gemPuzzle.showImage();
   }
@@ -268,10 +270,204 @@ function topScore() {
   gemPuzzle.display(createTopScoreHTML());
 }
 
+function save() {
+  if (!gemPuzzle.isPaused) {
+    gemPuzzle.pause();
+    gemPuzzle.overlayOn();
+    menu.setTitle('pause', 'RESUME GAME');
+    menu.setValue('pause', '<i class="material-icons-outlined">play_circle_outline</i>');
+  }
+  gemPuzzle.clearOverlay();
+  const today = new Date().getTime();
+  const data = {
+    date: today,
+    cells: gemPuzzle.cells,
+    empty: gemPuzzle.empty,
+    moves: gemPuzzle.moves,
+    timer: { min: gemPuzzle.timer.min, sec: gemPuzzle.timer.sec },
+    type: gemPuzzle.type,
+    img: gemPuzzle.img.src,
+    numbers: gemPuzzle.numbers,
+  };
+  let saveData = getLocal('puzzleSave');
+  if (!saveData) { saveData = []; }
+  saveData.push(data);
+  setLocal('puzzleSave', saveData);
+  const text = document.createElement('span');
+  text.innerHTML = 'Game saved';
+  text.classList.add('save__info');
+  gemPuzzle.display(text);
+}
+
+function addZero(item) {
+  let result = item.toString();
+  if (result.length === 1) {
+    result = `0${result}`;
+  }
+  return result;
+}
+
+function createPreview(cells, size, type, img) {
+  const miniBox = document.createElement('div');
+  miniBox.classList.add('miniBox');
+  miniBox.style.height = `${size}px`;
+  miniBox.style.width = `${size}px`;
+  const cellSize = (size / Math.sqrt(cells.length));
+  cells.forEach((cell) => {
+    if (cell.value !== 0) {
+      const cellElement = document.createElement('div');
+      cellElement.classList.add('miniCell');
+      cellElement.style.height = `${cellSize}px`;
+      cellElement.style.width = `${cellSize}px`;
+      cellElement.style.left = `${cell.left * cellSize}px`;
+      cellElement.style.top = `${cell.top * cellSize}px`;
+      if (type === 'num') { cellElement.innerHTML = cell.value; } else {
+        const cellsInRow = Math.sqrt(cells.length);
+        const left = (cell.value - 1) % cellsInRow;
+        const top = (cell.value - 1 - left) / cellsInRow;
+        const fragmentSize = size / Math.sqrt(cells.length);
+        const imgTop = 0 - top * fragmentSize;
+        const imgLeft = 0 - left * fragmentSize;
+        cellElement.style.backgroundSize = `${size}px ${size}px`;
+        cellElement.style.backgroundPosition = `${imgLeft}px ${imgTop}px`;
+        cellElement.style.backgroundImage = `url('${img}')`;
+      }
+      miniBox.appendChild(cellElement);
+    }
+  });
+  return miniBox;
+}
+
+function createSlider(data) {
+  data.sort((a, b) => b.date - a.date);
+  const slider = document.createElement('div');
+  slider.classList.add('slider');
+  const sliderTitle = document.createElement('span');
+  sliderTitle.classList.add('slider__title');
+  slider.appendChild(sliderTitle);
+
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('slider__wrapper');
+  slider.appendChild(wrapper);
+  const sliderLeft = document.createElement('span');
+  sliderLeft.classList.add('slider__left');
+  sliderLeft.innerHTML = '<i class="material-icons-outlined">keyboard_arrow_left</i>';
+  const sliderRight = document.createElement('span');
+  sliderRight.classList.add('slider__right');
+  sliderRight.innerHTML = '<i class="material-icons-outlined">keyboard_arrow_right</i>';
+
+  const sliderPreview = document.createElement('div');
+  sliderPreview.classList.add('slider__preview');
+  const sliderInfo = document.createElement('div');
+  sliderInfo.classList.add('slider__info');
+  const infoSize = document.createElement('span');
+  infoSize.classList.add('slider__info__size');
+  const infoMove = document.createElement('span');
+  infoMove.classList.add('slider__info__move');
+  const infoTime = document.createElement('span');
+  infoTime.classList.add('slider__info__time');
+  sliderInfo.appendChild(infoSize);
+  sliderInfo.appendChild(infoMove);
+  sliderInfo.appendChild(infoTime);
+
+  wrapper.appendChild(sliderLeft);
+  wrapper.appendChild(sliderPreview);
+  wrapper.appendChild(sliderInfo);
+  wrapper.appendChild(sliderRight);
+
+  const loadButton = document.createElement('button');
+  loadButton.id = 'slider__load';
+  loadButton.innerHTML = 'Load';
+  slider.appendChild(loadButton);
+
+  function changeSlide(i) {
+    sliderTitle.innerHTML = new Date(data[i].date).toLocaleString('en', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour12: false,
+      hour: 'numeric',
+      minute: 'numeric',
+    });
+    infoSize.innerHTML = `Size: ${Math.sqrt(data[i].numbers)}x${Math.sqrt(data[i].numbers)}`;
+    infoMove.innerHTML = `Moves: ${data[i].moves}`;
+    infoTime.innerHTML = `Time: ${addZero(data[i].timer.min)}:${addZero(data[i].timer.sec)}`;
+    const prevSlide = document.querySelector('.miniBox');
+    if (prevSlide) { sliderPreview.removeChild(prevSlide); }
+
+    sliderPreview.appendChild(createPreview(data[i].cells, 150, data[i].type, data[i].img));
+  }
+
+  changeSlide(0);
+  let index = 0;
+  if (data.length > 1) {
+    sliderRight.classList.add('active');
+
+    sliderRight.addEventListener('click', () => {
+      if (sliderRight.classList.contains('active')) {
+        index += 1;
+        if (index === (data.length - 1)) {
+          sliderRight.classList.remove('active');
+        }
+        if (index > 0) {
+          sliderLeft.classList.add('active');
+        }
+        changeSlide(index);
+      }
+    });
+
+    sliderLeft.addEventListener('click', () => {
+      if (sliderLeft.classList.contains('active')) {
+        index -= 1;
+        if (index === 0) {
+          sliderLeft.classList.remove('active');
+        }
+        if (index < (data.length - 1)) {
+          sliderRight.classList.add('active');
+        }
+        changeSlide(index);
+      }
+    });
+  }
+
+  loadButton.addEventListener('click', () => {
+    gemPuzzle.loadGame(data[index]);
+    gemPuzzle.overlayOff();
+    gemPuzzle.draw(true);
+    menu.activeItem('pause');
+    menu.activeItem('save');
+  });
+  return slider;
+}
+
+function load() {
+  if (!gemPuzzle.isPaused) {
+    gemPuzzle.pause();
+    gemPuzzle.overlayOn();
+    menu.setTitle('pause', 'RESUME GAME');
+    menu.setValue('pause', '<i class="material-icons-outlined">play_circle_outline</i>');
+  }
+  gemPuzzle.clearOverlay();
+  const loadedData = getLocal('puzzleSave');
+  let content = null;
+  if (loadedData) {
+    content = createSlider(loadedData);
+  } else {
+    content = document.createElement('span');
+    content.classList.add('load__info');
+    content.innerHTML = 'Empty. No saved games';
+  }
+  gemPuzzle.display(content);
+}
+
 menu.newgame.addEventListener('click', newGame);
 menu.pause.addEventListener('click', () => {
   if (menu.isActive('pause')) pause();
 });
+menu.save.addEventListener('click', () => {
+  if (menu.isActive('save')) save();
+});
+menu.load.addEventListener('click', load);
 menu.top.addEventListener('click', topScore);
 menu.settings.addEventListener('click', settings);
 
