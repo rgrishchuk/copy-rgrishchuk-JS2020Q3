@@ -11,7 +11,8 @@ function getRandomIntInclusive(min, max) {
 export default class GemPuzzle {
   constructor(size, numbers, type = 'num', sound) {
     this.size = size;
-    this.cellSize = (this.size / Math.sqrt(numbers));
+    this.cellSize = Math.round(this.size / Math.sqrt(numbers));
+    // this.cellSize = this.size / Math.sqrt(numbers);
     this.numbers = numbers;
     this.moves = 0;
     this.type = type;
@@ -21,6 +22,7 @@ export default class GemPuzzle {
     this.statusbar.setMoves(this.moves);
     this.isEnableEvent = true;
     this.isPaused = false;
+    this.isShowSolve = false;
     if (this.type === 'img') {
       this.img = new Image();
       this.img.src = `assets/images/${getRandomIntInclusive(1, 150)}.jpg`;
@@ -46,10 +48,11 @@ export default class GemPuzzle {
     this.statusbar.setMoves(this.moves);
     this.statusbar.setTimer(this.timer);
     this.numbers = this.settings.numbers;
-    this.cellSize = (this.size / Math.sqrt(this.numbers));
+    this.cellSize = Math.round(this.size / Math.sqrt(this.numbers));
     this.type = this.settings.type;
     this.isEnableEvent = true;
     this.isPaused = false;
+    this.isShowSolve = false;
     const gameBox = document.querySelector('.box');
     gameBox.style.backgroundSize = '';
     gameBox.style.backgroundImage = '';
@@ -68,9 +71,10 @@ export default class GemPuzzle {
     this.statusbar.setTimer(this.timer);
     this.isEnableEvent = true;
     this.isPaused = false;
+    this.isShowSolve = false;
     this.type = data.type;
     this.numbers = data.cells.length;
-    this.cellSize = (this.size / Math.sqrt(this.numbers));
+    this.cellSize = Math.round(this.size / Math.sqrt(this.numbers));
     const gameBox = document.querySelector('.box');
     gameBox.style.backgroundSize = '';
     gameBox.style.backgroundImage = '';
@@ -129,9 +133,13 @@ export default class GemPuzzle {
     let nearIndex = null;
     const near = [];
     const cellsInRow = Math.sqrt(this.numbers);
-    const rows = this.numbers / cellsInRow;
+    // const rows = this.numbers / cellsInRow;
+    const rows = cellsInRow;
     // console.log(`${rows} - ${cellsInRow}`);
-    for (let i = 0; i < 100 * cellsInRow; i += 1) {
+    // for (let i = 0; i < 100 * cellsInRow; i += 1) {
+    let shuffle = 50;
+    if (this.numbers > 16) shuffle = shuffle * this.numbers;
+    for (let i = 0; i < shuffle; i += 1) {
       near.length = 0;
       emptyIndex = numbers.indexOf(0);
       emptyLeft = (emptyIndex) % cellsInRow;
@@ -151,14 +159,9 @@ export default class GemPuzzle {
       nearIndex = near[getRandomIntInclusive(0, near.length - 1)];
       numbers[emptyIndex] = numbers[nearIndex];
       numbers[nearIndex] = 0;
-      // console.log(`nearIndex ${nearIndex}`);
-      // console.log(near);
-      // console.log(numbers);
-      // console.log(near);
-      // console.log(`${emptyLeft} - ${emptyTop}`);
-      // console.log(emptyIndex);
     }
-    // numbers = [1, 2, 3, 4, 5, 6, 7, 8, 0];
+    // numbers = [8, 6, 7, 2, 5, 4, 3, 0, 1];
+    // numbers = [0, 2, 3, 7, 5, 6, 1, 4, 8];
     this.cells = [];
     numbers.forEach((num) => this.cells.push({ value: num }));
   }
@@ -168,14 +171,19 @@ export default class GemPuzzle {
     if (gameBox == null) {
       gameBox = document.createElement('div');
       gameBox.classList.add('box');
-      gameBox.style.height = `${this.size}px`;
-      gameBox.style.width = `${this.size}px`;
+      // gameBox.style.height = `${this.size}px`;
+      // gameBox.style.width = `${this.size}px`;
+      
+      gameBox.style.height = `${this.cellSize * Math.sqrt(this.numbers)}px`;
+      gameBox.style.width = `${this.cellSize * Math.sqrt(this.numbers)}px`;
       this.overlay = document.createElement('div');
       this.overlay.classList.add('overlay');
       gameBox.appendChild(this.overlay);
       document.body.prepend(gameBox);
       document.body.prepend(this.statusbar.element);
     } else {
+      gameBox.style.height = `${this.cellSize * Math.sqrt(this.numbers)}px`;
+      gameBox.style.width = `${this.cellSize * Math.sqrt(this.numbers)}px`;
       document.querySelectorAll('.cell').forEach((cell) => {
         cell.parentNode.removeChild(cell);
       });
@@ -185,13 +193,17 @@ export default class GemPuzzle {
       let left = null;
       let top = null;
       if (redraw) {
-        left = cell.left;
-        top = cell.top;
+        if (cell.value === 0) {
+          left = this.empty.left;
+          top = this.empty.top;
+        } else {
+          left = cell.left;
+          top = cell.top;
+        }
       } else {
         left = (index) % cellsInRow;
         top = (index - left) / cellsInRow;
       }
-
       const cellElement = document.createElement('div');
       cellElement.classList.add('cell');
       cellElement.style.height = `${this.cellSize}px`;
@@ -214,7 +226,10 @@ export default class GemPuzzle {
         cell.top = top;
         cell.left = left;
         cell.element = cellElement;
-        if (this.type === 'num') { cellElement.innerHTML = cell.value; } else { this.insertImg(cellElement, cell); }
+        if (this.type === 'num') {
+          cellElement.classList.add('number'); 
+          cellElement.innerHTML = cell.value; 
+        } else { this.insertImg(cellElement, cell); }
         gameBox.appendChild(cellElement);
         this.addEventCell(cellElement, index);
       }
@@ -232,12 +247,11 @@ export default class GemPuzzle {
       if (this.isFinish()) {
         this.timer.stop();
         document.dispatchEvent(new Event('win', { bubbles: true }));
-        // alert('You win!!!');
       }
     });
 
     cell.addEventListener('mousedown', (event) => {
-      if (!this.isEnableEvent) { return; }
+      if (!this.isEnableEvent || this.isShowSolve) { return; }
       const cellCopy = cell.cloneNode(true);
       cellCopy.classList.add('copy');
       document.body.appendChild(cellCopy);
@@ -319,7 +333,7 @@ export default class GemPuzzle {
   }
 
   display(element) {
-    console.log(element);
+    // console.log(element);
     if (this.overlay) this.overlay.appendChild(element);
   }
 

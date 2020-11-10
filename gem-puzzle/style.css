@@ -12,6 +12,9 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    /* background: lightblue; */
+    /* background: linear-gradient(45deg, #EECFBA, #C5DDE8); */
+    background: radial-gradient(40% 50%, #FAECD5, #CAE4D8);
 }
 
 .statusbar {
@@ -52,12 +55,44 @@ body {
     z-index: 9000;
 }
 
-.info {
+.pause {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pause__title {
     font-size: 50px;
     font-weight: bold;
     color: crimson;
     text-shadow: 1px 1px 2px black, 0 0 1em red;
     z-index: 9001;
+}
+
+.pause__solve-info {
+    color: white;
+    text-align: center;
+}
+
+.pause__solve-button {
+    color: crimson;
+}
+
+.pause__solve-button:hover {
+    cursor: pointer;
+    text-shadow: 1px 1px 2px black, 0 0 1em white;
+}
+
+.pause__solve-button.animate {
+    animation: color .7s linear infinite;
+}
+
+@keyframes color {
+    0%   { text-shadow: 1px 1px 2px black, 0 0 0 white; }
+    100% { text-shadow: 1px 1px 2px black, 0 0 1em white; }
 }
 
 .save__info {
@@ -82,6 +117,7 @@ body {
     cursor: pointer;
     position: absolute;
     border: 1px solid black;
+    /* border-radius: 5px; */
     box-sizing: border-box;
     display: flex; 
     justify-content: center;
@@ -90,6 +126,17 @@ body {
     user-select: none;
     background-attachment: scroll;
     transition: all .3s;
+    box-shadow: inset rgba(0,0,0,.5) -3px -3px 8px, 
+    inset rgba(255,255,255,.9) 3px 3px 8px, rgba(0,0,0,.8) 3px 3px 8px -3px;
+
+}
+
+.cell.number {
+    text-shadow: 0 1px #f7f0f0;
+    background: rgb(100,100,100) radial-gradient(circle at 0 0, 
+    rgba(255,255,255,.65), rgba(255,255,255,.35));
+    /* box-shadow: inset rgba(0,0,0,.5) -3px -3px 8px, 
+    inset rgba(255,255,255,.9) 3px 3px 8px, rgba(0,0,0,.8) 3px 3px 8px -3px; */
 }
 
 .cell.copy {
@@ -126,6 +173,7 @@ body {
 .miniCell {
     position: absolute;
     border: 1px solid black;
+    /* border-radius: 1px; */
     box-sizing: border-box;
     display: flex; 
     justify-content: center;
@@ -133,6 +181,15 @@ body {
     font-size: 10px;
     user-select: none;
     background-attachment: scroll;
+    box-shadow: inset rgba(0,0,0,.5) -1px -1px 3px, 
+    inset rgba(255,255,255,.9) 1px 1px 3px, rgba(0,0,0,.8) 1px 1px 3px -1px;
+
+}
+
+.miniCell.number {
+    text-shadow: 0 .5px #f7f0f0;
+    background: rgb(100,100,100) radial-gradient(circle at 0 0, 
+    rgba(255,255,255,.65), rgba(255,255,255,.35));
 }
 
 .empty {
@@ -167,8 +224,8 @@ body {
 
 .menu__list__item.active:hover {
     cursor: pointer;
-    text-shadow: 0 0 5px blue;
-    color: blue;
+    text-shadow: 0 0 5px white;
+    color: black;
     /* text-shadow: none; */
 }
 
@@ -341,7 +398,9 @@ body {
 }
 
 #slider__load {
+    padding: 5px;
     font-size: 15px;
+
 }
 
 #slider__load:hover {

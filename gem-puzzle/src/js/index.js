@@ -1,6 +1,7 @@
 import GemPuzzle from './puzzle';
 import Menu from './menu/menu';
 import { setLocal, getLocal } from './storage';
+// import solvePuzzle from './solve/solve';
 
 let audio = document.createElement('audio');
 audio.src = './assets/sound/move3.mp3';
@@ -14,21 +15,26 @@ document.body.prepend(audio);
 const menu = new Menu(400);
 document.body.prepend(menu.element);
 
-let gameSttings = getLocal('puzzleSettings');
-if (!gameSttings) {
-  gameSttings = {
+let gameSettings = getLocal('puzzleSettings');
+if (!gameSettings) {
+  gameSettings = {
     numbers: 16,
     type: 'num',
     sound: true,
   };
 }
-
-const gemPuzzle = new GemPuzzle(400, gameSttings.numbers, gameSttings.type, gameSttings.sound);
+const gemPuzzle = new GemPuzzle(400, gameSettings.numbers, gameSettings.type, gameSettings.sound);
 gemPuzzle.generateCells();
-// console.log(gemPuzzle.cells);
-// console.log(gemPuzzle);
-// console.log(gemPuzzle.settings);
 gemPuzzle.draw();
+
+function viewSolve(moves) {
+  gemPuzzle.isShowSolve = true;
+  gemPuzzle.timer.start();
+  for (let index = 0; index < moves.length; index += 1) {
+    setTimeout(() => { gemPuzzle.move(moves[index]); }, index * 1000);
+  }
+  gemPuzzle.isPaused = false;
+}
 
 function pause() {
   if (gemPuzzle.isPaused) {
@@ -39,9 +45,60 @@ function pause() {
   } else {
     gemPuzzle.pause();
     gemPuzzle.overlayOn();
-    const info = document.createElement('span');
-    info.classList.add('info');
-    info.innerHTML = 'GAME PAUSED';
+    const info = document.createElement('div');
+    info.classList.add('pause');
+    const infoTitle = document.createElement('span');
+    infoTitle.classList.add('pause__title');
+    infoTitle.innerHTML = 'GAME PAUSED';
+    info.appendChild(infoTitle);
+    if (gemPuzzle.numbers <= 16) {
+      const solveInfo = document.createElement('span');
+      solveInfo.classList.add('pause__solve-info');
+      solveInfo.innerHTML = 'To automatically solve the puzzle, click the button below';
+      info.appendChild(solveInfo);
+      const solveButton = document.createElement('span');
+      solveButton.classList.add('pause__solve-button');
+      solveButton.innerHTML = '<i class="material-icons-outlined">memory</i>';
+      info.appendChild(solveButton);
+      solveButton.addEventListener('click', function handler() {
+        menu.disableAll();
+        solveButton.removeEventListener('click', handler, false);
+        solveInfo.innerHTML = 'Calculation in progress, please wait';
+        solveButton.classList.add('animate');
+        const worker = new Worker('./src/js/solve/test.js');
+        const game = { cells: [], empty: { left: gemPuzzle.empty.left, top: gemPuzzle.empty.top } };
+        gemPuzzle.cells.forEach((cell) => {
+          const cellNew = {
+            value: cell.value,
+            left: cell.left,
+            top: cell.top,
+          };
+          game.cells.push(cellNew);
+        });
+        const start = new Date().getTime();
+        worker.postMessage(game);
+        worker.onmessage = (e) => {
+          menu.activeAll();
+          solveButton.classList.remove('animate');
+          const stop = new Date().getTime();
+          if (e.data && e.data.length > 0) {
+            solveInfo.innerHTML = `Operation took ${stop - start} ms.<br>Press play for view result`;
+            solveButton.innerHTML = '<i class="material-icons-outlined">play_arrow</i>';
+          } else {
+            solveInfo.innerHTML = 'Sorry, no solution found';
+          }
+          console.log(gemPuzzle);
+          console.log(e.data);
+          worker.terminate();
+          solveButton.addEventListener('click', () => {
+            menu.disableAll();
+            solveButton.removeEventListener('click', handler, false);
+            gemPuzzle.overlayOff();
+            viewSolve(e.data);
+          });
+        };
+      });
+    }
     gemPuzzle.display(info);
     menu.setTitle('pause', 'RESUME GAME');
     menu.setValue('pause', '<i class="material-icons-outlined">play_circle_outline</i>');
@@ -197,10 +254,26 @@ function win() {
       music.play();
     }
   }
+
   let min = `${gemPuzzle.timer.min}`;
   let sec = `${gemPuzzle.timer.sec}`;
   if (min.length === 1) { min = `0${min}`; }
   if (sec.length === 1) { sec = `0${sec}`; }
+
+  const marquee = document.createElement('span');
+  marquee.classList.add('win');
+  marquee.textContent = `Hooray! You solved the puzzle in ${min}:${sec} and ${gemPuzzle.moves} moves`;
+  gemPuzzle.overlayOn(0.2);
+  gemPuzzle.display(marquee);
+
+  if (gemPuzzle.isShowSolve) {
+    menu.activeItem('newgame');
+    menu.activeItem('load');
+    menu.activeItem('top');
+    menu.activeItem('settings');
+    gemPuzzle.isShowSolve = false;
+    return;
+  }
 
   const dateNow = new Date().toLocaleString('en', {
     day: 'numeric',
@@ -225,11 +298,6 @@ function win() {
     winners.length = 10;
   }
   setLocal('winners', winners);
-  const marquee = document.createElement('span');
-  marquee.classList.add('win');
-  marquee.textContent = `Hooray! You solved the puzzle in ${min}:${sec} and ${gemPuzzle.moves} moves`;
-  gemPuzzle.overlayOn(0.2);
-  gemPuzzle.display(marquee);
 }
 
 function createTopScoreHTML() {
@@ -278,6 +346,8 @@ function save() {
     menu.setValue('pause', '<i class="material-icons-outlined">play_circle_outline</i>');
   }
   gemPuzzle.clearOverlay();
+  let srcImage = '';
+  if (gemPuzzle.img) srcImage = gemPuzzle.img.src;
   const today = new Date().getTime();
   const data = {
     date: today,
@@ -286,7 +356,7 @@ function save() {
     moves: gemPuzzle.moves,
     timer: { min: gemPuzzle.timer.min, sec: gemPuzzle.timer.sec },
     type: gemPuzzle.type,
-    img: gemPuzzle.img.src,
+    img: srcImage,
     numbers: gemPuzzle.numbers,
   };
   let saveData = getLocal('puzzleSave');
@@ -321,7 +391,10 @@ function createPreview(cells, size, type, img) {
       cellElement.style.width = `${cellSize}px`;
       cellElement.style.left = `${cell.left * cellSize}px`;
       cellElement.style.top = `${cell.top * cellSize}px`;
-      if (type === 'num') { cellElement.innerHTML = cell.value; } else {
+      if (type === 'num') {
+        cellElement.classList.add('number');
+        cellElement.innerHTML = cell.value;
+      } else {
         const cellsInRow = Math.sqrt(cells.length);
         const left = (cell.value - 1) % cellsInRow;
         const top = (cell.value - 1 - left) / cellsInRow;
@@ -460,15 +533,23 @@ function load() {
   gemPuzzle.display(content);
 }
 
-menu.newgame.addEventListener('click', newGame);
+menu.newgame.addEventListener('click', () => {
+  if (menu.isActive('newgame')) newGame();
+});
 menu.pause.addEventListener('click', () => {
   if (menu.isActive('pause')) pause();
 });
 menu.save.addEventListener('click', () => {
   if (menu.isActive('save')) save();
 });
-menu.load.addEventListener('click', load);
-menu.top.addEventListener('click', topScore);
-menu.settings.addEventListener('click', settings);
+menu.load.addEventListener('click', () => {
+  if (menu.isActive('load')) load();
+});
+menu.top.addEventListener('click', () => {
+  if (menu.isActive('top')) topScore();
+});
+menu.settings.addEventListener('click', () => {
+  if (menu.isActive('settings')) settings();
+});
 
 document.addEventListener('win', win);
