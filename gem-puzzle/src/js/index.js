@@ -1,18 +1,49 @@
+/* eslint-disable import/no-webpack-loader-syntax */
+// eslint-disable-next-line import/no-unresolved
+import Worker from 'worker-loader!./solve/solve';
 import GemPuzzle from './puzzle';
 import Menu from './menu/menu';
 import { setLocal, getLocal } from './storage';
-// import solvePuzzle from './solve/solve';
+
+const rules = document.createElement('div');
+rules.classList.add('rules');
+const rulesText = document.createElement('span');
+rulesText.classList.add('rules__text');
+rulesText.innerHTML = `The Gem Puzzle is a sliding puzzle that consists of a frame of numbered square tiles 
+in random order with one tile missing. The goal of the puzzle is to place the tiles 
+in order by making sliding moves that use the empty space.
+The game has an automatic solution. Available for sizes 3x3 and 4x4. To do this, 
+press pause and then press the solution, but remember that with some combinations the 
+solution may take a long time.`;
+rules.appendChild(rulesText);
+const rulesButton = document.createElement('span');
+rulesButton.classList.add('rules__start-button');
+rulesButton.innerHTML = 'Start Game';
+rules.appendChild(rulesButton);
+document.body.prepend(rules);
 
 let audio = document.createElement('audio');
-audio.src = './assets/sound/move3.mp3';
+audio.src = './assets/sound/move.mp3';
 audio.classList.add('audio__move');
 document.body.prepend(audio);
 audio = document.createElement('audio');
-audio.src = './assets/sound/win1.mp3';
+audio.src = './assets/sound/win.mp3';
 audio.classList.add('audio__win');
 document.body.prepend(audio);
 
-const menu = new Menu(400);
+let sizeGame = null;
+
+function setSizeGame() {
+  const widthWindow = document.documentElement.clientWidth;
+  const heightWindow = document.documentElement.clientHeight;
+  let sizeWindow = widthWindow;
+  if (heightWindow < widthWindow) sizeWindow = heightWindow;
+  sizeGame = sizeWindow * 0.7;
+}
+
+setSizeGame();
+
+const menu = new Menu(sizeGame);
 document.body.prepend(menu.element);
 
 let gameSettings = getLocal('puzzleSettings');
@@ -23,7 +54,9 @@ if (!gameSettings) {
     sound: true,
   };
 }
-const gemPuzzle = new GemPuzzle(400, gameSettings.numbers, gameSettings.type, gameSettings.sound);
+
+const gemPuzzle = new GemPuzzle(sizeGame, gameSettings.numbers,
+  gameSettings.type, gameSettings.sound);
 gemPuzzle.generateCells();
 gemPuzzle.draw();
 
@@ -65,7 +98,7 @@ function pause() {
         solveButton.removeEventListener('click', handler, false);
         solveInfo.innerHTML = 'Calculation in progress, please wait';
         solveButton.classList.add('animate');
-        const worker = new Worker('./src/js/solve/test.js');
+        const worker = new Worker();
         const game = { cells: [], empty: { left: gemPuzzle.empty.left, top: gemPuzzle.empty.top } };
         gemPuzzle.cells.forEach((cell) => {
           const cellNew = {
@@ -87,8 +120,6 @@ function pause() {
           } else {
             solveInfo.innerHTML = 'Sorry, no solution found';
           }
-          console.log(gemPuzzle);
-          console.log(e.data);
           worker.terminate();
           solveButton.addEventListener('click', () => {
             menu.disableAll();
@@ -111,7 +142,6 @@ function saveSettings() {
   if (document.querySelector('#num').checked) { type = 'num'; }
   const sound = document.querySelector('.settings__sound').classList.contains('ON');
   gemPuzzle.setSettings(size, type, sound);
-  // gemPuzzle.setSound(sound);
   setLocal('puzzleSettings', gemPuzzle.settings);
   const inf = document.querySelector('.settings__info');
   inf.textContent = 'Settings applied';
@@ -214,10 +244,11 @@ function createSettingsForm() {
 function settings() {
   if (!gemPuzzle.isPaused) {
     gemPuzzle.pause();
-    gemPuzzle.overlayOn();
+    // gemPuzzle.overlayOn();
     menu.setTitle('pause', 'RESUME GAME');
     menu.setValue('pause', '<i class="material-icons-outlined">play_circle_outline</i>');
   }
+  gemPuzzle.overlayOn();
   gemPuzzle.clearOverlay();
   const settingsForm = createSettingsForm();
   gemPuzzle.display(settingsForm);
@@ -237,11 +268,13 @@ function newGame() {
   gemPuzzle.newGame();
   gemPuzzle.generateCells();
   gemPuzzle.draw();
+  gemPuzzle.timer.start();
   menu.activeItem('pause');
   menu.activeItem('save');
 }
 
 function win() {
+  gemPuzzle.isPaused = true;
   menu.disableItem('pause');
   menu.disableItem('save');
   if (gemPuzzle.type === 'img') {
@@ -263,6 +296,7 @@ function win() {
   const marquee = document.createElement('span');
   marquee.classList.add('win');
   marquee.textContent = `Hooray! You solved the puzzle in ${min}:${sec} and ${gemPuzzle.moves} moves`;
+  gemPuzzle.clearOverlay();
   gemPuzzle.overlayOn(0.2);
   gemPuzzle.display(marquee);
 
@@ -330,10 +364,10 @@ function createTopScoreHTML() {
 function topScore() {
   if (!gemPuzzle.isPaused) {
     gemPuzzle.pause();
-    gemPuzzle.overlayOn();
     menu.setTitle('pause', 'RESUME GAME');
     menu.setValue('pause', '<i class="material-icons-outlined">play_circle_outline</i>');
   }
+  gemPuzzle.overlayOn();
   gemPuzzle.clearOverlay();
   gemPuzzle.display(createTopScoreHTML());
 }
@@ -507,6 +541,7 @@ function createSlider(data) {
     gemPuzzle.loadGame(data[index]);
     gemPuzzle.overlayOff();
     gemPuzzle.draw(true);
+    gemPuzzle.timer.start();
     menu.activeItem('pause');
     menu.activeItem('save');
   });
@@ -516,10 +551,11 @@ function createSlider(data) {
 function load() {
   if (!gemPuzzle.isPaused) {
     gemPuzzle.pause();
-    gemPuzzle.overlayOn();
+    // gemPuzzle.overlayOn();
     menu.setTitle('pause', 'RESUME GAME');
     menu.setValue('pause', '<i class="material-icons-outlined">play_circle_outline</i>');
   }
+  gemPuzzle.overlayOn();
   gemPuzzle.clearOverlay();
   const loadedData = getLocal('puzzleSave');
   let content = null;
@@ -531,6 +567,15 @@ function load() {
     content.innerHTML = 'Empty. No saved games';
   }
   gemPuzzle.display(content);
+}
+
+function eventResize() {
+  const oldSizeGame = sizeGame;
+  setSizeGame();
+  if (oldSizeGame !== sizeGame) {
+    menu.setSize(sizeGame);
+    gemPuzzle.resize(sizeGame);
+  }
 }
 
 menu.newgame.addEventListener('click', () => {
@@ -553,3 +598,10 @@ menu.settings.addEventListener('click', () => {
 });
 
 document.addEventListener('win', win);
+
+window.addEventListener('resize', () => eventResize());
+
+rulesButton.addEventListener('click', () => {
+  rules.classList.add('hide');
+  gemPuzzle.timer.start();
+});

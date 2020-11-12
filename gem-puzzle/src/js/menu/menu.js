@@ -4,7 +4,7 @@ export default class Menu {
   constructor(width) {
     this.element = document.createElement('div');
     this.element.classList.add('menu');
-    this.element.style.width = `${width}px`;
+    this.setSize(width);
     const ul = document.createElement('ul');
     ul.classList.add('menu__list');
     menuItems.forEach((item) => {
@@ -16,6 +16,10 @@ export default class Menu {
       this[item.name] = li;
     });
     this.element.appendChild(ul);
+  }
+
+  setSize(width) {
+    this.element.style.width = `${width}px`;
   }
 
   setValue(item, value) {
@@ -35,19 +39,19 @@ export default class Menu {
   }
 
   disableAll() {
-    for (const item in this) {
-      if (this.hasOwnProperty(item) && item != 'element') {
+    Object.keys(this).forEach((item) => {
+      if (item !== 'element') {
         this.disableItem(item);
       }
-    }
+    });
   }
 
   activeAll() {
-    for (const item in this) {
-      if (this.hasOwnProperty(item) && item != 'element') {
+    Object.keys(this).forEach((item) => {
+      if (item !== 'element') {
         this.activeItem(item);
       }
-    }
+    });
   }
 
   isActive(item) {

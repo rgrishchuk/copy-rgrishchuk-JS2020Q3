@@ -1,10 +1,8 @@
-// import StatusBar from './statbar';
 export default class Timer {
   constructor(statusBar) {
     this.min = 0;
     this.sec = 0;
     this.statusBar = statusBar;
-    console.log(this.statusBar);
   }
 
   time() {
@@ -32,10 +30,8 @@ export default class Timer {
   }
 
   start() {
-    console.log('start timer');
     const time = this.time.bind(this);
     this.timer = setInterval(time, 1000);
-    // this.timer = setInterval( () => { this.time() }, 1000);
   }
 
   stop() {
