@@ -1,0 +1,124 @@
+.blackout {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // width: 100%;
+    // height: 100%;
+    right: 0;
+    bottom: 0;
+    background: rgba(41, 41, 41, 0.6);
+    z-index: 9990;
+}
+
+.blackout.active {
+    display: block;
+}
+
+.burger {
+    // margin: 0 auto;
+    // margin-top: 30px;
+    // margin-left: 250px;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    // background-color: white;
+    z-index: 9999;
+    .bar {
+        padding: 0;
+        width: 30px;
+        height: 4px;
+        background-color:  #2196F3;
+        display: block;
+        border-radius: 4px;
+        position: absolute; 
+        transition: all .4s ease-in-out, transform .4s ease-in-out .4s;
+    }
+
+    .bar1 {
+        top: 0;
+    }
+    
+    .bar2,
+    .bar3 {
+        top: 13.5px;
+        right: 0;
+    }
+
+    .bar2 {
+        width: 1px;
+        transform: rotate(90deg);
+        left: 13.5px;
+    }
+
+    .bar3 {
+        width: 1px;
+        left: 13.5px;
+    }
+
+    .bar4 {
+        top: 13.5px;
+        bottom: 0;
+    }
+
+    .bar5 {
+        bottom: 0px;
+    }
+    
+    &.active {
+        .bar1 {
+            top: 13.5px;
+            background-color: transparent;        
+        }
+    
+        .bar2{
+            left: 0px;
+            width: 30px;
+            transform: rotate(45deg);
+        }
+    
+        .bar3{
+            left: 0;
+            width: 30px;
+            transform: rotate(-45deg);
+        }
+    
+        .bar4{
+            background-color: transparent;
+        }
+    
+        .bar5{
+            bottom: 13.5px;
+            background-color: transparent; 
+        }
+    }
+}
+
+.burger-menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    width: 330px;
+    z-index: 9998;
+    transition: all 0.8s;
+    background-color: white;
+
+    &.active {
+        left: 0;
+    }
+
+    &__list {
+        font-size: 40px;
+        margin-top: 70px;
+        margin-left: 30px;
+        list-style-type: none;
+        li {
+            margin-bottom: 30px;
+            &:hover {
+                cursor: pointer;
+                background-color: lightblue;
+            }
+        }
+    }
+}
