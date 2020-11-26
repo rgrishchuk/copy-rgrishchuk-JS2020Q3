@@ -16,17 +16,23 @@
 }
 
 .burger {
+  
     // margin: 0 auto;
     // margin-top: 30px;
     // margin-left: 250px;
-    width: 30px;
+    width: 40px;
     height: 30px;
     position: relative;
     // background-color: white;
     z-index: 9999;
+
+    &:hover {
+        cursor: pointer;
+    }
+  
     .bar {
         padding: 0;
-        width: 30px;
+        width: 40px;
         height: 4px;
         background-color:  #2196F3;
         display: block;
@@ -73,13 +79,13 @@
     
         .bar2{
             left: 0px;
-            width: 30px;
+            width: 40px;
             transform: rotate(45deg);
         }
     
         .bar3{
             left: 0;
-            width: 30px;
+            width: 40px;
             transform: rotate(-45deg);
         }
     
@@ -118,6 +124,10 @@
             &:hover {
                 cursor: pointer;
                 background-color: lightblue;
+            }
+
+            &.active {
+                color: lightcoral;
             }
         }
     }

@@ -61,15 +61,19 @@ body {
 }
 
 .burger {
-  width: 30px;
+  width: 40px;
   height: 30px;
   position: relative;
   z-index: 9999;
 }
 
+.burger:hover {
+  cursor: pointer;
+}
+
 .burger .bar {
   padding: 0;
-  width: 30px;
+  width: 40px;
   height: 4px;
   background-color: #2196F3;
   display: block;
@@ -119,14 +123,14 @@ body {
 
 .burger.active .bar2 {
   left: 0px;
-  width: 30px;
+  width: 40px;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
 }
 
 .burger.active .bar3 {
   left: 0;
-  width: 30px;
+  width: 40px;
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
 }
@@ -172,6 +176,10 @@ body {
   background-color: lightblue;
 }
 
+.burger-menu__list li.active {
+  color: lightcoral;
+}
+
 .switch-button {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -187,10 +195,21 @@ body {
 
 .switch-button .train {
   margin-right: 5px;
+  font-weight: 700;
 }
 
 .switch-button .play {
   margin-left: 5px;
+  font-weight: 700;
+  color: gray;
+}
+
+.switch-button.game .train {
+  color: gray;
+}
+
+.switch-button.game .play {
+  color: black;
 }
 
 .switch {
@@ -327,5 +346,52 @@ input:checked + .slider:before {
 .card h4 {
   text-align: center;
   font-size: 35px;
+}
+
+.flip-card {
+  position: relative;
+  height: 300px;
+  width: 300px;
+}
+
+.flip-card .front, .flip-card .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 300px;
+  width: 300px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+}
+
+.flip-card.flipH .front {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.flip-card.flipH .back {
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+}
+
+.flip-card .back {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+
+.flip-card .icon-loop {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.flip-card .icon-loop:hover {
+  color: blue;
 }
 /*# sourceMappingURL=style.css.map */

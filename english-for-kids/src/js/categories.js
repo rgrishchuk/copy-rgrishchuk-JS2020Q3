@@ -16,7 +16,7 @@ const categories = {
       {
         word: 'dive',
         translation: 'нырять',
-        image: ' dive.jpg',
+        image: 'dive.jpg',
         audioSrc: 'dive.mp3',
       },
       {
