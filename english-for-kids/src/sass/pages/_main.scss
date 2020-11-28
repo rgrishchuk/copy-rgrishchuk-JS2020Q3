@@ -36,7 +36,7 @@
         text-align: center;
         font-size: 35px;
     }
-   
+  
 }
 
 .flip-card {
@@ -44,7 +44,7 @@
     height: 300px;
     width: 300px;
     
-    .front, .back {
+    .front, .back, .overlay {
         position:absolute;
         top: 0;
         left: 0;
@@ -52,7 +52,16 @@
         width: 300px;
         box-sizing: border-box;
         backface-visibility: hidden;
-        transition: all 0.5s ease-in;
+        transition: transform 0.5s ease-in;
+    }
+
+    .overlay {
+       height: 200px; 
+       background-color: rgba(255,255,255,0.7);
+       z-index: -1;
+       &.active {
+           z-index: 9990;
+       }
     }
 
     &.flipH .front{
@@ -78,4 +87,59 @@
             color: blue;
         }
     }
+
+    &.play {
+        
+        height: 200px;
+        .front, .back {
+            height: 200px;
+        }
+
+        .card__container {
+            display: none;
+        }
+
+        img {
+            border-radius: 5px;
+        }
+    }
+
+}
+
+.home {
+    display: none;
+    text-align: center;
+    font-size: 60px;
+    color:  #2196F3;
+    
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.active {
+        display: block;
+    }
+}
+
+.game-status {
+    height: 40px;
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 50px;
+    font-weight: 700;
+
+    i {
+        color: yellow;
+        text-shadow: 0 0 10px black;
+        font-size: 30px;
+    }
+}
+
+.smile {
+    margin: 0 auto;
+    width: 500px;
 }

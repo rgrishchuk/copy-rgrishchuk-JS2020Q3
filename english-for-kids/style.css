@@ -45,6 +45,51 @@ body {
           justify-content: space-between;
 }
 
+img {
+  pointer-events: none;
+}
+
+.game-button {
+  width: 100%;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.game-button__icon {
+  font-size: 70px;
+  color: #2196F3;
+  opacity: .7;
+  -webkit-transition: all .3s ease-out;
+  transition: all .3s ease-out;
+}
+
+.game-button__icon:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  opacity: 1;
+}
+
+.game-button__text {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.game-button.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .blackout {
   display: none;
   position: absolute;
@@ -354,7 +399,7 @@ input:checked + .slider:before {
   width: 300px;
 }
 
-.flip-card .front, .flip-card .back {
+.flip-card .front, .flip-card .back, .flip-card .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -364,8 +409,20 @@ input:checked + .slider:before {
           box-sizing: border-box;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-  -webkit-transition: all 0.5s ease-in;
-  transition: all 0.5s ease-in;
+  -webkit-transition: -webkit-transform 0.5s ease-in;
+  transition: -webkit-transform 0.5s ease-in;
+  transition: transform 0.5s ease-in;
+  transition: transform 0.5s ease-in, -webkit-transform 0.5s ease-in;
+}
+
+.flip-card .overlay {
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: -1;
+}
+
+.flip-card .overlay.active {
+  z-index: 9990;
 }
 
 .flip-card.flipH .front {
@@ -393,5 +450,65 @@ input:checked + .slider:before {
 
 .flip-card .icon-loop:hover {
   color: blue;
+}
+
+.flip-card.play {
+  height: 200px;
+}
+
+.flip-card.play .front, .flip-card.play .back {
+  height: 200px;
+}
+
+.flip-card.play .card__container {
+  display: none;
+}
+
+.flip-card.play img {
+  border-radius: 5px;
+}
+
+.home {
+  display: none;
+  text-align: center;
+  font-size: 60px;
+  color: #2196F3;
+}
+
+.home:hover {
+  cursor: pointer;
+}
+
+.home.active {
+  display: block;
+}
+
+.game-status {
+  height: 40px;
+  width: 70%;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: hidden;
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.game-status i {
+  color: yellow;
+  text-shadow: 0 0 10px black;
+  font-size: 30px;
+}
+
+.smile {
+  margin: 0 auto;
+  width: 500px;
 }
 /*# sourceMappingURL=style.css.map */
