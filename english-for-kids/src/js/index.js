@@ -41,6 +41,8 @@ function createStatistics() {
           right: 0,
           wrong: 0,
           percent: 0,
+          image: item.image,
+          audioSrc: item.audioSrc,
         });
       });
     });
@@ -101,7 +103,6 @@ function startGame() {
   gameButtonIcon.innerHTML = 'replay';
   gameButtonText.innerHTML = 'Repeat';
   wordsRandArr.length = 0;
-  // generate array random words
   categories[activeMenu].words.forEach((item) => { wordsRandArr.push(item); });
   shuffle(wordsRandArr);
   gameState.currWord = wordsRandArr.pop();
@@ -278,15 +279,19 @@ function clearGame() {
     gameButton.classList.add('active');
   }
 }
+function changeActiveMenuItem(category) {
+  const oldMenuItem = document.querySelector('li.active');
+  if (oldMenuItem) oldMenuItem.classList.remove('active');
+  const newActiveMenu = findMenuItem(category);
+  if (newActiveMenu) newActiveMenu.classList.add('active');
+}
 
 function showCategory(category) {
   if (category !== activeMenu) {
     clearGame();
     cardsArr.length = 0;
     iconHome.classList.add('active');
-    document.querySelector('li.active').classList.remove('active');
-    const newActiveMenu = findMenuItem(category);
-    if (newActiveMenu) newActiveMenu.classList.add('active');
+    changeActiveMenuItem(category);
     activeMenu = category;
     clearMain();
     const wordArr = categories[category].words;
@@ -306,10 +311,10 @@ function showMain() {
   if (activeMenu !== 'Main') {
     clearGame();
     iconHome.classList.remove('active');
-    document.querySelector('li.active').classList.remove('active');
-    document.querySelector('.mainPage').classList.add('active');
+    changeActiveMenuItem('Main');
     activeMenu = 'Main';
     clearMain();
+    delete categories.Difficult;
     Object.keys(categories).forEach((category) => {
       const img = `assets/images/${categories[category].words[0].image}`;
       const cardHTML = createCard(category, img);
@@ -341,7 +346,16 @@ function sortStatTable(rowTitle) {
     oldRowSort.classList.remove('asc');
     oldRowSort.classList.remove('desc');
     rowTitle.classList.add('sort', 'asc');
-    rows.sort((a, b) => (a.cells[indexRowSort].innerHTML > b.cells[indexRowSort].innerHTML ? 1 : -1));
+    if (indexRowSort > 2) {
+      rows.sort((a, b) => {
+        const curr = parseInt(a.cells[indexRowSort].innerHTML, 10);
+        const next = parseInt(b.cells[indexRowSort].innerHTML, 10);
+        return curr > next ? 1 : -1;
+      });
+    } else {
+      rows.sort((a, b) => (a.cells[indexRowSort].innerHTML
+        > b.cells[indexRowSort].innerHTML ? 1 : -1));
+    }
   }
   statTable.tBodies[0].append(...rows);
 }
@@ -374,6 +388,40 @@ function createStatTable() {
     tbody.appendChild(tr);
   });
 }
+
+function resetStatistics() {
+  statistics.forEach((item) => {
+    const word = item;
+    word.clicks = 0;
+    word.right = 0;
+    word.wrong = 0;
+    word.percent = 0;
+  });
+  setLocal('statistics', statistics);
+  const rows = Array.from(statTable.rows).slice(1);
+  rows.forEach((item) => {
+    const row = item;
+    for (let index = 3; index <= 6; index += 1) {
+      row.cells[index].innerHTML = '0';
+    }
+  });
+}
+
+function showDifficultWords() {
+  const difficultWord = statistics.filter((item) => item.clicks > 0 && item.percent < 100);
+  difficultWord.sort((a, b) => (a.percent > b.percent ? 1 : -1));
+  delete categories.Difficult;
+  categories.Difficult = { words: [] };
+  for (let index = 0; index < 8 && index < difficultWord.length; index += 1) {
+    categories.Difficult.words.push(difficultWord[index]);
+  }
+  if (difficultWord.length > 0) {
+    showCategory('Difficult');
+  } else {
+    statusBar.innerHTML = 'No difficult words';
+  }
+}
+
 function createStateButtons() {
   const statButtons = document.createElement('div');
   statButtons.classList.add('statistics-buttons');
@@ -389,6 +437,14 @@ function createStateButtons() {
   statButtons.appendChild(difficultButton);
   statButtons.appendChild(resetButton);
   main.appendChild(statButtons);
+
+  resetButton.addEventListener('click', () => {
+    resetStatistics();
+  });
+
+  difficultButton.addEventListener('click', () => {
+    showDifficultWords();
+  });
 }
 
 function showStatistics() {

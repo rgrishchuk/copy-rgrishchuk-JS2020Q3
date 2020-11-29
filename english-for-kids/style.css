@@ -373,6 +373,7 @@ input:checked + .slider:before {
 }
 
 .statistics-table {
+  margin-bottom: 20px;
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   font-size: 20px;
   background: white;
