@@ -4,7 +4,9 @@ import Worker from 'worker-loader!./solve/solve';
 import GemPuzzle from './puzzle';
 import Menu from './menu/menu';
 import { setLocal, getLocal } from './storage';
+import createAudio from './audio';
 
+const GAME_SIZE_PERCENT = 0.7;
 const rules = document.createElement('div');
 rules.classList.add('rules');
 const rulesText = document.createElement('span');
@@ -22,14 +24,7 @@ rulesButton.innerHTML = 'Start Game';
 rules.appendChild(rulesButton);
 document.body.prepend(rules);
 
-let audio = document.createElement('audio');
-audio.src = './assets/sound/move.mp3';
-audio.classList.add('audio__move');
-document.body.prepend(audio);
-audio = document.createElement('audio');
-audio.src = './assets/sound/win.mp3';
-audio.classList.add('audio__win');
-document.body.prepend(audio);
+createAudio();
 
 let sizeGame = null;
 
@@ -38,7 +33,7 @@ function setSizeGame() {
   const heightWindow = document.documentElement.clientHeight;
   let sizeWindow = widthWindow;
   if (heightWindow < widthWindow) sizeWindow = heightWindow;
-  sizeGame = sizeWindow * 0.7;
+  sizeGame = sizeWindow * GAME_SIZE_PERCENT;
 }
 
 setSizeGame();

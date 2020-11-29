@@ -18,7 +18,7 @@ class State {
     };
   }
 
-  setH() {
+  setHeuristic() {
     let result = 0;
     const column = Math.sqrt(this.cells.length);
     this.cells.forEach((cell) => {
@@ -66,29 +66,28 @@ class State {
     let nearNode = null;
     const columns = Math.sqrt(this.cells.length);
     const result = [];
-    if (this.empty.top !== 0) {
-      nearIndex = this.findCell(this.empty.left, this.empty.top - 1);
+
+    function addNeighbors() {
       nearNode = this.newState(nearIndex);
       nearNode.move = nearIndex;
       result.push(nearNode);
+    }
+
+    if (this.empty.top !== 0) {
+      nearIndex = this.findCell(this.empty.left, this.empty.top - 1);
+      addNeighbors();
     }
     if (this.empty.left !== 0) {
       nearIndex = this.findCell(this.empty.left - 1, this.empty.top);
-      nearNode = this.newState(nearIndex);
-      nearNode.move = nearIndex;
-      result.push(nearNode);
+      addNeighbors();
     }
     if (this.empty.top !== columns - 1) {
       nearIndex = this.findCell(this.empty.left, this.empty.top + 1);
-      nearNode = this.newState(nearIndex);
-      nearNode.move = nearIndex;
-      result.push(nearNode);
+      addNeighbors();
     }
     if (this.empty.left !== columns - 1) {
       nearIndex = this.findCell(this.empty.left + 1, this.empty.top);
-      nearNode = this.newState(nearIndex);
-      nearNode.move = nearIndex;
-      result.push(nearNode);
+      addNeighbors();
     }
     return result;
   }
@@ -98,7 +97,7 @@ function idastar(startState) {
   const result = [];
 
   function search(node, g, bound) {
-    node.setH();
+    node.setHeuristic();
     const f = g + node.h;
     if (f > bound) {
       return f;
@@ -123,7 +122,7 @@ function idastar(startState) {
   }
 
   const start = new State(startState);
-  start.setH();
+  start.setHeuristic();
   let bound = start.h;
 
   while (true) {

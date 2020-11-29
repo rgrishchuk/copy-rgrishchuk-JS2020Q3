@@ -8,6 +8,11 @@ module.exports = {
         test: /\.worker\.js$/,
         use: { loader: 'worker-loader' },
       },
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: ["eslint-loader"],
+      }
     ],
   },
   output: {
