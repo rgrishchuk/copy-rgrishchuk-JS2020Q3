@@ -1,9 +1,11 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
   -o-box-sizing: border-box;
   box-sizing: border-box;
+  outline: none;
 }
 
 :root {
@@ -88,6 +90,40 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.statistics-buttons {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.statistics-buttons button {
+  padding: 5px;
+  font-size: 30px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  -webkit-transition: all .3s ease-out;
+  transition: all .3s ease-out;
+}
+
+.statistics-buttons button:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 10px black;
+          box-shadow: 0 0 10px black;
+}
+
+.statistics-buttons__difficult {
+  background-color: blue;
+}
+
+.statistics-buttons__reset {
+  background-color: crimson;
 }
 
 .blackout {
@@ -334,6 +370,48 @@ input:checked + .slider:before {
 
 .footer .git:visited {
   color: black;
+}
+
+.statistics-table {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 20px;
+  background: white;
+  max-width: 100%;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.statistics-table th {
+  font-weight: bold;
+  color: #039;
+  border-bottom: 2px solid #6678b1;
+  padding: 10px 15px;
+}
+
+.statistics-table th:hover {
+  cursor: pointer;
+}
+
+.statistics-table th.sort.asc::before {
+  content: "▼";
+}
+
+.statistics-table th.sort.desc::before {
+  content: "▲";
+}
+
+.statistics-table td {
+  color: #669;
+  padding: 9px 8px;
+  border-bottom: 1px solid #ccc;
+  -webkit-transition: .3s linear;
+  transition: .3s linear;
+}
+
+.statistics-table tr:hover td {
+  color: #6699ff;
+  background: #e8edff;
 }
 
 .main__container {

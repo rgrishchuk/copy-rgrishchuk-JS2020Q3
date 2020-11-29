@@ -1,4 +1,5 @@
 import categories from './categories';
+import { setLocal, getLocal } from './storage';
 
 let activeMenu = null;
 let isTrain = true;
@@ -10,6 +11,10 @@ const errorSound = document.querySelector('.error');
 const winSound = document.querySelector('.win');
 const loseSound = document.querySelector('.lose');
 const cardsArr = [];
+
+const theadStat = ['Word', 'Translation', 'Category', 'Clicks', 'Right', 'Wrong', 'Correct %'];
+let statistics = null;
+
 const gameState = {};
 const wordsRandArr = [];
 
@@ -21,6 +26,43 @@ const gameButtonText = document.createElement('span');
 gameButtonText.classList.add('game-button__text');
 gameButton.appendChild(gameButtonIcon);
 gameButton.appendChild(gameButtonText);
+
+function createStatistics() {
+  statistics = getLocal('statistics');
+  if (!statistics) {
+    statistics = [];
+    Object.keys(categories).forEach((category) => {
+      categories[category].words.forEach((item) => {
+        statistics.push({
+          category,
+          word: item.word,
+          translation: item.translation,
+          clicks: 0,
+          right: 0,
+          wrong: 0,
+          percent: 0,
+        });
+      });
+    });
+    setLocal('statistics', statistics);
+  }
+}
+createStatistics();
+
+function toStatistics(word, category, right) {
+  const index = statistics.findIndex((element) => element.word === word);
+  if (index !== -1) {
+    statistics[index].clicks += 1;
+    if (right) {
+      statistics[index].right += 1;
+    } else {
+      statistics[index].wrong += 1;
+    }
+    statistics[index].percent = Math.ceil((statistics[index].right * 100)
+    / statistics[index].clicks);
+  }
+  setLocal('statistics', statistics);
+}
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i -= 1) {
@@ -175,12 +217,14 @@ function createFlipCard(word, translate, image) {
       if (gameState.currWord.word === e.target.closest('.front').querySelector('h4').innerHTML) {
         add2status(true);
         gameState.success += 1;
+        toStatistics(gameState.currWord.word, activeMenu, true);
         overlay.classList.add('active');
         successSound.addEventListener('ended', nextWord, false);
         gameState.playSound = true;
         successSound.play();
       } else {
         add2status(false);
+        toStatistics(gameState.currWord.word, activeMenu, false);
         gameState.errors += 1;
         errorSound.play();
       }
@@ -276,6 +320,91 @@ function showMain() {
   if (isActiveBurger()) showBurgerMenu();
 }
 
+let statTable = null;
+
+function sortStatTable(rowTitle) {
+  const indexRowSort = theadStat.indexOf(rowTitle.innerHTML);
+  const rows = Array.from(statTable.rows).slice(1);
+  if (rowTitle.classList.contains('sort')) {
+    const row = statTable.querySelector('.sort');
+    if (row.classList.contains('asc')) {
+      row.classList.remove('asc');
+      row.classList.add('desc');
+    } else {
+      row.classList.remove('desc');
+      row.classList.add('asc');
+    }
+    rows.reverse();
+  } else {
+    const oldRowSort = statTable.querySelector('.sort');
+    oldRowSort.classList.remove('sort');
+    oldRowSort.classList.remove('asc');
+    oldRowSort.classList.remove('desc');
+    rowTitle.classList.add('sort', 'asc');
+    rows.sort((a, b) => (a.cells[indexRowSort].innerHTML > b.cells[indexRowSort].innerHTML ? 1 : -1));
+  }
+  statTable.tBodies[0].append(...rows);
+}
+
+function createStatTable() {
+  statTable = null;
+  statTable = document.createElement('table');
+  statTable.classList.add('statistics-table');
+  const tbody = document.createElement('tbody');
+  statTable.appendChild(tbody);
+  let tr = document.createElement('tr');
+  theadStat.forEach((item) => {
+    const th = document.createElement('th');
+    th.innerHTML = item;
+    if (item === 'Word') th.classList.add('sort', 'asc');
+    th.addEventListener('click', (e) => {
+      sortStatTable(e.target);
+    });
+    tr.appendChild(th);
+  });
+  tbody.appendChild(tr);
+  statistics.sort((a, b) => {
+    if (a.word === b.word) return 0;
+    if (a.word > b.word) return 1;
+    return -1;
+  });
+  statistics.forEach((item) => {
+    tr = document.createElement('tr');
+    tr.innerHTML = `<td>${item.word}</td><td>${item.translation}</td><td>${item.category}</td><td>${item.clicks}</td><td>${item.right}</td><td>${item.wrong}</td><td>${item.percent}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+function createStateButtons() {
+  const statButtons = document.createElement('div');
+  statButtons.classList.add('statistics-buttons');
+
+  const resetButton = document.createElement('button');
+  resetButton.classList.add('statistics-buttons__reset');
+  resetButton.innerHTML = 'Reset';
+
+  const difficultButton = document.createElement('button');
+  difficultButton.classList.add('statistics-buttons__difficult');
+  difficultButton.innerHTML = 'Repeat difficult words';
+
+  statButtons.appendChild(difficultButton);
+  statButtons.appendChild(resetButton);
+  main.appendChild(statButtons);
+}
+
+function showStatistics() {
+  if (activeMenu !== 'Statistics') {
+    document.querySelector('li.active').classList.remove('active');
+    document.querySelector('.statisticsPage').classList.add('active');
+    activeMenu = 'Statistics';
+    clearGame();
+    clearMain();
+    createStateButtons();
+    createStatTable();
+    main.appendChild(statTable);
+  }
+  if (isActiveBurger()) showBurgerMenu();
+}
+
 const burgerList = document.querySelector('.burger-menu__list');
 function createBurgerMenu() {
   Object.keys(categories).forEach((category) => {
@@ -291,6 +420,7 @@ function createBurgerMenu() {
     });
   });
   const stat = document.createElement('li');
+  stat.classList.add('statisticsPage');
   stat.innerHTML = 'Statistics';
   burgerList.appendChild(stat);
 }
@@ -298,7 +428,7 @@ function createBurgerMenu() {
 showMain();
 createBurgerMenu();
 const burger = document.querySelector('.burger');
-burger.addEventListener('click', () => { 
+burger.addEventListener('click', () => {
   if (!gameState.playSound) {
     showBurgerMenu();
   }
@@ -322,3 +452,5 @@ iconHome.addEventListener('click', () => {
     showMain();
   }
 });
+
+document.querySelector('.statisticsPage').addEventListener('click', () => { showStatistics(); });

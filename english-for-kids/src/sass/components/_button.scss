@@ -26,3 +26,31 @@
         display: flex;
     }
 }
+
+.statistics-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        padding: 5px;
+        font-size: 30px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        transition: all .3s ease-out;
+
+        &:hover {
+            cursor: pointer;
+            box-shadow: 0 0 10px black;
+        }
+    }
+    
+    &__difficult {
+        background-color: blue;
+    }
+
+    &__reset {
+        background-color: crimson;
+    }
+}

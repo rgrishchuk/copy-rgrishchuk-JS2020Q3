@@ -5,6 +5,7 @@
     -moz-box-sizing: border-box;
     -o-box-sizing: border-box;
     box-sizing: border-box;
+    outline: none;
 }
 
 :root {
@@ -39,4 +40,5 @@ img {
 @import "src/sass/components/_switch";
 @import "src/sass/layout/_header";
 @import "src/sass/layout/_footer";
+@import "src/sass/pages/_statistics";
 @import "src/sass/pages/_main";
