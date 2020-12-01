@@ -39,3 +39,9 @@
         background: #e8edff;
     }
 }
+
+@media screen and (max-width: 750px) {
+    .statistics-table {
+        font-size: 15px;
+    }
+}

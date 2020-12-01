@@ -71,3 +71,31 @@ input:focus + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
+
+@media screen and (max-width: 410px) {
+  .switch-button {
+    .train, .play {
+      font-size: 15px;
+    }
+  }
+
+  .switch {
+      width: 40px;
+      height: 24px;
+
+      .slider {
+        
+          &:before {
+            height: 17px;
+            width: 17px;
+            left: 4px;
+            bottom: 4px;
+          }
+      }
+        
+  }
+
+   input:checked + .slider:before {
+    transform: translateX(15px);
+}
+}

@@ -1,4 +1,26 @@
 .header {
     width: 100%;
-    height: 70px;
+    height: 50px;
 }
+
+.home {
+    display: none;
+    text-align: center;
+    font-size: 60px;
+    color:  #2196F3;
+    
+    &:hover {
+        cursor: pointer;
+    }
+
+    &.active {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .home {
+        font-size: 40px;
+    }
+}
+

@@ -1,9 +1,14 @@
+// .main {
+//     margin-top: 90px;
+//     margin-bottom: 90px;
+// }
+
 .main__container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     row-gap: 80px;
-    column-gap: 20px;
+    column-gap: 180px;
     justify-content: space-between;
     align-items: center;
 }
@@ -26,7 +31,7 @@
     }
 
     &__container {
-        height: 100px;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -34,21 +39,21 @@
 
     h4 {
         text-align: center;
-        font-size: 35px;
+        font-size: 25px;
     }
   
 }
 
 .flip-card {
     position: relative;
-    height: 300px;
+    height: 250px;
     width: 300px;
     
     .front, .back, .overlay {
         position:absolute;
         top: 0;
         left: 0;
-        height: 300px;
+        height: 250px;
         width: 300px;
         box-sizing: border-box;
         backface-visibility: hidden;
@@ -56,7 +61,7 @@
     }
 
     .overlay {
-       height: 200px; 
+       height: 250px; 
        background-color: rgba(255,255,255,0.7);
        z-index: -1;
        &.active {
@@ -89,10 +94,10 @@
     }
 
     &.play {
-        
-        height: 200px;
+        height: 250px;
         .front, .back {
-            height: 200px;
+            object-fit: contain;
+            height: 250px;
         }
 
         .card__container {
@@ -100,37 +105,32 @@
         }
 
         img {
-            border-radius: 5px;
+            // height: 250px;
+            // border-radius: 5px;
         }
     }
 
 }
 
-.home {
-    display: none;
-    text-align: center;
-    font-size: 60px;
-    color:  #2196F3;
-    
-    &:hover {
-        cursor: pointer;
-    }
-
-    &.active {
-        display: block;
-    }
-}
-
 .game-status {
+    margin-top: 190px;
     height: 40px;
-    width: 70%;
+    width: 95%;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    
     overflow: hidden;
     font-size: 50px;
     font-weight: 700;
+   
+    &.center {
+        justify-content: center;
+    }
+
+    &.right {
+        justify-content: flex-end;
+    }
 
     i {
         color: yellow;
@@ -142,4 +142,153 @@
 .smile {
     margin: 0 auto;
     width: 500px;
+}
+
+@media screen and (max-width: 1835px) {
+    .main__container {
+        column-gap: 80px;
+    }
+}
+
+@media screen and (max-width: 1530px) {
+    .main__container {
+        row-gap: 20px;
+        column-gap: 5px;
+    }
+}
+
+@media screen and (max-width: 1278px) {
+    .main__container {
+        column-gap: 60px;
+    }
+
+    .card {
+        height: 200px;
+        width: 200px;
+        border-radius: 5px;
+    
+        img {
+            border-radius: 5px 5px 0 0;
+            width: 200px;
+        }
+    
+        &__container {
+            height: 50px;
+        }
+    
+        h4 {
+            font-size: 25px;
+        }
+      
+    }
+    
+    .flip-card {
+        height: 200px;
+        width: 200px;
+        
+        .front, .back, .overlay {
+            height: 200px;
+            width: 200px;
+        }
+    
+        .overlay {
+           height: 200px; 
+        }
+    
+        .icon-loop {
+            font-size: 30px;
+            font-weight: 700;
+        }
+    
+        &.play {
+            height: 200px;
+            .front, .back {
+                height: 200px;
+            }
+        }
+   
+    }
+   
+}
+
+@media screen and (max-width: 1035px) {
+    .main__container {
+        column-gap: 5px;
+    }
+}
+
+@media screen and (max-width: 859px) {
+    .main__container {
+        column-gap: 20px;
+    }
+
+    .card {
+        height: 150px;
+        width: 150px;
+        border-radius: 5px;
+    
+        img {
+            border-radius: 5px 5px 0 0;
+            width: 150px;
+        }
+    
+        &__container {
+            height: 20px;
+        }
+    
+        h4 {
+            font-size: 15px;
+        }
+      
+    }
+    
+    .flip-card {
+        height: 120px;
+        width: 150px;
+        
+        .front, .back, .overlay {
+            height: 120px;
+            width: 150px;
+        }
+    
+        .overlay {
+           height: 120px; 
+        }
+    
+        .icon-loop {
+            font-size: 15px;
+            font-weight: 400;
+        }
+    
+        &.play {
+            height: 120px;
+            .front, .back {
+                height: 120px;
+            }
+        }
+   
+    }
+}
+
+@media screen and (max-width: 650px), (max-height: 650px) {
+    .smile {
+        width: 300px;
+    }
+
+    .game-status {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .smile {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .main__container {
+        column-gap: 2px;
+    }
+
 }

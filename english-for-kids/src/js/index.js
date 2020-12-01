@@ -1,10 +1,10 @@
 import categories from './categories';
 import { setLocal, getLocal } from './storage';
+import { clearStatusBar, outputInStatusBar } from './statusBar';
 
 let activeMenu = null;
 let isTrain = true;
 const iconHome = document.querySelector('.home');
-const statusBar = document.querySelector('.game-status');
 const audio = document.querySelector('.voice');
 const successSound = document.querySelector('.success');
 const errorSound = document.querySelector('.error');
@@ -117,7 +117,7 @@ function add2status(success) {
   const star = document.createElement('i');
   star.classList.add('material-icons');
   if (success) { star.innerHTML = 'star'; } else star.innerHTML = 'star_border';
-  statusBar.appendChild(star);
+  outputInStatusBar(star, 'right', false);
 }
 
 const main = document.querySelector('.main .wrapper .main__container');
@@ -145,7 +145,9 @@ function endGame() {
   const smile = new Image();
   smile.classList.add('material-icons', 'smile');
   if (gameState.errors > 0) {
-    statusBar.innerHTML = `ERRORS: ${gameState.errors}`;
+    const message = document.createElement('span');
+    message.innerHTML = `ERRORS: ${gameState.errors}`;
+    outputInStatusBar(message);
     loseSound.addEventListener('ended', toMain, false);
     loseSound.play();
     smile.src = 'assets/images/smile-sad.png';
@@ -244,6 +246,7 @@ function isActiveBurger() {
 }
 
 function showBurgerMenu() {
+  document.body.classList.toggle('noScroll');
   document.querySelector('.blackout').classList.toggle('active');
   document.querySelector('.burger').classList.toggle('active');
   document.querySelector('.burger-menu').classList.toggle('active');
@@ -260,7 +263,7 @@ function findMenuItem(name) {
 }
 
 function clearGame() {
-  statusBar.innerHTML = '';
+  clearStatusBar();
   gameState.errors = 0;
   gameState.success = 0;
   gameState.start = false;
@@ -384,7 +387,8 @@ function createStatTable() {
   });
   statistics.forEach((item) => {
     tr = document.createElement('tr');
-    tr.innerHTML = `<td>${item.word}</td><td>${item.translation}</td><td>${item.category}</td><td>${item.clicks}</td><td>${item.right}</td><td>${item.wrong}</td><td>${item.percent}</td>`;
+    tr.innerHTML = `<td>${item.word}</td><td>${item.translation}</td><td>${item.category}</td>`;
+    tr.innerHTML += `<td>${item.clicks}</td><td>${item.right}</td><td>${item.wrong}</td><td>${item.percent}</td>`;
     tbody.appendChild(tr);
   });
 }
@@ -418,7 +422,9 @@ function showDifficultWords() {
   if (difficultWord.length > 0) {
     showCategory('Difficult');
   } else {
-    statusBar.innerHTML = 'No difficult words';
+    const message = document.createElement('span');
+    message.innerHTML = 'No difficult words';
+    outputInStatusBar(message);
   }
 }
 
@@ -449,8 +455,7 @@ function createStateButtons() {
 
 function showStatistics() {
   if (activeMenu !== 'Statistics') {
-    document.querySelector('li.active').classList.remove('active');
-    document.querySelector('.statisticsPage').classList.add('active');
+    changeActiveMenuItem('Statistics');
     activeMenu = 'Statistics';
     clearGame();
     clearMain();
@@ -509,4 +514,7 @@ iconHome.addEventListener('click', () => {
   }
 });
 
-document.querySelector('.statisticsPage').addEventListener('click', () => { showStatistics(); });
+document.querySelector('.statisticsPage').addEventListener('click', () => {
+  iconHome.classList.add('active');
+  showStatistics();
+});

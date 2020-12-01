@@ -24,3 +24,22 @@
         }
     }
 }
+
+@media screen and (max-width: 670px) {
+    .footer {
+        .logo-rs {
+            width: 70px;
+            height: 20px;
+        }
+
+        .year {
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .git {
+            font-size: 15px;
+            font-weight: 400;
+        }
+    }
+}
