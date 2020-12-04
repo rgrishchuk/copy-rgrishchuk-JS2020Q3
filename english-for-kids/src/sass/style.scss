@@ -21,10 +21,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    &.noScroll {
-        overflow: hidden;
-    }
 }
 
 .wrapper {
@@ -43,6 +39,7 @@ img {
 @import "src/sass/components/_button";
 @import "src/sass/components/_burger";
 @import "src/sass/components/_switch";
+@import "src/sass/components/_preloader";
 @import "src/sass/layout/_header";
 @import "src/sass/layout/_footer";
 @import "src/sass/pages/_statistics";

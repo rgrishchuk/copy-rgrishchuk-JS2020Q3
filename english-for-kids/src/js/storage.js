@@ -1,7 +1,9 @@
-export function setLocal(name, value) {
+function setLocal(name, value) {
   window.localStorage.setItem(name, JSON.stringify(value));
 }
 
-export function getLocal(name) {
+function getLocal(name) {
   return JSON.parse(window.localStorage.getItem(name));
 }
+
+export { setLocal, getLocal };
