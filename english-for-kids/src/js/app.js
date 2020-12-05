@@ -94,13 +94,6 @@ export default class App {
   }
 
   start() {
-    const preloader = document.querySelector('.loader');
-    preloader.addEventListener('animationend', () => {
-      preloader.classList.add('disabled');
-      this.main.classList.remove('disabled');
-      document.querySelector('.header').classList.remove('disabled');
-      document.querySelector('.footer').classList.remove('disabled');
-    });
     this.showMain();
     this.setListeners();
   }

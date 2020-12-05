@@ -22,7 +22,7 @@ $color-loader: blue;
     height: 15px;
     background: $color-loader;
     position: absolute;
-    animation: load .7s 7 alternate ease-in-out;
+    animation: load .7s infinite alternate ease-in-out;
   }
   
   &::before {

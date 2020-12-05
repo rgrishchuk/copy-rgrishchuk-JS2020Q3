@@ -5,9 +5,10 @@ export default class FlipCard {
     if (!isTrain) this.card.classList.add('play');
     const front = document.createElement('div');
     front.classList.add('front', 'card');
-    let img = new Image();
-    img.src = image;
-    front.appendChild(img);
+    let imgContainer = document.createElement('div');
+    imgContainer.classList.add('image__container');
+    imgContainer.style.backgroundImage = `url(${image})`;
+    front.appendChild(imgContainer);
     this.card.appendChild(front);
 
     let container = document.createElement('div');
@@ -23,9 +24,10 @@ export default class FlipCard {
 
     const back = document.createElement('div');
     back.classList.add('back', 'card');
-    img = new Image();
-    img.src = image;
-    back.appendChild(img);
+    imgContainer = document.createElement('div');
+    imgContainer.classList.add('image__container');
+    imgContainer.style.backgroundImage = `url(${image})`;
+    back.appendChild(imgContainer);
     container = document.createElement('div');
     container.classList.add('card__container');
     text = document.createElement('h4');
