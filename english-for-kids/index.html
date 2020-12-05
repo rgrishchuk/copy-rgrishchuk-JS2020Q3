@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English for kids</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header disabled">
+        <div class="wrapper">
+            <div class="burger__wrapper">
+                <div class="burger">
+                    <span class="bar bar1"></span>
+                    <span class="bar bar2"></span>
+                    <span class="bar bar3"></span>
+                    <span class="bar bar4"></span>
+                    <span class="bar bar5"></span>
+                </div>
+                <i class="material-icons home" title="To Main">home</i>
+            </div>
+            <div class="switch-button">
+                <span class="train">TRAIN</span>
+                <label class="switch">
+                    <input class="checkbox" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                <span class="play">PLAY</span>
+            </div>
+        </div>
+    </header>
+    <nav class="burger-menu">
+        <ul class="burger-menu__list">
+            <li class="active mainPage">Main</li>
+        </ul>
+    </nav>
+    <div class="blackout"></div>
+    <div class="loader">Loading...</div>
+    <main class="main">
+        <div class="game-status"></div>
+        <div class="wrapper">
+            <div class="main__container disabled">
+            </div>
+        </div>
+        <audio class="voice" src=""></audio>
+        <audio class="success" src="./assets/audio/success.mp3"></audio>
+        <audio class="error" src="./assets/audio//error.mp3"></audio>
+        <audio class="win" src="./assets/audio/win.mp3"></audio>
+        <audio class="lose" src="./assets/audio/lose.mp3"></audio>
+    </main>
+    <footer class="footer disabled">
+        <div class="wrapper">
+            <a href="https://github.com/rgrishchuk" target="_blank" class="git"><img src="./assets/icons/github.svg" alt="Logo git">rgrishchuk</a>
+            <span class="year">2020</span>
+            <a href="https://rs.school/js/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/rs_school_js.svg" alt="Logo RS_SCHOOL" class="logo-rs"></a>
+        </div>
+    </footer>
+    <script src="main.js"></script>    
+</body>
+</html>
