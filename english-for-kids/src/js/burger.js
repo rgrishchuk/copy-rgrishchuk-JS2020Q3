@@ -11,11 +11,13 @@ export default class BurgerMenu {
     Object.keys(categories).forEach((category) => {
       const burgerListItem = document.createElement('li');
       burgerListItem.innerHTML = category;
+      burgerListItem.dataset.menuAction = category.toLowerCase();
       this.items.push(burgerListItem);
       burgerList.appendChild(burgerListItem);
     });
     const itemStatistics = document.createElement('li');
     itemStatistics.classList.add('statisticsPage');
+    itemStatistics.dataset.menuAction = 'statistics';
     itemStatistics.innerHTML = 'Statistics';
     this.items.push(itemStatistics);
     burgerList.appendChild(itemStatistics);

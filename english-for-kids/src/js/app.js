@@ -11,6 +11,10 @@ import { clearStatusBar, outputInStatusBar, add2status } from './statusBar';
 import { shuffle, createSmile, cachePictures } from './utils';
 import Statistics from './statistics';
 
+const CATEGORIES = {
+  MAIN: 'Main',
+  STATISTICS: 'Statistics',
+};
 export default class App {
   constructor() {
     this.isTrain = true;
@@ -50,9 +54,9 @@ export default class App {
 
   setListeners() {
     this.burgerMenu.items.forEach((item) => {
-      if (item.innerHTML === 'Main') {
+      if (item.dataset.menuAction === 'main') {
         item.addEventListener('click', () => { this.showMain(); });
-      } else if (item.innerHTML === 'Statistics') {
+      } else if (item.dataset.menuAction === 'statistics') {
         item.addEventListener('click', () => {
           activateIconHome();
           this.showStatistics();
@@ -110,10 +114,10 @@ export default class App {
   }
 
   showMain() {
-    if (this.activeMenu() !== 'Main') {
+    if (this.activeMenu() !== CATEGORIES.MAIN) {
       this.clearGame();
       deactivateIconHome();
-      this.burgerMenu.changeActiveItem('Main');
+      this.burgerMenu.changeActiveItem(CATEGORIES.MAIN);
       this.clearMain();
       delete this.categories.Difficult;
       Object.keys(this.categories).forEach((category) => {
@@ -263,8 +267,8 @@ export default class App {
   }
 
   showStatistics() {
-    if (this.activeMenu() !== 'Statistics') {
-      this.burgerMenu.changeActiveItem('Statistics');
+    if (this.activeMenu() !== CATEGORIES.STATISTICS) {
+      this.burgerMenu.changeActiveItem(CATEGORIES.STATISTICS);
       this.clearGame();
       this.clearMain();
       const statisticsButtons = createStatisticsButtons();

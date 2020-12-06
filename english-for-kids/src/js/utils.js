@@ -23,7 +23,7 @@ function cachePictures(array) {
       cachePictures.set.delete(img);
       if (cachePictures.set.size === 0) {
         document.querySelector('.loader').classList.add('disabled');
-        document.querySelector('.main .wrapper .main__container').classList.remove('disabled');
+        document.querySelector('#main__container').classList.remove('disabled');
         document.querySelector('.header').classList.remove('disabled');
         document.querySelector('.footer').classList.remove('disabled');
       }

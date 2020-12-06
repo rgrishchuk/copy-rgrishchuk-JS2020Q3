@@ -1,8 +1,22 @@
 import { setLocal, getLocal } from './storage';
 
+function createTr(item) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${item.word}</td><td>${item.translation}</td><td>${item.category}</td>`;
+  tr.innerHTML += `<td>${item.clicks}</td><td>${item.right}</td><td>${item.wrong}</td><td>${item.percent}</td>`;
+  return tr;
+}
 export default class Statistics {
   constructor(categories) {
-    this.thead = ['Word', 'Translation', 'Category', 'Clicks', 'Right', 'Wrong', 'Correct %'];
+    this.thead = [
+      ['Word', 'word'],
+      ['Translation', 'translation'],
+      ['Category', 'category'],
+      ['Clicks', 'clicks'],
+      ['Right', 'right'],
+      ['Wrong', 'wrong'],
+      ['Correct %', 'percent'],
+    ];
     this.data = getLocal('statistics');
     if (!this.data) {
       this.data = [];
@@ -59,8 +73,6 @@ export default class Statistics {
   }
 
   sortTable(rowTitle) {
-    const indexRowSort = this.thead.indexOf(rowTitle.innerHTML);
-    const rows = Array.from(this.table.rows).slice(1);
     if (rowTitle.classList.contains('sort')) {
       const row = this.table.querySelector('.sort');
       if (row.classList.contains('asc')) {
@@ -70,24 +82,18 @@ export default class Statistics {
         row.classList.remove('desc');
         row.classList.add('asc');
       }
-      rows.reverse();
+      this.data.reverse();
     } else {
       const oldRowSort = this.table.querySelector('.sort');
       oldRowSort.classList.remove('sort');
       oldRowSort.classList.remove('asc');
       oldRowSort.classList.remove('desc');
       rowTitle.classList.add('sort', 'asc');
-      if (indexRowSort > 2) {
-        rows.sort((a, b) => {
-          const curr = parseInt(a.cells[indexRowSort].innerHTML, 10);
-          const next = parseInt(b.cells[indexRowSort].innerHTML, 10);
-          return curr > next ? 1 : -1;
-        });
-      } else {
-        rows.sort((a, b) => (a.cells[indexRowSort].innerHTML
-          > b.cells[indexRowSort].innerHTML ? 1 : -1));
-      }
+      this.data.sort((a, b) => (a[rowTitle.dataset.field] > b[rowTitle.dataset.field] ? 1 : -1));
     }
+    for (let i = 1; i < this.table.rows.length;) this.table.deleteRow(i);
+    const rows = [];
+    this.data.forEach((item) => { rows.push(createTr(item)); });
     this.table.tBodies[0].append(...rows);
   }
 
@@ -97,10 +103,11 @@ export default class Statistics {
     const tbody = document.createElement('tbody');
     this.table.appendChild(tbody);
     let tr = document.createElement('tr');
-    this.thead.forEach((item) => {
+    this.thead.forEach(([thName, thField]) => {
       const th = document.createElement('th');
-      th.innerHTML = item;
-      if (item === 'Word') th.classList.add('sort', 'asc');
+      th.innerHTML = thName;
+      th.dataset.field = thField;
+      if (thName === 'Word') th.classList.add('sort', 'asc');
       th.addEventListener('click', (e) => {
         this.sortTable(e.target);
       });
@@ -113,9 +120,7 @@ export default class Statistics {
       return -1;
     });
     this.data.forEach((item) => {
-      tr = document.createElement('tr');
-      tr.innerHTML = `<td>${item.word}</td><td>${item.translation}</td><td>${item.category}</td>`;
-      tr.innerHTML += `<td>${item.clicks}</td><td>${item.right}</td><td>${item.wrong}</td><td>${item.percent}</td>`;
+      tr = createTr(item);
       tbody.appendChild(tr);
     });
   }
