@@ -8,7 +8,7 @@ import {
 } from './buttons';
 import voiceWord from './sound';
 import { clearStatusBar, outputInStatusBar, add2status } from './statusBar';
-import { shuffle, createSmile, cachePictures } from './utils';
+import { shuffle, createSmile } from './utils';
 import Statistics from './statistics';
 
 const CATEGORIES = {
@@ -37,7 +37,7 @@ export default class App {
     });
     pictures.push('smile.png');
     pictures.push('smile-sad.png');
-    cachePictures(pictures);
+    // cachePictures(pictures);
     this.wordsRandArr = [];
     this.startGame = this.startGame.bind(this);
     this.talk = this.talk.bind(this);
